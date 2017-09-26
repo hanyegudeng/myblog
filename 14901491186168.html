@@ -1,0 +1,395 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  运维 - 寒夜孤灯
+  
+  </title>
+  
+  
+  <link href="atom.xml" rel="alternate" title="寒夜孤灯" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+  <script src="asset/highlightjs/highlight.pack.js"></script>
+  <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+  function before_search(){
+    var searchVal = 'site:www.hanyegudeng.com ' + document.getElementById('search_input').value;
+    document.getElementById('search_q').value = searchVal;
+    return true;
+  }
+</script>
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+
+  <section class="top-bar-section">
+  <div class="row">
+      <div style="position: relative;width:100%;"><div style="position: absolute; width:100%;">
+        <ul id="main-menu" class="left">
+        
+        <li id=""><a target="self" href="index.html">Home</a></li>
+        
+        <li id=""><a target="_self" href="archives.html">Archives</a></li>
+        
+        </ul>
+
+        <ul class="right" id="search-wrap">
+          <li>
+<form target="_blank" onsubmit="return before_search();" action="https://google.com/search" method="get">
+    <input type="hidden" id="search_q" name="q" value="" />
+    <input tabindex="1" type="search" id="search_input"  placeholder="Search"/>
+</form>
+</li>
+          </ul>
+      </div></div>
+  </div>
+  </section>
+
+</nav>
+
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; 寒夜孤灯</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+       
+       <li><a href="index.html">首页</a></li>
+    <li><a href="archives.html">目录</a></li>
+    <li><a href="about.html">关于</a></li>
+
+    <li><label>Categories</label></li>
+
+        
+            <li><a href="iOS.html">iOS</a></li>
+        
+            <li><a href="Mac.html">Mac</a></li>
+        
+            <li><a href="PHP.html">PHP</a></li>
+        
+            <li><a href="Python.html">Python</a></li>
+        
+            <li><a href="%E6%9D%82%E8%B0%88.html">杂谈</a></li>
+        
+            <li><a href="%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87.html">疑难杂症</a></li>
+        
+            <li><a href="Redis.html">Redis</a></li>
+        
+            <li><a href="React%20Native.html">React Native</a></li>
+        
+            <li><a href="%E8%BF%90%E7%BB%B4.html">运维</a></li>
+         
+
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+
+        <section id="main-content" role="main" class="scroll-container">
+        
+       
+
+ <script type="text/javascript">
+  $(function(){
+    $('#menu_item_index').addClass('is_active');
+  });
+</script>
+<div class="row">
+  <div class="large-8 medium-8 columns">
+      <div class="markdown-body article-wrap">
+       <div class="article">
+          
+          <h1>运维</h1>
+     
+        <div class="read-more clearfix">
+          <span class="date">2017/3/22</span>
+
+          <span>posted in&nbsp;</span> 
+          
+              <span class="posted-in"><a href='%E8%BF%90%E7%BB%B4.html'>运维</a></span>
+           
+         
+          <span class="comments">
+            
+
+            
+          </span>
+
+        </div>
+      </div><!-- article -->
+
+      <div class="article-content">
+      <p>1.整理公司服务器资源<br/>
+2.按照系统分配资源，开发，测试1，测试2，回归（预发布），正式。控制各个部分的权限<br/>
+    开发机器用于开发人员调试使用<br/>
+    测试1，测试2用于测试发布测试环境<br/>
+    回归测试发布<br/>
+    预发布运维人员发布<br/>
+    正式运维人员发布<br/>
+3.正式环境如果改变配置以及数据库等信息，必须要有记录，可以追溯到ip以及登录用户等信息<br/>
+4.服务器监控（硬盘，内存，网络），数据库监控<br/>
+5.文件资源管理服务搭建，用于保存对应的文档等资源文件<br/>
+6.公司内部VPN搭建，开发，测试可以放内网使用<br/>
+7.各个系统对应的swagger地址</p>
+
+<p>1.公司的服务器资源都有哪些，哪些是外部的，哪些是内部的<br/>
+2.这些资源都是如何分配的，设备上都运行的那个产品<br/>
+3.如何跟踪服务器的操作记录<br/>
+4.服务器监控都从哪几个方面入手，主要监控哪些指标，应急预案都有哪些<br/>
+5.如何和其他开发协作提供必要的帮助，例如参数数据库设计，开发的时候考虑性能问题等<br/>
+6.如何保证数据的安全，不丢失一条数据，数据备份、容灾预案<br/>
+7.如何确保线上环境的安全性，不被黑客轻而易举的攻击；预警应急机制的制定和实施<br/>
+8.哪些系统必须部署在外网，哪些可以在内网，哪些需要vpn访问<br/>
+9.制定开发，测试，生产发布流程，后续部署严格按照流程操作（需要和测试，开发一起讨论制定）<br/>
+10.绘制公司服务器架构图<br/>
+11.文档管理<br/>
+12.预演<br/>
+13.内部dns配置，防止每次改变ip后，开发就要对应修改地址<br/>
+14.域名系统整理和配置</p>
+
+
+    
+
+      </div>
+
+      <div class="row">
+        <div class="large-6 columns">
+        <p class="text-left" style="padding:15px 0px;">
+      
+          <a href="14909393913559.html" 
+          title="Previous Post: 提交AppStore前检查列表">&laquo; 提交AppStore前检查列表</a>
+      
+        </p>
+        </div>
+        <div class="large-6 columns">
+      <p class="text-right" style="padding:15px 0px;">
+      
+          <a  href="14878982505399.html" 
+          title="Next Post: T">T &raquo;</a>
+      
+      </p>
+        </div>
+      </div>
+      <div class="comments-wrap">
+        <div class="share-comments">
+          <div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://www-hanyegudeng-com.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+          
+
+          
+        </div>
+      </div>
+    </div><!-- article-wrap -->
+  </div><!-- large 8 -->
+
+
+
+
+ <div class="large-4 medium-4 columns">
+  <div class="hide-for-small">
+    <div id="sidebar" class="sidebar">
+          <div id="site-info" class="site-info">
+            
+                <h1>寒夜孤灯</h1>
+                <div class="site-des">寒夜里的一盏孤灯</div>
+                <div class="social">
+
+
+
+
+
+
+
+
+
+
+
+  <a target="_blank" class="rss" href="atom.xml" title="RSS">RSS</a>
+                
+              	 </div>
+          	</div>
+
+             
+
+              <div id="site-categories" class="side-item ">
+                <div class="side-header">
+                  <h2>分类</h2>
+                </div>
+                <div class="side-content">
+
+      	<p class="cat-list">
+        
+            <a href="iOS.html"><strong>iOS</strong></a>
+        
+            <a href="Mac.html"><strong>Mac</strong></a>
+        
+            <a href="PHP.html"><strong>PHP</strong></a>
+        
+            <a href="Python.html"><strong>Python</strong></a>
+        
+            <a href="%E6%9D%82%E8%B0%88.html"><strong>杂谈</strong></a>
+        
+            <a href="%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87.html"><strong>疑难杂症</strong></a>
+        
+            <a href="Redis.html"><strong>Redis</strong></a>
+        
+            <a href="React%20Native.html"><strong>React Native</strong></a>
+        
+            <a href="%E8%BF%90%E7%BB%B4.html"><strong>运维</strong></a>
+         
+        </p>
+
+
+                </div>
+              </div>
+
+              <div id="site-categories" class="side-item">
+                <div class="side-header">
+                  <h2>最新文章</h2>
+                </div>
+                <div class="side-content">
+                <ul class="posts-list">
+	      
+		      
+			      <li class="post">
+			        <a href="15036253170711.html">Xcode Build Settings 分析</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15030458956017.html">发现女儿早恋，这个爸爸的做法刷爆朋友圈！</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15017301944011.html">iOS应用内跳转到系统设置页面</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15017289646320.html">iOS APP提交审核被拒因Guideline 2.5.2 - Performance - Software Requirements</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14966306832048.html">Swift使用pod找不到文件的解决方案</a>
+			      </li>
+		     
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		   
+		  		</ul>
+                </div>
+              </div>
+        </div><!-- sidebar -->
+      </div><!-- hide for small -->
+</div><!-- large 4 -->
+
+</div><!-- row -->
+
+ <div class="page-bottom clearfix">
+  <div class="row">
+   <p class="copyright">Copyright &copy; 2017
+通过 <a target="_blank" href="http://www.mweb.im">MWeb</a>制作&nbsp; <a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备15015428号-1</a>&nbsp; 
+</p>
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+
+  
+    
+
+    <script src="asset/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+      function fixSidebarHeight(){
+        var w1 = $('.markdown-body').height();
+          var w2 = $('#sidebar').height();
+          if (w1 > w2) { $('#sidebar').height(w1); };
+      }
+      $(function(){
+        fixSidebarHeight();
+      })
+      $(window).load(function(){
+          fixSidebarHeight();
+      });
+     
+    </script>
+
+    
+
+
+
+  </body>
+</html>

@@ -1,0 +1,557 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  Python - 寒夜孤灯
+  
+  </title>
+  
+  
+  <link href="atom.xml" rel="alternate" title="寒夜孤灯" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+  <script src="asset/highlightjs/highlight.pack.js"></script>
+  <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+  function before_search(){
+    var searchVal = 'site:www.hanyegudeng.com ' + document.getElementById('search_input').value;
+    document.getElementById('search_q').value = searchVal;
+    return true;
+  }
+</script>
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+
+  <section class="top-bar-section">
+  <div class="row">
+      <div style="position: relative;width:100%;"><div style="position: absolute; width:100%;">
+        <ul id="main-menu" class="left">
+        
+        <li id=""><a target="self" href="index.html">Home</a></li>
+        
+        <li id=""><a target="_self" href="archives.html">Archives</a></li>
+        
+        </ul>
+
+        <ul class="right" id="search-wrap">
+          <li>
+<form target="_blank" onsubmit="return before_search();" action="https://google.com/search" method="get">
+    <input type="hidden" id="search_q" name="q" value="" />
+    <input tabindex="1" type="search" id="search_input"  placeholder="Search"/>
+</form>
+</li>
+          </ul>
+      </div></div>
+  </div>
+  </section>
+
+</nav>
+
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; 寒夜孤灯</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+       
+       <li><a href="index.html">首页</a></li>
+    <li><a href="archives.html">目录</a></li>
+    <li><a href="about.html">关于</a></li>
+
+    <li><label>Categories</label></li>
+
+        
+            <li><a href="iOS.html">iOS</a></li>
+        
+            <li><a href="Mac.html">Mac</a></li>
+        
+            <li><a href="PHP.html">PHP</a></li>
+        
+            <li><a href="Python.html">Python</a></li>
+        
+            <li><a href="%E6%9D%82%E8%B0%88.html">杂谈</a></li>
+        
+            <li><a href="%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87.html">疑难杂症</a></li>
+        
+            <li><a href="Redis.html">Redis</a></li>
+        
+            <li><a href="React%20Native.html">React Native</a></li>
+        
+            <li><a href="%E8%BF%90%E7%BB%B4.html">运维</a></li>
+         
+
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+
+        <section id="main-content" role="main" class="scroll-container">
+        
+       
+
+ <script type="text/javascript">
+	$(function(){
+		$('#menu_item_index').addClass('is_active');
+	});
+</script>
+<div class="row">
+	<div class="large-8 medium-8 columns">
+		<div class="markdown-body home-categories">
+		
+			<div class="article">
+                <a class="clearlink" href="14359115732482.html">
+                
+                  <h1>django model filter 条件过滤，及多表连接查询、反向查询，某字段的distinct</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<p><code>原帖地址：http://www.douban.com/note/301166150/</code></p>
+
+<p>1.多表连接查询：当我知道这点的时候顿时觉得django太NX了。<br/>
+  class A(models.Model):<br/>
+    name = models.CharField(u&#39;名称&#39;)<br/>
+  class B(models.Model):<br/>
+    aa = models.ForeignKey(A)<br/>
+B.objects.filter(aa__name__contains=&#39;searchtitle&#39;)</p>
+
+<p>1.5 我叫它反向查询，后来插入记录1.5，当我知道的时候瞬间就觉得django太太太NX了。<br/>
+  class A(models.Model):<br/>
+    name = models.CharField(u&#39;名称&#39;)<br/>
+  class B(models.Model):<br/>
+    aa = models.ForeignKey(A,related_name=&quot;FAN&quot;)<br/>
+    bb = models.CharField(u&#39;名称&#39;)<br/>
+  查A: A.objects.filter(FAN__bb=&#39;XXXX&#39;)，都知道related_name的作用，A.FAN.all()是一组以A为外键的B实例，可前面这样的用法是查询出所有(B.aa=A且B.bb=XXXX的A实例，然后还可以通过__各种关系查找，真赤激！！！</p>
+
+<p>2.条件选取querySet的时候，filter表示=，exclude表示!=。<br/>
+querySet.distinct()  去重复<br/>
+__exact        精确等于 like &#39;aaa&#39;<br/>
+ __iexact    精确等于 忽略大小写 ilike &#39;aaa&#39;<br/>
+ __contains    包含 like &#39;%aaa%&#39;<br/>
+ __icontains    包含 忽略大小写 ilike &#39;%aaa%&#39;，但是对于sqlite来说，contains的作用效果等同于icontains。<br/>
+__gt    大于<br/>
+__gte    大于等于<br/>
+__lt    小于<br/>
+__lte    小于等于<br/>
+__in     存在于一个list范围内<br/>
+__startswith   以...开头<br/>
+__istartswith   以...开头 忽略大小写<br/>
+__endswith     以...结尾<br/>
+__iendswith    以...结尾，忽略大小写<br/>
+__range    在...范围内<br/>
+__year       日期字段的年份<br/>
+__month    日期字段的月份<br/>
+__day        日期字段的日<br/>
+__isnull=True/False</p>
+
+<p>例子：<br/>
+q1 = Entry.objects.filter(headline__startswith=&quot;What&quot;)<br/>
+q2 = q1.exclude(pub_date__gte=datetime.date.today())<br/>
+q3 = q1.filter(pub_date__gte=datetime.date.today())<br/>
+q = q.filter(pub_date__lte=datetime.date.today())<br/>
+q = q.exclude(body_text__icontains=&quot;food&quot;)</p>
+
+<p>即q1.filter(pub_date__gte=datetime.date.today())表示为时间&gt;=now，q1.exclude(pub_date__gte=datetime.date.today())表示为&lt;=now</p>
+
+<p>2013/12/12补充：<br/>
+“在django models中取得一个字段的distinct值”。就是select distinct xxx  from table_name ...这样的功能。使用values会生成ValuesQuerySet(形如N个dict组成的list)，猜测大数据无额外性能影响，毕竟queryset系列都是使用时才查询操作的。<br/>
+xxxx.objects.values(&quot;field_name&quot;).distinct()<br/>
+或者<br/>
+xxxx.objects.distinct().values(&quot;field_name&quot;) <br/>
+这两句生成的sql语句相同，原帖地址：<a href="http://blog.csdn.net/tsbob/article/details/1340293%E3%80%82">http://blog.csdn.net/tsbob/article/details/1340293。</a></p>
+
+<p>关于缓存：<br/>
+queryset是有缓存的，a = A.objects.all(),print [i for i in a].第一次执行打印会查询数据库，然后结果会被保存在queryset内置的cache中，再执行print的时候就会取自缓存。<br/>
+很多时候会遇到仅需判断queryset是否为空的情况，可以1. if queryset:pass 2.if queryset.count&gt;0:pass 3.if queryset.exists():pass. 三种方式性能依次提升。<br/>
+当queryset非常巨大时，cache会成为问题。此时可以queryset.iterator()，迭代器的用处就不多说了，根据具体需求情况使用。</p>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2015/7/3</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='Python.html'>Python</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+			<div class="article">
+                <a class="clearlink" href="14358143781588.html">
+                
+                  <h1>Django Manage.py命令</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<h2 id="toc_0">1.创建django项目</h2>
+
+<pre><code>django-admin startproject project_name
+</code></pre>
+
+<h2 id="toc_1">2.创建APP</h2>
+
+<pre><code>django-admin startapp app_name
+</code></pre>
+
+<h2 id="toc_2">3.运行项目</h2>
+
+<pre><code>python manage.py runserver 8000#可以跟上启动的端口号
+</code></pre>
+
+<h2 id="toc_3">4.同步数据库</h2>
+
+<pre><code>python manage.py syncdb
+</code></pre>
+
+<h2 id="toc_4">5.清空数据库</h2>
+
+<pre><code>python manage.py flush
+</code></pre>
+
+<h2 id="toc_5">6.启动交互式命令模式</h2>
+
+<pre><code>python manage.py shell
+</code></pre>
+
+<h2 id="toc_6">7.校验Model的有效性</h2>
+
+<p>通常为了连接数据库，我们需要创建与数据库表相对应的Model，当Model创建好之后可以使用下面的命令来校验Model的有效性</p>
+
+<pre><code>python manage.py validate
+</code></pre>
+
+<p>System check identified no issues (0 silenced).说明成功</p>
+
+<h2 id="toc_7">8.导入导出数据</h2>
+
+<pre><code>python manage.py dumpdata appname &gt; appname.json
+python manage.py loaddata appname.json
+</code></pre>
+
+<h2 id="toc_8">9.数据库命令行</h2>
+
+<p>Django 会自动进入在settings.py中设置的数据库，如果是 MySQL 或 postgreSQL,会要求输入数据库用户密码。<br/>
+在这个终端可以执行数据库的SQL语句。如果您对SQL比较熟悉，可能喜欢这种方式。</p>
+
+<pre><code>python manage.py dbshell
+</code></pre>
+
+<h2 id="toc_9">10.创建超级管理员</h2>
+
+<pre><code>python manage.py createsuperuser
+</code></pre>
+
+<h2 id="toc_10">11.生成SQL schema</h2>
+
+<p>确认Model没有问题时候，Django为我们提供了一个工具帮助生成创建数据库的schema</p>
+
+<pre><code>python manage.py sqlall books
+</code></pre>
+
+<h2 id="toc_11">12.查看所有命令</h2>
+
+<p>在忘记命令的时候可以查看所有命令</p>
+
+<pre><code>python manage.py
+</code></pre>
+
+<p>今天在创建APP的时候，model创建完成，私活创建不了数据库，搞了半天是没有把创建的app添加到setting里面。真是晕死了</p>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2015/7/2</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='Python.html'>Python</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+			<div class="article">
+                <a class="clearlink" href="14352947614811.html">
+                
+                  <h1>Centos安装django，rest_framework,rest_framework_swagger</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<p>先查看内置的python版本，更新版本：<br/>
+wget <a href="https://www.python.org/ftp/python/2.7.6/Python-2.7.6.tgz">https://www.python.org/ftp/python/2.7.6/Python-2.7.6.tgz</a><br/>
+tar -zxvf Python-2.7.6.tgz<br/>
+./configure<br/>
+make all<br/>
+make install<br/>
+make clean<br/>
+make distclean<br/>
+mv /usr/bin/python /usr/bin/python-bak<br/>
+ln -s /usr/local/bin/python2.7 /usr/bin/python<br/>
+vim /usr/bin/yum<br/>
+!/usr/bin/python 修改为<br/>
+!/usr/bin/python2.6</p>
+
+<ul>
+<li>安装python：yum install python</li>
+<li>安装pip：
+
+<ul>
+<li>  wget <a href="https://bootstrap.pypa.io/get-pip.py">https://bootstrap.pypa.io/get-pip.py</a> </li>
+<li>python get-pip.py</li>
+</ul></li>
+<li>  安装django：pip install Django</li>
+</ul>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2015/6/26</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='Python.html'>Python</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+              
+
+
+			<div class="row">
+			  <div class="large-6 columns">
+			  <p class="text-left" style="padding-top:25px;">
+			   <a href="Python.html">&laquo; Prev Page</a>  
+			  </p>
+			  </div>
+			  <div class="large-6 columns">
+			<p class="text-right" style="padding-top:25px;">
+			
+			</p>
+			  </div>
+			</div>
+		</div>
+	</div><!-- large 8 -->
+
+ <div class="large-4 medium-4 columns">
+  <div class="hide-for-small">
+    <div id="sidebar" class="sidebar">
+          <div id="site-info" class="site-info">
+            
+                <h1>寒夜孤灯</h1>
+                <div class="site-des">寒夜里的一盏孤灯</div>
+                <div class="social">
+
+
+
+
+
+
+
+
+
+
+
+  <a target="_blank" class="rss" href="atom.xml" title="RSS">RSS</a>
+                
+              	 </div>
+          	</div>
+
+             
+
+              <div id="site-categories" class="side-item ">
+                <div class="side-header">
+                  <h2>分类</h2>
+                </div>
+                <div class="side-content">
+
+      	<p class="cat-list">
+        
+            <a href="iOS.html"><strong>iOS</strong></a>
+        
+            <a href="Mac.html"><strong>Mac</strong></a>
+        
+            <a href="PHP.html"><strong>PHP</strong></a>
+        
+            <a href="Python.html"><strong>Python</strong></a>
+        
+            <a href="%E6%9D%82%E8%B0%88.html"><strong>杂谈</strong></a>
+        
+            <a href="%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87.html"><strong>疑难杂症</strong></a>
+        
+            <a href="Redis.html"><strong>Redis</strong></a>
+        
+            <a href="React%20Native.html"><strong>React Native</strong></a>
+        
+            <a href="%E8%BF%90%E7%BB%B4.html"><strong>运维</strong></a>
+         
+        </p>
+
+
+                </div>
+              </div>
+
+              <div id="site-categories" class="side-item">
+                <div class="side-header">
+                  <h2>最新文章</h2>
+                </div>
+                <div class="side-content">
+                <ul class="posts-list">
+	      
+		      
+			      <li class="post">
+			        <a href="15036253170711.html">Xcode Build Settings 分析</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15030458956017.html">发现女儿早恋，这个爸爸的做法刷爆朋友圈！</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15017301944011.html">iOS应用内跳转到系统设置页面</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15017289646320.html">iOS APP提交审核被拒因Guideline 2.5.2 - Performance - Software Requirements</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14966306832048.html">Swift使用pod找不到文件的解决方案</a>
+			      </li>
+		     
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		   
+		  		</ul>
+                </div>
+              </div>
+        </div><!-- sidebar -->
+      </div><!-- hide for small -->
+</div><!-- large 4 -->
+
+</div><!-- row -->
+
+ <div class="page-bottom clearfix">
+  <div class="row">
+   <p class="copyright">Copyright &copy; 2017
+通过 <a target="_blank" href="http://www.mweb.im">MWeb</a>制作&nbsp; <a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备15015428号-1</a>&nbsp; 
+</p>
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+
+  
+    
+
+    <script src="asset/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+      function fixSidebarHeight(){
+        var w1 = $('.markdown-body').height();
+          var w2 = $('#sidebar').height();
+          if (w1 > w2) { $('#sidebar').height(w1); };
+      }
+      $(function(){
+        fixSidebarHeight();
+      })
+      $(window).load(function(){
+          fixSidebarHeight();
+      });
+     
+    </script>
+
+    
+
+
+
+  </body>
+</html>

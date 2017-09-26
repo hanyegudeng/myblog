@@ -1,0 +1,1581 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  寒夜孤灯
+  
+  </title>
+  
+  
+  <link href="atom.xml" rel="alternate" title="寒夜孤灯" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+  <script src="asset/highlightjs/highlight.pack.js"></script>
+  <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+  function before_search(){
+    var searchVal = 'site:www.hanyegudeng.com ' + document.getElementById('search_input').value;
+    document.getElementById('search_q').value = searchVal;
+    return true;
+  }
+</script>
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+
+  <section class="top-bar-section">
+  <div class="row">
+      <div style="position: relative;width:100%;"><div style="position: absolute; width:100%;">
+        <ul id="main-menu" class="left">
+        
+        <li id=""><a target="self" href="index.html">Home</a></li>
+        
+        <li id=""><a target="_self" href="archives.html">Archives</a></li>
+        
+        </ul>
+
+        <ul class="right" id="search-wrap">
+          <li>
+<form target="_blank" onsubmit="return before_search();" action="https://google.com/search" method="get">
+    <input type="hidden" id="search_q" name="q" value="" />
+    <input tabindex="1" type="search" id="search_input"  placeholder="Search"/>
+</form>
+</li>
+          </ul>
+      </div></div>
+  </div>
+  </section>
+
+</nav>
+
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; 寒夜孤灯</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+       
+       <li><a href="index.html">首页</a></li>
+    <li><a href="archives.html">目录</a></li>
+    <li><a href="about.html">关于</a></li>
+
+    <li><label>Categories</label></li>
+
+        
+            <li><a href="iOS.html">iOS</a></li>
+        
+            <li><a href="Mac.html">Mac</a></li>
+        
+            <li><a href="PHP.html">PHP</a></li>
+        
+            <li><a href="Python.html">Python</a></li>
+        
+            <li><a href="%E6%9D%82%E8%B0%88.html">杂谈</a></li>
+        
+            <li><a href="%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87.html">疑难杂症</a></li>
+        
+            <li><a href="Redis.html">Redis</a></li>
+        
+            <li><a href="React%20Native.html">React Native</a></li>
+        
+            <li><a href="%E8%BF%90%E7%BB%B4.html">运维</a></li>
+         
+
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+
+        <section id="main-content" role="main" class="scroll-container">
+        
+       
+
+ <script type="text/javascript">
+	$(function(){
+		$('#menu_item_index').addClass('is_active');
+	});
+</script>
+<div class="row">
+	<div class="large-8 medium-8 columns">
+		<div class="markdown-body home-categories">
+		
+			<div class="article">
+                <a class="clearlink" href="14777861533669.html">
+                
+                  <h1>苹果审核由于是用后台持续定位被拒5.1.5分析</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<p>Legal - 5.1.5</p>
+
+<p>Your app uses background location services but still does not clarify the purpose of its use in the location modal alert as required in the iOS Human Interface Guidelines.</p>
+
+<pre><code>Privacy - Location Always Usage Description 要说明使用原因，要稍微详细点，不能随便填的
+</code></pre>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2016/10/30</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='iOS.html'>iOS</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+			<div class="article">
+                <a class="clearlink" href="14759985495220.html">
+                
+                  <h1>移动端版本更新浅谈</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<p>最近做APP的提示更新，特别是在给测试还有内测用户用的时候，每次打包后不可能一个一个通知，让他们自己使用的时候提示更新即可。但是在做更新的时候遇到了不少问题。<br/>
+1.之前使用的fir.im，自动打包上传，自动检测提示，很友善；问题是，fir.im会挂掉，不可控，记得上一次挂了好多天，那是挺悲催的一件事了。最近又开始实名认证，收费下载，看样子是时候自己搞一套了<br/>
+2.多tag，多用户群体，使用的配置各不相同，不可能每次配置，麻烦还容易出错<br/>
+3.效率问题；打包其实挺费事的<br/>
+针对这些问题，正好公司有一个团队做了自己的版本更新工具，借用一下。主要的实现步骤如下</p>
+
+<p>1.打包ipa可以脚本，可以直接通过xcode，上传到自家的服务器（http服务器），由于iOS的限制，下载必须是https读取plist文件，公司目前没有自己的https服务器，我就通过七牛做了一次中转，把plist文件放到七牛，这样下载无忧。<br/>
+2.编写统一的更新代码，传入检验接口和更新接口，自动检测是否需要提示更新（这里没有找到很好的方式，每次都是检测完成后才往后走，这个过程如果卡主，会造成APP挂起，目前还没有很好的思路解决）<br/>
+3.针对不同的tag做不同的配置可以看之前写的通过targets来管理开发测试包</p>
+
+<p>坑：<br/>
+1.在做plist的时候，有一个用的大写字母，居然没法下载，😓</p>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2016/10/9</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='iOS.html'>iOS</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+			<div class="article">
+                <a class="clearlink" href="14759116815870.html">
+                
+                  <h1>iOS APP基本架构设计</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<p>网络接口调用<br/>
+    对于不同host，端口的处理<br/>
+    接口可用性，方便性，快捷性<br/>
+    异常处理<br/>
+数据缓存<br/>
+    安全<br/>
+    性能<br/>
+    版本升级控制<br/>
+    异常处理<br/>
+界面展示（基类如何定义）<br/>
+    如何处理VC基类，VC基类主要做什么工作<br/>
+    如何处理View基类，View基类主要做什么工作<br/>
+    界面搭建是否需要用xib，storyboard<br/>
+其他文件的处理<br/>
+    是否需要公共文件库<br/>
+    公共类需要怎么维护<br/>
+    运营数据采集<br/>
+    自动发包脚本的处理<br/>
+    是否需要动态更新（热补丁）</p>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2016/10/8</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='iOS.html'>iOS</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+			<div class="article">
+                <a class="clearlink" href="14731302393589.html">
+                
+                  <h1>iOS小技巧总结，绝对有你想要的</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<p><a href="http://www.jianshu.com/p/4523eafb4cd4">http://www.jianshu.com/p/4523eafb4cd4</a><br/>
+在这里总结一些iOS开发中的小技巧，能大大方便我们的开发，持续更新。</p>
+
+<p><strong>UITableView的Group样式下顶部空白处理</strong></p>
+
+<pre><code>//分组列表头部空白处理
+UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0.1)];
+self.tableView.tableHeaderView = view;
+</code></pre>
+
+<p><strong>UITableView的plain样式下，取消区头停滞效果</strong></p>
+
+<pre><code>- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat sectionHeaderHeight = sectionHead.height;
+    if (scrollView.contentOffset.y&lt;=sectionHeaderHeight&amp;&amp;scrollView;.contentOffset.y&gt;=0)
+    {
+        scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+    }
+    else if(scrollView.contentOffset.y&gt;=sectionHeaderHeight)
+    {
+        scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
+    }
+}
+</code></pre>
+
+<p><strong>获取某个view所在的控制器</strong></p>
+
+<pre><code>- (UIViewController *)viewController
+{
+  UIViewController *viewController = nil;  
+  UIResponder *next = self.nextResponder;
+  while (next)
+  {
+    if ([next isKindOfClass:[UIViewController class]])
+    {
+      viewController = (UIViewController *)next;      
+      break;    
+    }    
+    next = next.nextResponder;  
+  } 
+    return viewController;
+}
+</code></pre>
+
+<p><strong>两种方法删除NSUserDefaults所有记录</strong></p>
+
+<pre><code>//方法一
+NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+[[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
+
+
+//方法二
+- (void)resetDefaults
+{
+    NSUserDefaults * defs = [NSUserDefaults standardUserDefaults];
+    NSDictionary * dict = [defs dictionaryRepresentation];
+    for (id key in dict)
+    {
+        [defs removeObjectForKey:key];
+    }
+    [defs synchronize];
+}
+</code></pre>
+
+<p><strong>打印系统所有已注册的字体名称</strong></p>
+
+<pre><code>void enumerateFonts()
+{
+    for(NSString *familyName in [UIFont familyNames])
+   {
+        NSLog(@&quot;%@&quot;,familyName);               
+        NSArray *fontNames = [UIFont fontNamesForFamilyName:familyName];       
+        for(NSString *fontName in fontNames)
+       {
+            NSLog(@&quot;\t|- %@&quot;,fontName);
+       }
+   }
+}
+</code></pre>
+
+<p><strong>获取图片某一点的颜色</strong></p>
+
+<pre><code>- (UIColor*) getPixelColorAtLocation:(CGPoint)point inImage:(UIImage *)image
+{
+
+    UIColor* color = nil;
+    CGImageRef inImage = image.CGImage;
+    CGContextRef cgctx = [self createARGBBitmapContextFromImage:inImage];
+
+    if (cgctx == NULL) {
+        return nil; /* error */
+    }
+    size_t w = CGImageGetWidth(inImage);
+    size_t h = CGImageGetHeight(inImage);
+    CGRect rect = {{0,0},{w,h}};
+
+    CGContextDrawImage(cgctx, rect, inImage);
+    unsigned char* data = CGBitmapContextGetData (cgctx);
+    if (data != NULL) {
+        int offset = 4*((w*round(point.y))+round(point.x));
+        int alpha =  data[offset];
+        int red = data[offset+1];
+        int green = data[offset+2];
+        int blue = data[offset+3];
+        color = [UIColor colorWithRed:(red/255.0f) green:(green/255.0f) blue:
+                 (blue/255.0f) alpha:(alpha/255.0f)];
+    }
+    CGContextRelease(cgctx);
+    if (data) {
+        free(data);
+    }
+    return color;
+}
+</code></pre>
+
+<p><strong>字符串反转</strong></p>
+
+<pre><code>第一种：
+- (NSString *)reverseWordsInString:(NSString *)str
+{    
+    NSMutableString *newString = [[NSMutableString alloc] initWithCapacity:str.length];
+    for (NSInteger i = str.length - 1; i &gt;= 0 ; i --)
+    {
+        unichar ch = [str characterAtIndex:i];       
+        [newString appendFormat:@&quot;%c&quot;, ch];    
+    }    
+     return newString;
+}
+
+//第二种：
+- (NSString*)reverseWordsInString:(NSString*)str
+{    
+     NSMutableString *reverString = [NSMutableString stringWithCapacity:str.length];    
+     [str enumerateSubstringsInRange:NSMakeRange(0, str.length) options:NSStringEnumerationReverse | NSStringEnumerationByComposedCharacterSequences  usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) { 
+          [reverString appendString:substring];                         
+      }];    
+     return reverString;
+}
+</code></pre>
+
+<p><strong>禁止锁屏</strong><br/>
+默认情况下，当设备一段时间没有触控动作时，iOS会锁住屏幕。但有一些应用是不需要锁屏的，比如视频播放器。</p>
+
+<pre><code>[UIApplication sharedApplication].idleTimerDisabled = YES;
+或
+[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+</code></pre>
+
+<p><strong>模态推出透明界面</strong></p>
+
+<pre><code class="language-UIViewController">UINavigationController *na = [[UINavigationController alloc] initWithRootViewController:vc];
+
+if ([[[UIDevice currentDevice] systemVersion] floatValue] &gt;= 8.0)
+{
+     na.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+}
+else
+{
+     self.modalPresentationStyle=UIModalPresentationCurrentContext;
+}
+
+[self presentViewController:na animated:YES completion:nil];
+</code></pre>
+
+<p><strong>Xcode调试不显示内存占用</strong></p>
+
+<pre><code>editSCheme  里面有个选项叫叫做enable zoombie Objects  取消选中
+</code></pre>
+
+<p><strong>显示隐藏文件</strong></p>
+
+<pre><code>//显示
+defaults write com.apple.finder AppleShowAllFiles -bool true
+killall Finder
+
+//隐藏
+defaults write com.apple.finder AppleShowAllFiles -bool false
+killall Finder
+</code></pre>
+
+<p><strong>字符串按多个符号分割</strong></p>
+
+<pre><code>NSString* str = @&quot;a,b.c&quot;;
+NSCharacterSet* set = [NSCharacterSet characterSetWithCharactersInString:@&quot;,.&quot;];
+NSLog(@&quot;%@&quot;,[str componentsSeparatedByCharactersInSet:set]);
+</code></pre>
+
+<p><strong>iOS跳转到App Store下载应用评分</strong></p>
+
+<pre><code>[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@&quot;itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&amp;id=APPID&quot;]];
+</code></pre>
+
+<p><strong>iOS 获取汉字的拼音</strong></p>
+
+<pre><code>+ (NSString *)transform:(NSString *)chinese
+{    
+    //将NSString装换成NSMutableString 
+    NSMutableString *pinyin = [chinese mutableCopy];    
+    //将汉字转换为拼音(带音标)    
+    CFStringTransform((__bridge CFMutableStringRef)pinyin, NULL, kCFStringTransformMandarinLatin, NO);    
+    NSLog(@&quot;%@&quot;, pinyin);    
+    //去掉拼音的音标    
+    CFStringTransform((__bridge CFMutableStringRef)pinyin, NULL, kCFStringTransformStripCombiningMarks, NO);    
+    NSLog(@&quot;%@&quot;, pinyin);    
+    //返回最近结果    
+    return pinyin;
+ }
+</code></pre>
+
+<p><strong>手动更改iOS状态栏的颜色</strong></p>
+
+<pre><code>- (void)setStatusBarBackgroundColor:(UIColor *)color
+{
+    UIView *statusBar = [[[UIApplication sharedApplication] valueForKey:@&quot;statusBarWindow&quot;] valueForKey:@&quot;statusBar&quot;];
+
+    if ([statusBar respondsToSelector:@selector(setBackgroundColor:)])
+    {
+        statusBar.backgroundColor = color;    
+    }
+}
+</code></pre>
+
+<p><strong>判断当前ViewController是push还是present的方式显示的</strong></p>
+
+<pre><code>NSArray *viewcontrollers=self.navigationController.viewControllers;
+
+if (viewcontrollers.count &gt; 1)
+{
+    if ([viewcontrollers objectAtIndex:viewcontrollers.count - 1] == self)
+    {
+        //push方式
+       [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+else
+{
+    //present方式
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+</code></pre>
+
+<p><strong>获取实际使用的LaunchImage图片</strong></p>
+
+<pre><code>- (NSString *)getLaunchImageName
+{
+    CGSize viewSize = self.window.bounds.size;
+    // 竖屏    
+    NSString *viewOrientation = @&quot;Portrait&quot;;  
+    NSString *launchImageName = nil;    
+    NSArray* imagesDict = [[[NSBundle mainBundle] infoDictionary] valueForKey:@&quot;UILaunchImages&quot;];
+    for (NSDictionary* dict in imagesDict)
+    {
+        CGSize imageSize = CGSizeFromString(dict[@&quot;UILaunchImageSize&quot;]);
+        if (CGSizeEqualToSize(imageSize, viewSize) &amp;&amp; [viewOrientation isEqualToString:dict[@&quot;UILaunchImageOrientation&quot;]])
+        {
+            launchImageName = dict[@&quot;UILaunchImageName&quot;];        
+        }    
+    }    
+    return launchImageName;
+}
+</code></pre>
+
+<p><strong>iOS在当前屏幕获取第一响应</strong></p>
+
+<pre><code>UIWindow * keyWindow = [[UIApplication sharedApplication] keyWindow];
+UIView * firstResponder = [keyWindow performSelector:@selector(firstResponder)];
+</code></pre>
+
+<p><strong>判断对象是否遵循了某协议</strong></p>
+
+<pre><code>if ([self.selectedController conformsToProtocol:@protocol(RefreshPtotocol)])
+{
+     [self.selectedController performSelector:@selector(onTriggerRefresh)];
+}
+</code></pre>
+
+<p><strong>判断view是不是指定视图的子视图</strong></p>
+
+<pre><code>BOOL isView = [textView isDescendantOfView:self.view];
+</code></pre>
+
+<p><strong>NSArray 快速求总和 最大值 最小值 和 平均值</strong><br/>
+<code><br/>
+NSArray *array = [NSArray arrayWithObjects:@&quot;2.0&quot;, @&quot;2.3&quot;, @&quot;3.0&quot;, @&quot;4.0&quot;, @&quot;10&quot;, nil];<br/>
+CGFloat sum = [[array valueForKeyPath:@&quot;@sum.floatValue&quot;] floatValue];<br/>
+CGFloat avg = [[array valueForKeyPath:@&quot;@avg.floatValue&quot;] floatValue];<br/>
+CGFloat max =[[array valueForKeyPath:@&quot;@max.floatValue&quot;] floatValue];<br/>
+CGFloat min =[[array valueForKeyPath:@&quot;@min.floatValue&quot;] floatValue];<br/>
+NSLog(@&quot;%f\n%f\n%f\n%f&quot;,sum,avg,max,min);<br/>
+</code><br/>
+<strong>修改UITextField中Placeholder的文字颜色</strong></p>
+
+<pre><code>[textField setValue:[UIColor redColor] forKeyPath:@&quot;_placeholderLabel.textColor&quot;];
+</code></pre>
+
+<p><strong>关于NSDateFormatter的格式</strong></p>
+
+<pre><code>G: 公元时代，例如AD公元
+yy: 年的后2位
+yyyy: 完整年
+MM: 月，显示为1-12
+MMM: 月，显示为英文月份简写,如 Jan
+MMMM: 月，显示为英文月份全称，如 Janualy
+dd: 日，2位数表示，如02
+d: 日，1-2位显示，如 2
+EEE: 简写星期几，如Sun
+EEEE: 全写星期几，如Sunday
+aa: 上下午，AM/PM
+H: 时，24小时制，0-23
+K：时，12小时制，0-11
+m: 分，1-2位
+mm: 分，2位
+s: 秒，1-2位
+ss: 秒，2位
+S: 毫秒
+</code></pre>
+
+<p><strong>获取一个类的所有子类</strong></p>
+
+<pre><code>+ (NSArray *) allSubclasses
+{
+    Class myClass = [self class];
+    NSMutableArray *mySubclasses = [NSMutableArray array];
+    unsigned int numOfClasses;
+    Class *classes = objc_copyClassList(&amp;numOfClasses;);
+    for (unsigned int ci = 0; ci &lt; numOfClasses; ci++)
+    {
+        Class superClass = classes[ci];
+        do{
+            superClass = class_getSuperclass(superClass);
+        } while (superClass &amp;&amp; superClass != myClass);
+
+        if (superClass)
+        {
+            [mySubclasses addObject: classes[ci]];
+        }
+    }
+    free(classes);
+    return mySubclasses;
+}
+</code></pre>
+
+<p><strong>监测IOS设备是否设置了代理，需要CFNetwork.framework</strong></p>
+
+<pre><code>NSDictionary *proxySettings = (__bridge NSDictionary *)(CFNetworkCopySystemProxySettings());
+NSArray *proxies = (__bridge NSArray *)(CFNetworkCopyProxiesForURL((__bridge CFURLRef _Nonnull)([NSURL URLWithString:@&quot;http://www.baidu.com&quot;]), (__bridge CFDictionaryRef _Nonnull)(proxySettings)));
+NSLog(@&quot;\n%@&quot;,proxies);
+
+NSDictionary *settings = proxies[0];
+NSLog(@&quot;%@&quot;,[settings objectForKey:(NSString *)kCFProxyHostNameKey]);
+NSLog(@&quot;%@&quot;,[settings objectForKey:(NSString *)kCFProxyPortNumberKey]);
+NSLog(@&quot;%@&quot;,[settings objectForKey:(NSString *)kCFProxyTypeKey]);
+
+if ([[settings objectForKey:(NSString *)kCFProxyTypeKey] isEqualToString:@&quot;kCFProxyTypeNone&quot;])
+{
+     NSLog(@&quot;没代理&quot;);
+}
+else
+{
+     NSLog(@&quot;设置了代理&quot;);
+}
+</code></pre>
+
+<p><strong>阿拉伯数字转中文格式</strong></p>
+
+<pre><code>+(NSString *)translation:(NSString *)arebic
+{  
+    NSString *str = arebic;
+    NSArray *arabic_numerals = @[@&quot;1&quot;,@&quot;2&quot;,@&quot;3&quot;,@&quot;4&quot;,@&quot;5&quot;,@&quot;6&quot;,@&quot;7&quot;,@&quot;8&quot;,@&quot;9&quot;,@&quot;0&quot;];
+    NSArray *chinese_numerals = @[@&quot;一&quot;,@&quot;二&quot;,@&quot;三&quot;,@&quot;四&quot;,@&quot;五&quot;,@&quot;六&quot;,@&quot;七&quot;,@&quot;八&quot;,@&quot;九&quot;,@&quot;零&quot;];
+    NSArray *digits = @[@&quot;个&quot;,@&quot;十&quot;,@&quot;百&quot;,@&quot;千&quot;,@&quot;万&quot;,@&quot;十&quot;,@&quot;百&quot;,@&quot;千&quot;,@&quot;亿&quot;,@&quot;十&quot;,@&quot;百&quot;,@&quot;千&quot;,@&quot;兆&quot;];
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:chinese_numerals forKeys:arabic_numerals];
+
+    NSMutableArray *sums = [NSMutableArray array];
+    for (int i = 0; i &lt; str.length; i ++) {
+        NSString *substr = [str substringWithRange:NSMakeRange(i, 1)];
+        NSString *a = [dictionary objectForKey:substr];
+        NSString *b = digits[str.length -i-1];
+        NSString *sum = [a stringByAppendingString:b];
+        if ([a isEqualToString:chinese_numerals[9]])
+        {
+            if([b isEqualToString:digits[4]] || [b isEqualToString:digits[8]])
+            {
+                sum = b;
+                if ([[sums lastObject] isEqualToString:chinese_numerals[9]])
+                {
+                    [sums removeLastObject];
+                }
+            }else
+            {
+                sum = chinese_numerals[9];
+            }
+
+            if ([[sums lastObject] isEqualToString:sum])
+            {
+                continue;
+            }
+        }
+
+        [sums addObject:sum];
+    }
+
+    NSString *sumStr = [sums componentsJoinedByString:@&quot;&quot;];
+    NSString *chinese = [sumStr substringToIndex:sumStr.length-1];
+    NSLog(@&quot;%@&quot;,str);
+    NSLog(@&quot;%@&quot;,chinese);
+    return chinese;
+}
+</code></pre>
+
+<p><strong>Base64编码与NSString对象或NSData对象的转换</strong></p>
+
+<pre><code>// Create NSData object
+NSData *nsdata = [@&quot;iOS Developer Tips encoded in Base64&quot;
+  dataUsingEncoding:NSUTF8StringEncoding];
+
+// Get NSString from NSData object in Base64
+NSString *base64Encoded = [nsdata base64EncodedStringWithOptions:0];
+
+// Print the Base64 encoded string
+NSLog(@&quot;Encoded: %@&quot;, base64Encoded);
+
+// Let&#39;s go the other way...
+
+// NSData from the Base64 encoded str
+NSData *nsdataFromBase64String = [[NSData alloc]
+  initWithBase64EncodedString:base64Encoded options:0];
+
+// Decoded NSString from the NSData
+NSString *base64Decoded = [[NSString alloc]
+  initWithData:nsdataFromBase64String encoding:NSUTF8StringEncoding];
+NSLog(@&quot;Decoded: %@&quot;, base64Decoded);
+</code></pre>
+
+<p><strong>取消UICollectionView的隐式动画</strong><br/>
+UICollectionView在reloadItems的时候，默认会附加一个隐式的fade动画，有时候很讨厌，尤其是当你的cell是复合cell的情况下(比如cell使用到了UIStackView)。<br/>
+下面几种方法都可以帮你去除这些动画</p>
+
+<pre><code>//方法一
+[UIView performWithoutAnimation:^{
+    [collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:index inSection:0]]];
+}];
+
+//方法二
+[UIView animateWithDuration:0 animations:^{
+    [collectionView performBatchUpdates:^{
+        [collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:index inSection:0]]];
+    } completion:nil];
+}];
+
+//方法三
+[UIView setAnimationsEnabled:NO];
+[self.trackPanel performBatchUpdates:^{
+    [collectionView reloadItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:index inSection:0]]];
+} completion:^(BOOL finished) {
+    [UIView setAnimationsEnabled:YES];
+}];
+</code></pre>
+
+<p><strong>让Xcode的控制台支持LLDB类型的打印</strong></p>
+
+<pre><code>打开终端输入三条命令:
+touch ~/.lldbinit
+echo display @import UIKit &gt;&gt; ~/.lldbinit
+echo target stop-hook add -o \&quot;target stop-hook disable\&quot; &gt;&gt; ~/.lldbinit
+</code></pre>
+
+<p><strong>UIImage 占用内存大小</strong></p>
+
+<pre><code>UIImage *image = [UIImage imageNamed:@&quot;aa&quot;];
+NSUInteger size  = CGImageGetHeight(image.CGImage) * CGImageGetBytesPerRow(image.CGImage);
+</code></pre>
+
+<p><strong>GCD timer定时器</strong></p>
+
+<pre><code>dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,queue);
+dispatch_source_set_timer(timer,dispatch_walltime(NULL, 0),1.0*NSEC_PER_SEC, 0); //每秒执行
+dispatch_source_set_event_handler(timer, ^{
+    //@&quot;倒计时结束，关闭&quot;
+    dispatch_source_cancel(timer); 
+    dispatch_async(dispatch_get_main_queue(), ^{
+
+    });
+});
+dispatch_resume(timer);
+</code></pre>
+
+<p><strong>图片上绘制文字 写一个UIImage的category</strong></p>
+
+<pre><code>- (UIImage *)imageWithTitle:(NSString *)title fontSize:(CGFloat)fontSize
+{
+    //画布大小
+    CGSize size=CGSizeMake(self.size.width,self.size.height);
+    //创建一个基于位图的上下文
+    UIGraphicsBeginImageContextWithOptions(size,NO,0.0);//opaque:NO  scale:0.0
+
+    [self drawAtPoint:CGPointMake(0.0,0.0)];
+
+    //文字居中显示在画布上
+    NSMutableParagraphStyle* paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+    paragraphStyle.lineBreakMode = NSLineBreakByCharWrapping;
+    paragraphStyle.alignment=NSTextAlignmentCenter;//文字居中
+
+    //计算文字所占的size,文字居中显示在画布上
+    CGSize sizeText=[title boundingRectWithSize:self.size options:NSStringDrawingUsesLineFragmentOrigin
+                                     attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:fontSize]}context:nil].size;
+    CGFloat width = self.size.width;
+    CGFloat height = self.size.height;
+
+    CGRect rect = CGRectMake((width-sizeText.width)/2, (height-sizeText.height)/2, sizeText.width, sizeText.height);
+    //绘制文字
+    [title drawInRect:rect withAttributes:@{ NSFontAttributeName:[UIFont systemFontOfSize:fontSize],NSForegroundColorAttributeName:[ UIColor whiteColor],NSParagraphStyleAttributeName:paragraphStyle}];
+
+    //返回绘制的新图形
+    UIImage *newImage= UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+</code></pre>
+
+<p><strong>查找一个视图的所有子视图</strong></p>
+
+<pre><code>- (NSMutableArray *)allSubViewsForView:(UIView *)view
+{
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:0];
+    for (UIView *subView in view.subviews)
+    {
+        [array addObject:subView];
+        if (subView.subviews.count &gt; 0)
+        {
+            [array addObjectsFromArray:[self allSubViewsForView:subView]];
+        }
+    }
+    return array;
+}
+</code></pre>
+
+<p><strong>计算文件大小</strong></p>
+
+<pre><code>//文件大小
+- (long long)fileSizeAtPath:(NSString *)path
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+
+    if ([fileManager fileExistsAtPath:path])
+    {
+        long long size = [fileManager attributesOfItemAtPath:path error:nil].fileSize;
+        return size;
+    }
+
+    return 0;
+}
+
+//文件夹大小
+- (long long)folderSizeAtPath:(NSString *)path
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+
+    long long folderSize = 0;
+
+    if ([fileManager fileExistsAtPath:path])
+    {
+        NSArray *childerFiles = [fileManager subpathsAtPath:path];
+        for (NSString *fileName in childerFiles)
+        {
+            NSString *fileAbsolutePath = [path stringByAppendingPathComponent:fileName];
+            if ([fileManager fileExistsAtPath:fileAbsolutePath])
+            {
+                long long size = [fileManager attributesOfItemAtPath:fileAbsolutePath error:nil].fileSize;
+                folderSize += size;
+            }
+        }
+    }
+
+    return folderSize;
+}
+</code></pre>
+
+<p><strong>UIView设置部分圆角</strong><br/>
+你是不是也遇到过这样的问题，一个button或者label，只要右边的两个角圆角，或者只要一个圆角。该怎么办呢。这就需要图层蒙版来帮助我们了</p>
+
+<pre><code>CGRect rect = view.bounds;
+CGSize radio = CGSizeMake(30, 30);//圆角尺寸
+UIRectCorner corner = UIRectCornerTopLeft|UIRectCornerTopRight;//这只圆角位置
+UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:rect byRoundingCorners:corner cornerRadii:radio];
+CAShapeLayer *masklayer = [[CAShapeLayer alloc]init];//创建shapelayer
+masklayer.frame = view.bounds;
+masklayer.path = path.CGPath;//设置路径
+view.layer.mask = masklayer;
+</code></pre>
+
+<p><strong>取上整与取下整</strong></p>
+
+<pre><code>floor(x),有时候也写做Floor(x)，其功能是“下取整”，即取不大于x的最大整数 例如：
+x=3.14，floor(x)=3
+y=9.99999，floor(y)=9
+
+与floor函数对应的是ceil函数，即上取整函数。
+
+ceil函数的作用是求不小于给定实数的最小整数。
+ceil(2)=ceil(1.2)=cei(1.5)=2.00
+
+floor函数与ceil函数的返回值均为double型
+</code></pre>
+
+<p><strong>计算字符串字符长度，一个汉字算两个字符</strong></p>
+
+<pre><code>//方法一：
+- (int)convertToInt:(NSString*)strtemp
+{
+    int strlength = 0;
+    char* p = (char*)[strtemp cStringUsingEncoding:NSUnicodeStringEncoding];
+    for (int i=0 ; i&lt;[strtemp lengthOfBytesUsingEncoding:NSUnicodeStringEncoding] ;i++)
+    {
+        if (*p)
+        {
+            p++;
+            strlength++;
+        }
+        else
+        {
+            p++;
+        }
+
+    }
+    return strlength;
+}
+
+//方法二：
+-(NSUInteger) unicodeLengthOfString: (NSString *) text
+{
+    NSUInteger asciiLength = 0;
+    for (NSUInteger i = 0; i &lt; text.length; i++)
+    {
+        unichar uc = [text characterAtIndex: i];
+        asciiLength += isascii(uc) ? 1 : 2;
+    }
+    return asciiLength;
+}
+</code></pre>
+
+<p><strong>给UIView设置图片</strong></p>
+
+<pre><code>UIImage *image = [UIImage imageNamed:@&quot;image&quot;];
+self.MYView.layer.contents = (__bridge id _Nullable)(image.CGImage);
+self.MYView.layer.contentsRect = CGRectMake(0, 0, 0.5, 0.5);
+</code></pre>
+
+<p><strong>防止scrollView手势覆盖侧滑手势</strong></p>
+
+<pre><code>[scrollView.panGestureRecognizerrequireGestureRecognizerToFail:self.navigationController.interactivePopGestureRecognizer];
+</code></pre>
+
+<p><strong>去掉导航栏返回的back标题</strong></p>
+
+<pre><code>[[UIBarButtonItem appearance]setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60)forBarMetrics:UIBarMetricsDefault];
+</code></pre>
+
+<p><strong>字符串中是否含有中文</strong></p>
+
+<pre><code>+ (BOOL)checkIsChinese:(NSString *)string
+{
+    for (int i=0; i&lt;string.length; i++)
+    {
+        unichar ch = [string characterAtIndex:i];
+        if (0x4E00 &lt;= ch  &amp;&amp; ch &lt;= 0x9FA5)
+        {
+            return YES;
+        }
+    }
+    return NO;
+}
+</code></pre>
+
+<p><strong>dispatch_group的使用</strong></p>
+
+<pre><code>dispatch_group_t dispatchGroup = dispatch_group_create();
+    dispatch_group_enter(dispatchGroup);
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        NSLog(@&quot;第一个请求完成&quot;);
+        dispatch_group_leave(dispatchGroup);
+    });
+
+    dispatch_group_enter(dispatchGroup);
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        NSLog(@&quot;第二个请求完成&quot;);
+        dispatch_group_leave(dispatchGroup);
+    });
+
+    dispatch_group_notify(dispatchGroup, dispatch_get_main_queue(), ^(){
+        NSLog(@&quot;请求完成&quot;);
+    });
+</code></pre>
+
+<p><strong>UITextField每四位加一个空格,实现代理</strong></p>
+
+<pre><code>- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    // 四位加一个空格
+    if ([string isEqualToString:@&quot;&quot;])
+    {
+        // 删除字符
+        if ((textField.text.length - 2) % 5 == 0)
+        {
+            textField.text = [textField.text substringToIndex:textField.text.length - 1];
+        }
+        return YES;
+    }
+    else
+    {
+        if (textField.text.length % 5 == 0)
+        {
+            textField.text = [NSString stringWithFormat:@&quot;%@ &quot;, textField.text];
+        }
+    }
+    return YES;
+}
+</code></pre>
+
+<p><strong>获取私有属性和成员变量 #import <objc/runtime.h></strong></p>
+
+<pre><code>//获取私有属性 比如设置UIDatePicker的字体颜色
+- (void)setTextColor
+{
+    //获取所有的属性，去查看有没有对应的属性
+    unsigned int count = 0;
+    objc_property_t *propertys = class_copyPropertyList([UIDatePicker class], &amp;count);
+    for(int i = 0;i &lt; count;i ++)
+    {
+        //获得每一个属性
+        objc_property_t property = propertys[i];
+        //获得属性对应的nsstring
+        NSString *propertyName = [NSString stringWithCString:property_getName(property) encoding:NSUTF8StringEncoding];
+        //输出打印看对应的属性
+        NSLog(@&quot;propertyname = %@&quot;,propertyName);
+        if ([propertyName isEqualToString:@&quot;textColor&quot;])
+        {
+            [datePicker setValue:[UIColor whiteColor] forKey:propertyName];
+        }
+    }
+}
+
+//获得成员变量 比如修改UIAlertAction的按钮字体颜色
+    unsigned int count = 0;
+    Ivar *ivars = class_copyIvarList([UIAlertAction class], &amp;count);
+    for(int i =0;i &lt; count;i ++)
+    {
+        Ivar ivar = ivars[i];
+        NSString *ivarName = [NSString stringWithCString:ivar_getName(ivar) encoding:NSUTF8StringEncoding];
+        NSLog(@&quot;uialertion.ivarName = %@&quot;,ivarName);
+        if ([ivarName isEqualToString:@&quot;_titleTextColor&quot;])
+        {
+            [alertOk setValue:[UIColor blueColor] forKey:@&quot;titleTextColor&quot;];
+            [alertCancel setValue:[UIColor purpleColor] forKey:@&quot;titleTextColor&quot;];
+        }
+    }
+
+</code></pre>
+
+<p><strong>获取手机安装的应用</strong></p>
+
+<pre><code>Class c =NSClassFromString(@&quot;LSApplicationWorkspace&quot;);
+id s = [(id)c performSelector:NSSelectorFromString(@&quot;defaultWorkspace&quot;)];
+NSArray *array = [s performSelector:NSSelectorFromString(@&quot;allInstalledApplications&quot;)];
+for (id item in array)
+{
+    NSLog(@&quot;%@&quot;,[item performSelector:NSSelectorFromString(@&quot;applicationIdentifier&quot;)]);
+    //NSLog(@&quot;%@&quot;,[item performSelector:NSSelectorFromString(@&quot;bundleIdentifier&quot;)]);
+    NSLog(@&quot;%@&quot;,[item performSelector:NSSelectorFromString(@&quot;bundleVersion&quot;)]);
+    NSLog(@&quot;%@&quot;,[item performSelector:NSSelectorFromString(@&quot;shortVersionString&quot;)]);
+}
+</code></pre>
+
+<p><strong>判断两个日期是否在同一周 写在NSDate的category里面</strong></p>
+
+<pre><code>- (BOOL)isSameDateWithDate:(NSDate *)date
+{
+    //日期间隔大于七天之间返回NO
+    if (fabs([self timeIntervalSinceDate:date]) &gt;= 7 * 24 *3600)
+    {
+        return NO;
+    }
+
+    NSCalendar *calender = [NSCalendar currentCalendar];
+    calender.firstWeekday = 2;//设置每周第一天从周一开始
+    //计算两个日期分别为这年第几周
+    NSUInteger countSelf = [calender ordinalityOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitYear forDate:self];
+    NSUInteger countDate = [calender ordinalityOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitYear forDate:date];
+
+    //相等就在同一周，不相等就不在同一周
+    return countSelf == countDate;
+}
+</code></pre>
+
+<p><strong>应用内打开系统设置界面</strong></p>
+
+<pre><code>//iOS8之后
+[[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+//如果App没有添加权限，显示的是设定界面。如果App有添加权限（例如通知），显示的是App的设定界面。
+
+
+//iOS8之前
+//先添加一个url type如下图，在代码中调用如下代码,即可跳转到设置页面的对应项
+[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@&quot;prefs:root=WIFI&quot;]];
+
+可选值如下：
+About — prefs:root=General&amp;path=About
+Accessibility — prefs:root=General&amp;path=ACCESSIBILITY
+Airplane Mode On — prefs:root=AIRPLANE_MODE
+Auto-Lock — prefs:root=General&amp;path=AUTOLOCK
+Brightness — prefs:root=Brightness
+Bluetooth — prefs:root=General&amp;path=Bluetooth
+Date &amp; Time — prefs:root=General&amp;path=DATE_AND_TIME
+FaceTime — prefs:root=FACETIME
+General — prefs:root=General
+Keyboard — prefs:root=General&amp;path=Keyboard
+iCloud — prefs:root=CASTLE
+iCloud Storage &amp; Backup — prefs:root=CASTLE&amp;path=STORAGE_AND_BACKUP
+International — prefs:root=General&amp;path=INTERNATIONAL
+Location Services — prefs:root=LOCATION_SERVICES
+Music — prefs:root=MUSIC
+Music Equalizer — prefs:root=MUSIC&amp;path=EQ
+Music Volume Limit — prefs:root=MUSIC&amp;path=VolumeLimit
+Network — prefs:root=General&amp;path=Network
+Nike + iPod — prefs:root=NIKE_PLUS_IPOD
+Notes — prefs:root=NOTES
+Notification — prefs:root=NOTIFICATI*****_ID
+Phone — prefs:root=Phone
+Photos — prefs:root=Photos
+Profile — prefs:root=General&amp;path=ManagedConfigurationList
+Reset — prefs:root=General&amp;path=Reset
+Safari — prefs:root=Safari
+Siri — prefs:root=General&amp;path=Assistant
+Sounds — prefs:root=Sounds
+Software Update — prefs:root=General&amp;path=SOFTWARE_UPDATE_LINK
+Store — prefs:root=STORE
+Twitter — prefs:root=TWITTER
+Usage — prefs:root=General&amp;path=USAGE
+VPN — prefs:root=General&amp;path=Network/VPN
+Wallpaper — prefs:root=Wallpaper
+Wi-Fi — prefs:root=WIFI
+</code></pre>
+
+<p><img src="media/14731302393589/1608265-0336b1d206210cf1.png" alt="1608265-0336b1d206210cf1"/></p>
+
+<p><strong>动画暂停再开始</strong></p>
+
+<pre><code>-(void)pauseLayer:(CALayer *)layer
+{
+    CFTimeInterval pausedTime = [layer convertTime:CACurrentMediaTime() fromLayer:nil];
+    layer.speed = 0.0;
+    layer.timeOffset = pausedTime;
+}
+
+-(void)resumeLayer:(CALayer *)layer
+{
+    CFTimeInterval pausedTime = [layer timeOffset];
+    layer.speed = 1.0;
+    layer.timeOffset = 0.0;
+    layer.beginTime = 0.0;
+    CFTimeInterval timeSincePause = [layer convertTime:CACurrentMediaTime() fromLayer:nil] - pausedTime;
+    layer.beginTime = timeSincePause;
+}
+</code></pre>
+
+<p><strong>iOS中数字的格式化</strong></p>
+
+<pre><code>//通过NSNumberFormatter，同样可以设置NSNumber输出的格式。例如如下代码：
+NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+formatter.numberStyle = NSNumberFormatterDecimalStyle;
+NSString *string = [formatter stringFromNumber:[NSNumber numberWithInt:123456789]];
+NSLog(@&quot;Formatted number string:%@&quot;,string);
+//输出结果为：[1223:403] Formatted number string:123,456,789
+
+//其中NSNumberFormatter类有个属性numberStyle，它是一个枚举型，设置不同的值可以输出不同的数字格式。该枚举包括：
+typedef NS_ENUM(NSUInteger, NSNumberFormatterStyle) {
+    NSNumberFormatterNoStyle = kCFNumberFormatterNoStyle,
+    NSNumberFormatterDecimalStyle = kCFNumberFormatterDecimalStyle,
+    NSNumberFormatterCurrencyStyle = kCFNumberFormatterCurrencyStyle,
+    NSNumberFormatterPercentStyle = kCFNumberFormatterPercentStyle,
+    NSNumberFormatterScientificStyle = kCFNumberFormatterScientificStyle,
+    NSNumberFormatterSpellOutStyle = kCFNumberFormatterSpellOutStyle
+};
+//各个枚举对应输出数字格式的效果如下：其中第三项和最后一项的输出会根据系统设置的语言区域的不同而不同。
+[1243:403] Formatted number string:123456789
+[1243:403] Formatted number string:123,456,789
+[1243:403] Formatted number string:￥123,456,789.00
+[1243:403] Formatted number string:-539,222,988%
+[1243:403] Formatted number string:1.23456789E8
+[1243:403] Formatted number string:一亿二千三百四十五万六千七百八十九
+</code></pre>
+
+<p><strong>如何获取WebView所有的图片地址</strong><br/>
+在网页加载完成时，通过js获取图片和添加点击的识别方式</p>
+
+<pre><code>//UIWebView
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    //这里是js，主要目的实现对url的获取
+    static  NSString * const jsGetImages =
+    @&quot;function getImages(){\
+    var objs = document.getElementsByTagName(\&quot;img\&quot;);\
+    var imgScr = &#39;&#39;;\
+    for(var i=0;i&lt;objs.length;i++){\
+    imgScr = imgScr + objs[i].src + &#39;+&#39;;\
+    };\
+    return imgScr;\
+    };&quot;;
+
+    [webView stringByEvaluatingJavaScriptFromString:jsGetImages];//注入js方法
+    NSString *urlResult = [webView stringByEvaluatingJavaScriptFromString:@&quot;getImages()&quot;];
+    NSArray *urlArray = [NSMutableArray arrayWithArray:[urlResult componentsSeparatedByString:@&quot;+&quot;]];
+    //urlResurlt 就是获取到得所有图片的url的拼接；mUrlArray就是所有Url的数组
+}
+
+//WKWebView
+- (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation
+{
+    static  NSString * const jsGetImages =
+    @&quot;function getImages(){\
+    var objs = document.getElementsByTagName(\&quot;img\&quot;);\
+    var imgScr = &#39;&#39;;\
+    for(var i=0;i&lt;objs.length;i++){\
+    imgScr = imgScr + objs[i].src + &#39;+&#39;;\
+    };\
+    return imgScr;\
+    };&quot;;
+
+    [webView evaluateJavaScript:jsGetImages completionHandler:nil];
+    [webView evaluateJavaScript:@&quot;getImages()&quot; completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+        NSLog(@&quot;%@&quot;,result);
+    }];
+}
+</code></pre>
+
+<p><strong>获取到webview的高度</strong></p>
+
+<pre><code>CGFloat height = [[self.webView stringByEvaluatingJavaScriptFromString:@&quot;document.body.offsetHeight&quot;] floatValue];
+</code></pre>
+
+<p><strong>navigationBar变为纯透明</strong></p>
+
+<pre><code>//第一种方法
+//导航栏纯透明
+[self.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+//去掉导航栏底部的黑线
+self.navigationBar.shadowImage = [UIImage new];
+
+//第二种方法
+[[self.navigationBar subviews] objectAtIndex:0].alpha = 0;
+</code></pre>
+
+<p><strong>tabBar同理</strong></p>
+
+<pre><code>[self.tabBar setBackgroundImage:[UIImage new]];
+self.tabBar.shadowImage = [UIImage new];
+</code></pre>
+
+<p><strong>navigationBar根据滑动距离的渐变色实现</strong></p>
+
+<pre><code>//第一种
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat offsetToShow = 200.0;//滑动多少就完全显示
+    CGFloat alpha = 1 - (offsetToShow - scrollView.contentOffset.y) / offsetToShow;
+    [[self.navigationController.navigationBar subviews] objectAtIndex:0].alpha = alpha;
+}
+
+//第二种
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat offsetToShow = 200.0;
+    CGFloat alpha = 1 - (offsetToShow - scrollView.contentOffset.y) / offsetToShow;
+
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+    [self.navigationController.navigationBar setBackgroundImage:[self imageWithColor:[[UIColor orangeColor]colorWithAlphaComponent:alpha]] forBarMetrics:UIBarMetricsDefault];
+}
+
+//生成一张纯色的图片
+- (UIImage *)imageWithColor:(UIColor *)color
+{
+    CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    UIImage *theImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return theImage;
+}
+</code></pre>
+
+<p><strong>iOS 开发中一些相关的路径</strong></p>
+
+<pre><code>模拟器的位置:
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs 
+
+文档安装位置:
+/Applications/Xcode.app/Contents/Developer/Documentation/DocSets
+
+插件保存路径:
+~/Library/ApplicationSupport/Developer/Shared/Xcode/Plug-ins
+
+自定义代码段的保存路径:
+~/Library/Developer/Xcode/UserData/CodeSnippets/ 
+如果找不到CodeSnippets文件夹，可以自己新建一个CodeSnippets文件夹。
+
+描述文件路径
+~/Library/MobileDevice/Provisioning Profiles
+</code></pre>
+
+<p><strong>navigationItem的BarButtonItem如何紧靠屏幕右边界或者左边界</strong></p>
+
+<pre><code>UIImage *img = [[UIImage imageNamed:@&quot;icon_cog&quot;] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//宽度为负数的固定间距的系统item
+UIBarButtonItem *rightNegativeSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+[rightNegativeSpacer setWidth:-15];
+
+UIBarButtonItem *rightBtnItem1 = [[UIBarButtonItem alloc]initWithImage:img style:UIBarButtonItemStylePlain target:self action:@selector(rightButtonItemClicked:)];
+UIBarButtonItem *rightBtnItem2 = [[UIBarButtonItem alloc]initWithImage:img style:UIBarButtonItemStylePlain target:self action:@selector(rightButtonItemClicked:)];
+self.navigationItem.rightBarButtonItems = @[rightNegativeSpacer,rightBtnItem1,rightBtnItem2];
+
+</code></pre>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2016/9/6</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='iOS.html'>iOS</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+			<div class="article">
+                <a class="clearlink" href="14707211270083.html">
+                
+                  <h1>使用脚本自动打包并发布APP到fir.im</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<p>记录一下操作步骤吧<br/>
+1.clean一下对应的target<br/>
+ <code>xcodebuild -target TARGETNAME clean</code></p>
+
+<p>2.用xcode编译生成archive文件<br/>
+<code>xcodebuild  -workspace XXX.xcworkspace -scheme XXX CODE_SIGN_IDENTITY=&#39;iPhone Distribution：xxx&#39; -archivePath &quot;~/ipa/2016-08-09&quot; archive</code></p>
+
+<p>3.导出ipa文件<br/>
+这里特备注意，使用xcodebuild没找到如果把证书导进去，一直没法安装，最后使用了xcrun命令<br/>
+<code>xcrun -sdk iphoneos -v PackageApplication xxx.app -o xxx.ipa<br/>
+</code><br/>
+4.上传ipa到fir.im上<br/>
+<code>fir publish &#39;xx.ipa&#39; -T 自己fir上的token</code></p>
+
+<p>纠结的一点，在CODE_SIGN_IDENTITY，不知道后面的证书描述怎么获取的。找了半天，后来才返现，是在keychain里面的证书的常用名称字段直接复制过来就可以。</p>
+
+<p>下面附上最终的脚本</p>
+
+<pre><code class="language-#!/bin/bash">
+echo &quot;请选择要发布的版本：&quot;
+echo &quot;1.测试版本&quot;
+echo &quot;2.生成版本&quot;
+
+read -p &quot;输入编译的版本序号: &quot;  number
+
+echo $number
+
+case &quot;$number&quot; in
+1 ) projectName=&quot;xxx&quot; ;;
+2 ) projectName=&quot;xxxPro&quot; ;;
+* ) echo &quot;输入错误!&quot;;exit 0 ;;
+esac
+
+echo &quot;Publish...............................&quot;
+day=`date &quot;+%Y-%m-%d&quot;`
+currenttime=`date &quot;+%H-%M&quot;`
+
+mkdir -p $HOME/ipa/$day/$currenttime
+
+echo &quot;清空项目，重新编译&quot;
+xcodebuild -target $projectName clean
+
+echo &quot;开始编译，导出archive&quot;
+xcodebuild  -workspace xxx.xcworkspace -scheme $projectName CODE_SIGN_IDENTITY=&quot;iPhone Distribution: xxx&quot; -archivePath $HOME/ipa/$day/$currenttime/$projectName archive
+
+echo &quot;导出ipa文件&quot;
+xcrun -sdk iphoneos -v PackageApplication $HOME/ipa/$day/$currenttime/$projectName.xcarchive/Products/Applications/$projectName.app -o $HOME/ipa/$day/$currenttime/$projectName.ipa
+
+echo &quot;上传到FIR&quot;
+fir publish $HOME/ipa/$day/$currenttime/$projectName.ipa -T token
+</code></pre>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2016/8/9</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='iOS.html'>iOS</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+              
+
+
+			<div class="row">
+			  <div class="large-6 columns">
+			  <p class="text-left" style="padding-top:25px;">
+			   <a href="all_5.html">&laquo; Prev Page</a>  
+			  </p>
+			  </div>
+			  <div class="large-6 columns">
+			<p class="text-right" style="padding-top:25px;">
+			 <a href="all_7.html">&raquo; Next Page</a> 
+			</p>
+			  </div>
+			</div>
+		</div>
+	</div><!-- large 8 -->
+
+ <div class="large-4 medium-4 columns">
+  <div class="hide-for-small">
+    <div id="sidebar" class="sidebar">
+          <div id="site-info" class="site-info">
+            
+                <h1>寒夜孤灯</h1>
+                <div class="site-des">寒夜里的一盏孤灯</div>
+                <div class="social">
+
+
+
+
+
+
+
+
+
+
+
+  <a target="_blank" class="rss" href="atom.xml" title="RSS">RSS</a>
+                
+              	 </div>
+          	</div>
+
+             
+
+              <div id="site-categories" class="side-item ">
+                <div class="side-header">
+                  <h2>分类</h2>
+                </div>
+                <div class="side-content">
+
+      	<p class="cat-list">
+        
+            <a href="iOS.html"><strong>iOS</strong></a>
+        
+            <a href="Mac.html"><strong>Mac</strong></a>
+        
+            <a href="PHP.html"><strong>PHP</strong></a>
+        
+            <a href="Python.html"><strong>Python</strong></a>
+        
+            <a href="%E6%9D%82%E8%B0%88.html"><strong>杂谈</strong></a>
+        
+            <a href="%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87.html"><strong>疑难杂症</strong></a>
+        
+            <a href="Redis.html"><strong>Redis</strong></a>
+        
+            <a href="React%20Native.html"><strong>React Native</strong></a>
+        
+            <a href="%E8%BF%90%E7%BB%B4.html"><strong>运维</strong></a>
+         
+        </p>
+
+
+                </div>
+              </div>
+
+              <div id="site-categories" class="side-item">
+                <div class="side-header">
+                  <h2>最新文章</h2>
+                </div>
+                <div class="side-content">
+                <ul class="posts-list">
+	      
+		      
+			      <li class="post">
+			        <a href="15036253170711.html">Xcode Build Settings 分析</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15030458956017.html">发现女儿早恋，这个爸爸的做法刷爆朋友圈！</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15017301944011.html">iOS应用内跳转到系统设置页面</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15017289646320.html">iOS APP提交审核被拒因Guideline 2.5.2 - Performance - Software Requirements</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14966306832048.html">Swift使用pod找不到文件的解决方案</a>
+			      </li>
+		     
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		   
+		  		</ul>
+                </div>
+              </div>
+        </div><!-- sidebar -->
+      </div><!-- hide for small -->
+</div><!-- large 4 -->
+
+</div><!-- row -->
+
+ <div class="page-bottom clearfix">
+  <div class="row">
+   <p class="copyright">Copyright &copy; 2017
+通过 <a target="_blank" href="http://www.mweb.im">MWeb</a>制作&nbsp; <a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备15015428号-1</a>&nbsp; 
+</p>
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+
+  
+    
+
+    <script src="asset/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+      function fixSidebarHeight(){
+        var w1 = $('.markdown-body').height();
+          var w2 = $('#sidebar').height();
+          if (w1 > w2) { $('#sidebar').height(w1); };
+      }
+      $(function(){
+        fixSidebarHeight();
+      })
+      $(window).load(function(){
+          fixSidebarHeight();
+      });
+     
+    </script>
+
+    
+
+
+
+  </body>
+</html>

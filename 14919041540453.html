@@ -1,0 +1,449 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  服务器使用分工及发布流程服务器环境分工 - 寒夜孤灯
+  
+  </title>
+  
+  
+  <link href="atom.xml" rel="alternate" title="寒夜孤灯" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+  <script src="asset/highlightjs/highlight.pack.js"></script>
+  <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+  function before_search(){
+    var searchVal = 'site:www.hanyegudeng.com ' + document.getElementById('search_input').value;
+    document.getElementById('search_q').value = searchVal;
+    return true;
+  }
+</script>
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+
+  <section class="top-bar-section">
+  <div class="row">
+      <div style="position: relative;width:100%;"><div style="position: absolute; width:100%;">
+        <ul id="main-menu" class="left">
+        
+        <li id=""><a target="self" href="index.html">Home</a></li>
+        
+        <li id=""><a target="_self" href="archives.html">Archives</a></li>
+        
+        </ul>
+
+        <ul class="right" id="search-wrap">
+          <li>
+<form target="_blank" onsubmit="return before_search();" action="https://google.com/search" method="get">
+    <input type="hidden" id="search_q" name="q" value="" />
+    <input tabindex="1" type="search" id="search_input"  placeholder="Search"/>
+</form>
+</li>
+          </ul>
+      </div></div>
+  </div>
+  </section>
+
+</nav>
+
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; 寒夜孤灯</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+       
+       <li><a href="index.html">首页</a></li>
+    <li><a href="archives.html">目录</a></li>
+    <li><a href="about.html">关于</a></li>
+
+    <li><label>Categories</label></li>
+
+        
+            <li><a href="iOS.html">iOS</a></li>
+        
+            <li><a href="Mac.html">Mac</a></li>
+        
+            <li><a href="PHP.html">PHP</a></li>
+        
+            <li><a href="Python.html">Python</a></li>
+        
+            <li><a href="%E6%9D%82%E8%B0%88.html">杂谈</a></li>
+        
+            <li><a href="%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87.html">疑难杂症</a></li>
+        
+            <li><a href="Redis.html">Redis</a></li>
+        
+            <li><a href="React%20Native.html">React Native</a></li>
+        
+            <li><a href="%E8%BF%90%E7%BB%B4.html">运维</a></li>
+         
+
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+
+        <section id="main-content" role="main" class="scroll-container">
+        
+       
+
+ <script type="text/javascript">
+  $(function(){
+    $('#menu_item_index').addClass('is_active');
+  });
+</script>
+<div class="row">
+  <div class="large-8 medium-8 columns">
+      <div class="markdown-body article-wrap">
+       <div class="article">
+          
+          <h1>服务器使用分工及发布流程服务器环境分工</h1>
+     
+        <div class="read-more clearfix">
+          <span class="date">2017/4/11</span>
+
+          <span>posted in&nbsp;</span> 
+          
+              <span class="posted-in"><a href='%E8%BF%90%E7%BB%B4.html'>运维</a></span>
+           
+         
+          <span class="comments">
+            
+
+            
+          </span>
+
+        </div>
+      </div><!-- article -->
+
+      <div class="article-content">
+      <p>服务器使用分工及发布流程服务器环境分工 <br/>
+每个系统四套环境<br/>
+1. 开发环境<br/>
+2. 测试环境<br/>
+3. 回归测试环境 (预生产环境)<br/>
+4. 生产环境</p>
+
+<p>各个环境说明以及发布流程<br/>
+开发环境<br/>
+环境说明<br/>
+* 项目负责人管理<br/>
+* 开发团队共享使用<br/>
+* 运维团队监控、协助、调整资源配额</p>
+
+<p>流程说明<br/>
+* 开发团队自行商议</p>
+
+<p>测试环境<br/>
+环境说明<br/>
+* 测试组负责人管理<br/>
+* 测试团队共享使用<br/>
+* 运维团队监控、协助、调整资源配额<br/>
+如果有项目多分支同时要进行测试，测试人员可以向运维申请临时测试服务器，申请时标注以下信息。<br/>
+* CPU几核<br/>
+* 内存<br/>
+* 网络要求<br/>
+* 临时服务器存活期<br/>
+* 临时服务器默认存活期2周<br/>
+* 需要续期的话测试团队至少提前一天向运维团队提出续期申请</p>
+
+<p>流程说明<br/>
+开发完毕后，由项目负责人发邮件至测试团队申请提测，标明以下事项：<br/>
+* 代码所在位置（分支或者tag）<br/>
+* 功能变动<br/>
+* 网络变动<br/>
+* SQL脚本<br/>
+* 发布脚本<br/>
+由测试组负责测试由代码变更影响的功能。<br/>
+回归测试环境<br/>
+环境说明<br/>
+* 测试组负责人管理<br/>
+* 测试团队共享使用<br/>
+* 运维团队监控、协助、调整资源配额</p>
+
+<p>流程说明<br/>
+测试完毕后<br/>
+* 把数据库变更的 SQL 脚本交给 DBA 审核<br/>
+* 由测试组把通过测试的代码拷贝到回归测试环境<br/>
+* 测试组负责全量回归</p>
+
+<p>生产环境<br/>
+环境说明<br/>
+* 运维团队管理<br/>
+* 运维以外人员无权登录<br/>
+* 运维团队监控、调整资源配额</p>
+
+<p>流程说明<br/>
+需要发布系统到生产环境时，需要项目负责人提供以下材料：<br/>
+* 发布的代码<br/>
+* 发布脚本<br/>
+* 更新数据库SQL脚本<br/>
+* 生产环境的配置文件<br/>
+* 域名<br/>
+* 发布时间<br/>
+* 环境依赖变更<br/>
+* 需要运维检查的注意事项<br/>
+运维人员需要比对运维组的线上发布检查列表<br/>
+1. 数据库更新脚本<br/>
+2. 配置文件及脚本<br/>
+3. 域名指向检查<br/>
+4. 测试是否跑通<br/>
+5. 回归测试是否跑通<br/>
+6. 目标机器环境是否满足发布条件<br/>
+7. 数据库更新脚本是否经过 DBA 审核</p>
+
+<p>注意事项<br/>
+* 运维会根据需要分配所需硬件资源，如内存，CPU，硬盘等<br/>
+* 运维定期负责检查各个系统的运行情况，监控内存，CPU，硬盘使用情况，如果需要可以做出动态调整<br/>
+* 回归测试前，针对数据库的修改脚本需要DBA审核通过后方可执行</p>
+
+<p><img src="media/14919041540453/FoRN5Z5WgO9LrMvzJ6wdmZx_g1l1.png" alt="FoRN5Z5WgO9LrMvzJ6wdmZx_g1"/></p>
+
+
+    
+
+      </div>
+
+      <div class="row">
+        <div class="large-6 columns">
+        <p class="text-left" style="padding:15px 0px;">
+      
+          <a href="14919781270379.html" 
+          title="Previous Post: Git合并特定commits 到另一个分支">&laquo; Git合并特定commits 到另一个分支</a>
+      
+        </p>
+        </div>
+        <div class="large-6 columns">
+      <p class="text-right" style="padding:15px 0px;">
+      
+          <a  href="14919034697502.html" 
+          title="Next Post: 数据库备份会议记录">数据库备份会议记录 &raquo;</a>
+      
+      </p>
+        </div>
+      </div>
+      <div class="comments-wrap">
+        <div class="share-comments">
+          <div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://www-hanyegudeng-com.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+          
+
+          
+        </div>
+      </div>
+    </div><!-- article-wrap -->
+  </div><!-- large 8 -->
+
+
+
+
+ <div class="large-4 medium-4 columns">
+  <div class="hide-for-small">
+    <div id="sidebar" class="sidebar">
+          <div id="site-info" class="site-info">
+            
+                <h1>寒夜孤灯</h1>
+                <div class="site-des">寒夜里的一盏孤灯</div>
+                <div class="social">
+
+
+
+
+
+
+
+
+
+
+
+  <a target="_blank" class="rss" href="atom.xml" title="RSS">RSS</a>
+                
+              	 </div>
+          	</div>
+
+             
+
+              <div id="site-categories" class="side-item ">
+                <div class="side-header">
+                  <h2>分类</h2>
+                </div>
+                <div class="side-content">
+
+      	<p class="cat-list">
+        
+            <a href="iOS.html"><strong>iOS</strong></a>
+        
+            <a href="Mac.html"><strong>Mac</strong></a>
+        
+            <a href="PHP.html"><strong>PHP</strong></a>
+        
+            <a href="Python.html"><strong>Python</strong></a>
+        
+            <a href="%E6%9D%82%E8%B0%88.html"><strong>杂谈</strong></a>
+        
+            <a href="%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87.html"><strong>疑难杂症</strong></a>
+        
+            <a href="Redis.html"><strong>Redis</strong></a>
+        
+            <a href="React%20Native.html"><strong>React Native</strong></a>
+        
+            <a href="%E8%BF%90%E7%BB%B4.html"><strong>运维</strong></a>
+         
+        </p>
+
+
+                </div>
+              </div>
+
+              <div id="site-categories" class="side-item">
+                <div class="side-header">
+                  <h2>最新文章</h2>
+                </div>
+                <div class="side-content">
+                <ul class="posts-list">
+	      
+		      
+			      <li class="post">
+			        <a href="15036253170711.html">Xcode Build Settings 分析</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15030458956017.html">发现女儿早恋，这个爸爸的做法刷爆朋友圈！</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15017301944011.html">iOS应用内跳转到系统设置页面</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15017289646320.html">iOS APP提交审核被拒因Guideline 2.5.2 - Performance - Software Requirements</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14966306832048.html">Swift使用pod找不到文件的解决方案</a>
+			      </li>
+		     
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		   
+		  		</ul>
+                </div>
+              </div>
+        </div><!-- sidebar -->
+      </div><!-- hide for small -->
+</div><!-- large 4 -->
+
+</div><!-- row -->
+
+ <div class="page-bottom clearfix">
+  <div class="row">
+   <p class="copyright">Copyright &copy; 2017
+通过 <a target="_blank" href="http://www.mweb.im">MWeb</a>制作&nbsp; <a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备15015428号-1</a>&nbsp; 
+</p>
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+
+  
+    
+
+    <script src="asset/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+      function fixSidebarHeight(){
+        var w1 = $('.markdown-body').height();
+          var w2 = $('#sidebar').height();
+          if (w1 > w2) { $('#sidebar').height(w1); };
+      }
+      $(function(){
+        fixSidebarHeight();
+      })
+      $(window).load(function(){
+          fixSidebarHeight();
+      });
+     
+    </script>
+
+    
+
+
+
+  </body>
+</html>

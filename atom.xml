@@ -1,0 +1,2059 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[寒夜孤灯]]></title>
+  <link href="http://www.hanyegudeng.com/atom.xml" rel="self"/>
+  <link href="http://www.hanyegudeng.com/"/>
+  <updated>2017-08-28T10:54:56+08:00</updated>
+  <id>http://www.hanyegudeng.com/</id>
+  <author>
+    <name><![CDATA[]]></name>
+    
+  </author>
+  <generator uri="http://www.mweb.im/">MWeb</generator>
+  
+  <entry>
+    <title type="html"><![CDATA[Xcode Build Settings 分析]]></title>
+    <link href="http://www.hanyegudeng.com/15036253170711.html"/>
+    <updated>2017-08-25T09:41:57+08:00</updated>
+    <id>http://www.hanyegudeng.com/15036253170711.html</id>
+    <content type="html"><![CDATA[
+<p>转自：<a href="http://www.jianshu.com/p/0509b438e84e">http://www.jianshu.com/p/0509b438e84e</a></p>
+
+<p>本文主要对xcode中常见的工程配置进行介绍，仅用于记录分享，不做其他用途。</p>
+
+<p>Architectures<br/>
+<img src="media/15036253170711/4898159-94d157d9a0e48308.jpg" alt="4898159-94d157d9a0e48308"/></p>
+
+<p>Additional SDKs</p>
+
+<p>在编译的时候需要附加的SDK。</p>
+
+<p>Architectures</p>
+
+<p>支持的处理器架构。支持的指令集越多，就会编译出包含多个指令集代码的数据包，对应生成二进制包就越大，最终目标文件也会变大。</p>
+
+<p>指令集可以参考：<a href="http://www.jianshu.com/p/3fce0bd6f045">http://www.jianshu.com/p/3fce0bd6f045</a></p>
+
+<p>Base SDK</p>
+
+<p>App所能支持的最大iOS版本。Xcode默认会设置为能够支持的最新版本。</p>
+
+<p>Build Acitve Architecture Only</p>
+
+<p>如果此项为YES，则Xcode会根据当前所连接设备的版本只将相应的Architecture编译入app。否则会同时编译“Valid Architectures”中的指令集。</p>
+
+<p>建议在Debug模式下设置为YES，Release模式下设置为NO，加快编译速度。</p>
+
+<p>Supported Platform</p>
+
+<p>app支持的平台。目前可选的有iOS、macOS、tvOS、watchOS。</p>
+
+<p>Valid Architectures<br/>
+限制可能被支持的指令集的范围，也就是Xcode编译出来的二进制包类型最终从这些类型产生，而编译出哪种指令集的包，将由Architectures与Valid Architectures（因此这个不能为空）的交集来确定。</p>
+
+<p>知识延伸：lipo</p>
+
+<p>lipo源于mac系统要制作兼容powerpc平台和intel平台的程序。</p>
+
+<p>lipo 是一个在 Mac OS X 中处理通用程序（Universal Binaries）的工具。</p>
+
+<p>用途一：查看二进制所支持的指令集<br/>
+<img src="media/15036253170711/4898159-fd5d85f9daae77e4.jpg" alt="4898159-fd5d85f9daae77e4"/></p>
+
+<p>用途二：合并指令集</p>
+
+<p>lipo –create Release-iphoneos/libiphone.a Debig-iphonesimulator/libiphone.a –output libiphone.a</p>
+
+<p>用途三：拆分指令集</p>
+
+<p>lipo SDK.a -thin armv7 -output */SDK.a</p>
+
+<p>Assets<br/>
+<img src="media/15036253170711/4898159-da15ccacb10624ab.jpg" alt="4898159-da15ccacb10624ab"/><br/>
+Asset Pack Manifest URL Prefix</p>
+
+<p>资源包清单的下载路径URL前缀</p>
+
+<p>Embed Asset Packs In Product Bundle</p>
+
+<p>是否将资源包嵌入产品的bundle中</p>
+
+<p>Enable On Demand Resources</p>
+
+<p>是否开启按需获取资源功能</p>
+
+<p>On Demand Resources Initial Install Tags</p>
+
+<p>按需加载资源时的初始安装资源文件标签</p>
+
+<p>On Demand Resources Prefetch Order</p>
+
+<p>按需加载资源时预加载的标签顺序<br/>
+<img src="media/15036253170711/4898159-d76a9e0d8e185455.jpg" alt="4898159-d76a9e0d8e185455"/></p>
+
+<p><img src="media/15036253170711/4898159-461784897deb8c62.jpg" alt="4898159-461784897deb8"/><br/>
+Build Locations<br/>
+<img src="media/15036253170711/4898159-7884e20d09331fc9.jpg" alt="4898159-7884e20d09331f"/><br/>
+Build Products Paths</p>
+
+<p>产品文件和编译中间文件的根目录。产品文件和编译时临时文件都将放在这个目录的子目录中。</p>
+
+<p>Intermediate Build Files Path</p>
+
+<p>编译时临时文件的存放位置。编译中间文件格式为product name+.build，如MyProduct.build。</p>
+
+<p>Per-configuration Build Products Path</p>
+
+<p>当前编译设置下的产品存放位置。</p>
+
+<p>Per-configuration Intermediate Build Files Path</p>
+
+<p>当前编译设置下编译时临时文件的存放位置。</p>
+
+<p>Precompiled Headers Cache Path</p>
+
+<p>预编译头文件缓存存放路径。通过这个配置，Targets可以互相共享预编译的头文件。</p>
+
+<p>这个在Xcode中的设置在File-&gt;Project Setting界面进行设置，<br/>
+<img src="media/15036253170711/4898159-dc612f80b6726441.jpg" alt="4898159-dc612f80b6726441"/></p>
+
+<p><img src="media/15036253170711/4898159-312b3ed11579e1ea.jpg" alt="4898159-312b3ed11579e1ea"/><br/>
+Build Options</p>
+
+<p><img src="media/15036253170711/4898159-df88ef87e2592cc9.jpg" alt="4898159-df88ef87e2592c"/><br/>
+Always Embed Swift Standard Libraries</p>
+
+<p>始终嵌入swift标准库。对于未使用swift代码的情况可以设置为NO。</p>
+
+<p>Build Variants</p>
+
+<p>此项可以设定生成产品的变种。您可以创建额外的产品变种作为特殊用途。例如，您可以使用编译配置文件的名称来创建一个高度定制的二进制文件。</p>
+
+<p>Build Variants的值有三个：</p>
+
+<p>normal-用于生成普通的二进制文件；</p>
+
+<p>profile-用于可以生成配置信息的二进制文件；</p>
+
+<p>debug-用于生成带有debug标志、额外断言和诊断代码的二进制文件。</p>
+
+<p>Compiler For C/C++/Objective-C</p>
+
+<p>选择使用的编译器。目前Xcode8.2默认使用APPLE LLVM 8.0版本的编译器。</p>
+
+<p>Debug Information Format</p>
+
+<p>记录debug信息的文件格式。共有DWARF with dSYM File和DWARF两种可以选择。建议选择DWARF with dSYM File。DWARF是较老的文件格式，会在编译时将debug信息写在执行文件中。</p>
+
+<p>Enable BitCode</p>
+
+<p>Bitcode is an intermediate representation of a compiled program. Apps you upload to iTunes Connect that contain bitcode will be compiled and linked on the App Store. Including bitcode will allow Apple to re-optimize your app binary in the future without the need to submit a new version of your app to the store.</p>
+
+<p>Bitcode. When you archive for submission to the App Store, Xcode will compile your app into an intermediate representation. The App Store will then compile the bitcode down into the 64 or 32 bit executables as necessary.</p>
+
+<p>说的是bitcode是被编译程序的一种中间形式的代码。包含bitcode配置的程序将会在App store上被编译和链接。bitcode允许苹果在后期重新优化我们程序的二进制文件，而不需要我们重新提交一个新的版本到App store上。</p>
+
+<p>当我们提交程序到App store上时，Xcode会将程序编译为一个中间表现形式(bitcode)。然后App store会再将这个botcode编译为可执行的64位或32位程序。</p>
+
+<p>不过，我们现在需要考虑的是三个平台：iOS，Mac OS，watchOS。</p>
+
+<p>对应iOS，bitcode是可选的。</p>
+
+<p>对于watchOS，bitcode是必须的。</p>
+
+<p>Mac OS不支持bitcode。</p>
+
+<p>Enable Testability</p>
+
+<p>是否支持测试。默认选NO；</p>
+
+<p>Generate Profiling Code</p>
+
+<p>是否生成配置代码。默认选择NO。</p>
+
+<p>Precompiled Header Uses Files From Build Directory</p>
+
+<p>预编译build路径中的头文件。由于编译过程比较耗时，且两次编译之间未必会改动所有文件。因此将不会改动的常用文件保留成预编译文件将大大减少编译时的时间。建议这一项选择YES。</p>
+
+<p>Require Only App-Extension-Safe API</p>
+
+<p>如果我们要想应用扩展使用内嵌框架，那么首先要配置一下。将target的Require Only App-Extension-Safe API选项设置为Yes。如果你不这样设置，那么Xcode会向你提示警告：linking against dylib not safe for use in application extensions。</p>
+
+<p>Scan All Source Files for Includes</p>
+
+<p>扫描include文件所包含的所有源文件。</p>
+
+<p>Validate Built Product</p>
+
+<p>这个选项决定了是否在编译的时候进行验证。验证的内容和app store的审查内容一致。默认选项是debug时不验证，release时验证。</p>
+
+<p>Deployment</p>
+
+<p>Headers</p>
+
+<p>Kernel Module</p>
+
+<p>Linking</p>
+
+<p>Search Paths<br/>
+<img src="media/15036253170711/4898159-05c3d2fbc1177dcb.jpg" alt="4898159-05c3d2fbc1177dcb"/></p>
+
+<p>Always Search User Path</p>
+
+<p>是否搜索用户指定的路径，默认是NO；</p>
+
+<p>Framework Search Paths</p>
+
+<p>工程引用的framework搜索路径</p>
+
+<p>Header Search Paths</p>
+
+<p>工程中引用的头文件搜索路径</p>
+
+<p>Library Search Paths</p>
+
+<p>library搜索路径，比如静态.a库</p>
+
+<p>Rez Search Paths</p>
+
+<p>This is a list of paths to search for files included by CarbonResource Manager resources and compiled with the Rez tool.</p>
+
+<p>Sub-Directories to Exclude in Recursive Searches<br/>
+指定哪些类型的子目录在递归查找时忽略</p>
+
+<p>Sub-Directories to include in Recursive Searches<br/>
+指定哪些类型的子目录在递归查找时包含</p>
+
+<p>Use Header Maps<br/>
+User Header Search Paths</p>
+
+<p>设置头文件搜索路径，这个只有当Always Search User Path开启后才有效。</p>
+
+<p>signing<br/>
+<img src="media/15036253170711/4898159-109e2cfaad3d8e61.jpg" alt="4898159-109e2cfaad3d8e61"/><br/>
+Code Signing Entitlements</p>
+
+<p>授权机制。在Xcode的capabilities选项卡下选择一些选项后，Xcode就会生成这样一段XML，Xcode会自动生成一个entitlements文件，然后再需要的时候往里面添加条目。当构建整个应用时，这个文件也会提及给codesign作为应用所需要拥有哪些授权的参考。这些授权信息必须都在开发者中心的AppID中启用，并且包含在配置文件中。</p>
+
+<p>Code Signing Identity</p>
+
+<p>配置证书</p>
+
+<p>Development Team</p>
+
+<p>开发者所在的群组</p>
+
+<p>Other Code Signing Flags</p>
+
+<p>常见的配置为--deep。用法不详。</p>
+
+<p>Provisioning Profile</p>
+
+<p>配置描述文件。</p>
+
+<p>User-Defined<br/>
+<img src="media/15036253170711/4898159-ce5b5ce3d3baa606.jpg" alt="4898159-ce5b5ce3d3baa606"/></p>
+
+<p>这里用户可以在debug、release或者自己定义的编译模式下设置不同的变量，可以达到一套代码同时支持多个不同版本的目的。比如可以编译出叫APP1和APP2两个名字不一样的APP。</p>
+
+<p>Packaging<br/>
+<img src="media/15036253170711/4898159-d26f0763a4bcd3f1.jpg" alt="4898159-d26f0763a4bcd3f1"/><br/>
+Defines Module</p>
+
+<p>是否定义模块。默认app类的工程为NO，framwork工程默认为YES。</p>
+
+<p>Expand Build Setting in Info.plist File</p>
+
+<p>告诉编译器是否处理info.plist。默认是YES。这是一个很大的特点，因为它避免了有根据您的构建设置和配置不同的Info.plist中，避免您在多个地方修改设置。 但是如果你真的不想要它，只需在项目或目标的构建设置中关闭此设置。</p>
+
+<p>Info.plist File</p>
+
+<p>创建工程后默认会创建一个info.plist文件。也可以根据需要进行主动创建。</p>
+
+<p>Private Headers Folder Path</p>
+
+<p>私有头文件的存放位置。</p>
+
+<p>Product Bundle Identifier</p>
+
+<p>产品bundle的标识</p>
+
+<p>Product Module Name</p>
+
+<p>产品模块名称</p>
+
+<p>Product Name</p>
+
+<p>产品名称</p>
+
+<p>Public Headers Folder Path</p>
+
+<p>公共头文件路径</p>
+
+<p>Wrapper Extension</p>
+
+<p>打包的扩展名，默认app。</p>
+
+<p>Preprocessing<br/>
+<img src="media/15036253170711/4898159-fd3003b39d067534.jpg" alt="4898159-fd3003b39d067534"/></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[发现女儿早恋，这个爸爸的做法刷爆朋友圈！]]></title>
+    <link href="http://www.hanyegudeng.com/15030458956017.html"/>
+    <updated>2017-08-18T16:44:55+08:00</updated>
+    <id>http://www.hanyegudeng.com/15030458956017.html</id>
+    <content type="html"><![CDATA[
+<p>如果有一天你的孩子告诉你，或者你发现他喜欢班级里某个人，你会怎么做？</p>
+
+<p>心急的家长可能根本没办法做到平心静气，能像这位爸爸一样控制住焦躁的心急，抽丝剥茧不动声色，又幽默风趣，巧妙机智地把女儿带上正确的路，真的让人佩服！</p>
+
+<p>不得不说，父母只有蹲下来，平等跟孩子对话，真诚地跟孩子成为朋友，才能更有效地引领孩子成长。</p>
+
+<ul>
+<li>01 </li>
+</ul>
+
+<p>女儿高三那年，我最担心的事发生了——女儿暗恋上了她们班的班长，一个阳光帅气有激情，学习好得不要不要的“男神”。</p>
+
+<p>根据我的经验，这样的男生，应该不仅仅是女儿一个人的“神”，而是好多女生心中的“神”。我在班级群里侧面一打听，果然，好多女生都对他崇拜得不得了，只是女儿为这段暗恋付出的代价更为惨重，月考成绩惨不忍睹。</p>
+
+<p>知道成绩那天，我正在上海出差，接到妻子的电话，我连夜赶回。一路上，我都在焦虑地猜想是什么原因。</p>
+
+<p>女儿所在的高中，是武汉市最牛的学校，她所在的班，也是令许多家长羡慕的高分班。当年女儿考进这所学校时，赢得了许多羡慕嫉妒恨的目光。</p>
+
+<p>开学之初，在是否住校这个问题上，我和女儿有了一次小小的争执。我提出和她妈妈租房陪读，女儿强烈反对：“我不是犯人，不需要你们看着。”</p>
+
+<p>最后，我妥协了，女儿自控能力挺强，这一点我是有自信的，初中时我就没怎么管过她学习，一切都凭她自觉。</p>
+
+<p>女儿住校后，成绩一直稳居年级前100名，这个成绩基本上读重本是没问题的，我在这方面比较想得开，从没逼她一定要考什么清华北大，只要她考的是她喜欢的城市喜欢的专业，就可以。</p>
+
+<p>但是没想到，女儿一直稳稳的成绩，竟然直接滑到了连上一本都摇摇晃晃的地步！</p>
+
+<ul>
+<li>02 </li>
+</ul>
+
+<p>女儿从小被我训练得心理很强大，一般的挫折根本撼不动她，而她让我最担心的弱点，就是重感情。电视剧、电影，或者书中感人的细节，都能让她哭得稀里哗啦的，莫不是早恋了？</p>
+
+<p>在女儿学校旁的一个咖啡店里，我把她约出来，像朋友一样地请她喝咖啡。等她全神戒备的心放下来后，我直截了当地问：“说吧，那个让你神魂颠倒，从重本线摔到专科线的人是谁？”</p>
+
+<p>女儿先是一愣，在我灼灼的目光中，她挫败地垂下了头，苦恼地说：“是我们班长，可是爸爸，他根本看不上我。”女儿说这话时，我心里猛地一抽，第一个反应是，我女儿差啥啊，他竟然看不上？</p>
+
+<p>我仔细打量了女儿一番后，明白了。我说：“你愿不愿意爸爸从男人的角度来给你分析一下为什么你们班长看不上你？”女儿的眼睛刷地一亮，期待又羞涩地点了点头。</p>
+
+<p>老实说，在时间如此紧迫的时刻，我却还浪费精力在这里给她分析感情问题，心里真像猫抓一样难受，但我清楚，这个时候一点点的呵斥和指责，都有可能会影响到女儿的未来，我不能冒这个险，无论我有多着急，都要一点一点剥茧抽丝地来。</p>
+
+<p>我对女儿说，从男人的角度来看，你绝不是大多数男人第一眼就能相中的对象。尤其像你们班长那样眼睛长在头顶上的，不可能喜欢你这种又高又胖的女孩，所以首先，你要从外形上改变。</p>
+
+<p>你看你进了高中后，暴饮暴食，那么爱喝可乐，把自己喝得现在130斤，虽然1米68的个子，这个体重只算是微胖界的一员，但是绝大多数男人都喜欢小鸟依人型的女孩，这是个不争的事实。</p>
+
+<p>所以，从现在起，你想追上班长，就得每天早晨起来晨跑，锻炼身体，减肥，修身。</p>
+
+<p>女儿低头看了看自己的体型，默默地点了点头。</p>
+
+<p>见女儿没反驳，我又接着放第二招：“一个女孩要想吸引男生的注意，除了长相外，最重要的还是内在的气质。这一点你不缺，从小我就培养你看古典诗词，教你弹古筝，学绘画，这些年为了考学，你基本全丢了，现在，你可以适当地捡起来，你们学校不是还有最后一次汇演吗？上去给他们青蛙打立正，露一小手你的《高山流水》，绝对可以一鸣惊人。”</p>
+
+<p>女儿被我说得一脸激动的绯红。</p>
+
+<p>看差不多了，我使出了杀手锏：“你要记住，男人是个矛盾的综合体，谈恋爱的时候可能会只看长相，但在结婚对象的选择上，他们很现实。一要看你的家世，二要看你的能耐。千万别信哪个男人说会养你的鬼话，真正可以无怨无悔养你的男人只有你亲爹。”</p>
+
+<p>所以，想要让一个男人爱上你，你得自己能力出众，先让他佩服你。爱自己的女人，才会有被人爱的机会。你看看你现在，成绩与班长天差地远，别说爱，就连友情都是奢望。 </p>
+
+<ul>
+<li>03 </li>
+</ul>
+
+<p>女儿经过一番训导，终于想通了：“爸爸，我想改头换面，你能帮我吗？”我一拍胸脯：“这个时候，我不帮你谁帮你？爸爸还可以跟你保证，这是我和你两个人的秘密，连你妈我都不会让她知道。”</p>
+
+<p>女儿愣了片刻，扑过来给了我一个大大的拥抱。我瞬间泪湿，女儿上初中后，对我就再没有这样亲昵的动作了。抱着眼看就要高过我的女儿，我心里五味杂陈。</p>
+
+<p>我先以女儿马上要高考为由，说服了妻子在女儿学校边上租了个房子，又让女儿从住读改成走读。然后和妻子分工，她负责女儿的饮食，我负责女儿的健康。</p>
+
+<p>每天清晨，我都会陪着女儿早起慢跑，其实是观察女儿的思想动态，顺便跟她交交心，因为她会在这短短30分钟的跑步中，向我诉说她的甜蜜和烦恼：“今天我问班长题，他给我讲了半天。”</p>
+
+<p>我知道，对于暗恋中的女孩来讲，对方可能无意识的一句话、一个动作，她们都会觉得大过天。于是装着欣喜的样子祝贺她：“加油啊，你长得不难看，等你瘦成闪电的那一天，你们班长可能就不仅仅是给你讲一道题这么简单了。”女儿听我这么说，笑眯了眼。</p>
+
+<p>不久，我把女儿的古筝从家里搬来，学习累了的时候，就让她弹一弹。现在女孩会这东西的比较少，女儿曾学过7年古筝，虽久已不动，但弹起来还是能唬人的。妻子嫌女儿弹这东西浪费时间，我说你懂什么，这东西如今在校园里可是秒杀各种眼球的神器。</p>
+
+<p>那年年终的汇报演出，女儿上台弹奏了电视连续剧《红楼梦》插曲《枉凝眉》，艺惊全场。她回家后兴奋地抱着我大喊：“爸爸万岁！”</p>
+
+<p>原来，女儿不但为她的班级获得了一等奖的荣誉，还被全校男生冠以“古典女神”的封号。</p>
+
+<p>我笑眯眯地看着女儿，只半年时间，她坚持跑步，戒掉了可乐、肯德基等没营养的食品，加上妻子每天给她调整膳食，竟真的瘦下来30斤，再加上女儿长得白净温婉，还真有点古典美人儿的味道。 </p>
+
+<ul>
+<li>04 </li>
+</ul>
+
+<p>元旦过后，女儿对我说：“爸爸，我们班几个男生给我写了情书，怎么办？”我说：“这是好事啊，窈窕淑女君子好逑，很正常。你看看，你以前胖成那样，学习也掉下来了，哪个男孩会喜欢你呢？现在不一样了，你有了许多选择，不过现在我们不急，先把大学的目标立起来。”</p>
+
+<p>女儿听话地点头。最近一段时间，她的自信心被充分调动起来了，也很少在我面前提班长怎么样了，倒是我，总拿这个班长来刺激她：“人家可是真正的‘男神’，清华的苗子，有里有面儿，不是你想追就能追上的，你要有本事，应当反客为主，让他来追你。”</p>
+
+<p>不久，班长果然被保送进了清华。消息下来那天，班长特意买了本好看的纪念册，全班传着写留言。纪念册传到女儿手里，她悄悄给我打电话：“爸爸，我心里有些难受。”</p>
+
+<p>我知道班长这大半年来，一直是女儿追逐的目标，如今这个目标走到了他的终点，而女儿还在悬着，何况她心里，还有一个未了的梦。</p>
+
+<p>我想了想，对她说：“你就给他写三个字：‘北京见’。一来可以含蓄地告诉他：你的目的地也是北京，将来还有相见的机会；二来也可以当作给自己的一个激励。”</p>
+
+<p>女儿照做了。那天，她回来告诉我，写完这三个字后，她看见班长眼里流露出一种期待和赞许。</p>
+
+<p>剩下的时间，就是冲刺了。女儿学习底子不差，只是因为单相思才掉下来了。我把女儿的心态调整好后，遍请各校名师，给女儿一对一补习，我给女儿的口号是：“胜利在向你招手，班长在前头。”女儿笑着反过来评价我是史上最不正经的老爸。</p>
+
+<p>就这样，我这个最不正经的老爸，拉着女儿在高考的路上玩命飞奔，2016年6月初，我把女儿送进高考战场时，对她说：“现在什么都别想，你记住，冷静地答完每一道题，你就赢了。”</p>
+
+<p>女儿点点头往教室走，走到半路又跑了回来，她趴在我耳边对我说：“爸爸，无论结果如何，我都谢谢你。”我迅速转过身，不敢让她看见我掉泪的样子。</p>
+
+<p>6月底，女儿的考分出来，竟然考了639分，远远超出了我对她的估值。我笑着对她说：“我们要不报个离清华近一点的学校吧。”她扭捏地看着我，不好意思地笑了。</p>
+
+<p>如今，女儿已经在中国传媒大学读大二，这个暑假回来，我问她个人感情的事，她吹牛说追她的人排到了五环外。我纵声大笑，没问这里面有没有班长。</p>
+
+<p>对一个父亲来说，能让女儿在成长的路上学会挑选，学会守住底线，学会化被动为主动，已经足矣。</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[iOS应用内跳转到系统设置页面]]></title>
+    <link href="http://www.hanyegudeng.com/15017301944011.html"/>
+    <updated>2017-08-03T11:16:34+08:00</updated>
+    <id>http://www.hanyegudeng.com/15017301944011.html</id>
+    <content type="html"><![CDATA[
+<p><code>转自：http://www.jianshu.com/p/5d82fb0c4051</code><br/>
+在iOS开发中，有时会有跳转系统设置界面的需求，例如提示用户打开蓝牙或者WIFI，提醒用户打开推送或者位置权限等。在iOS6之后，第三方应用需要跳转系统设置界面，需要在URL type中添加一个Prefs值，如下图：<br/>
+需要设置Prefs</p>
+
+<p>***注意 之前Prefs为prefs ，小写，现在P为大写</p>
+
+<p><img src="media/15017301944011/1151129-95391d4fb99a8e8c.png" alt="1151129-95391d4fb99a8e8"/></p>
+
+<p>设置跳转有三种方式，每一种的使用场景都不同。 并且你在跳转到系统中自己应用下面设置的时候，你的应用要提前至少申请了某一个权限，如通知，定位等。否则，会引起崩溃。</p>
+
+<p><code>方式一：prefs:root=某项服务<br/>
+方式二：prefs:root=bundleID<br/>
+方式三： UIApplicationOpenSettingsURLString<br/>
+本篇针对iOS7、iOS8、iOS9、iOS10，来介绍其中区别。</code></p>
+
+<p>一、跳转方法</p>
+
+<p>当iOS系统版本 &lt; iOS 10.0 时</p>
+
+<pre><code>NSURL *url= [NSURL URLWithString:@&quot;prefs:root=LOCATION_SERVICES&quot;];
+if( [[UIApplication sharedApplication]canOpenURL:url] ) {
+ [[UIApplication sharedApplication]openURL:url];
+}
+</code></pre>
+
+<p>当iOS系统版本 &gt;=iOS 10.0 时</p>
+
+<pre><code>if( [[UIApplication sharedApplication]canOpenURL:url] ) {
+[[UIApplication sharedApplication]openURL:url options:@{}completionHandler:^(BOOL  success) {
+
+}];
+}
+
+</code></pre>
+
+<p>二、跳转到哪里去？(系统的设置，系统中自己应用下面的设置)<br/>
+方式一：</p>
+
+<p>当 iOS系统版本 &lt;= iOS7时 , 只能跳转到 系统设置页面</p>
+
+<pre><code>NSURL *url= [NSURL URLWithString:@&quot;prefs:root=LOCATION_SERVICES&quot;];
+</code></pre>
+
+<p><code>跳转到: 隐私-定位服务。<br/>
+prefs:root=某项服务<br/>
+系统设置:prefs:root=INTERNET_TETHERING<br/>
+WIFI设置:prefs:root=WIFI<br/>
+蓝牙设置:prefs:root=Bluetooth<br/>
+系统通知:prefs:root=NOTIFICATIONS_ID<br/>
+通用设置:prefs:root=General<br/>
+显示设置:prefs:root=DISPLAY&amp;BRIGHTNESS<br/>
+壁纸设置:prefs:root=Wallpaper<br/>
+声音设置:prefs:root=Sounds<br/>
+隐私设置:prefs:root=privacy<br/>
+蜂窝网路:prefs:root=MOBILE_DATA_SETTINGS_ID<br/>
+音乐:prefs:root=MUSIC<br/>
+APP Store:prefs:root=STORE<br/>
+Notes:prefs:root=NOTES<br/>
+Safari:prefs:root=Safari<br/>
+Music:prefs:root=MUSIC<br/>
+photo&quot;:prefs:root=Photos<br/>
+这种跳转方式，都是跳转到系统的设置界面。<br/>
+</code></p>
+
+<p>方式二 :</p>
+
+<p>当 iOS系统版本 &gt;= iOS8 ，支持跳转到第三方应用的设置界面中<br/>
+使用prefs:root=bundleID ,bundleID是你第三方应用工程的唯一ID<br/>
+局限性：只支持iOS8,iOS9系统,在iOS10系统上，不会跳转。<br/>
+在iOS7系统上，仅仅只是跳转到设置应用，不推荐使用。</p>
+
+<pre><code>如果需要继续向项目内层进行跳转，可以通过添加path路径的方式，如下：
+关于本机:prefs:root=General&amp;path=About
+软件升级:prefs:root=General&amp;path=SOFTWARE_UPDATE_LINK
+日期时间:prefs:root=General&amp;path=DATE_AND_TIME
+Accessibility:prefs:root=General&amp;path=ACCESSIBILITY
+键盘设置:prefs:root=General&amp;path=Keyboard
+VPN:prefs:root=General&amp;path=VPN
+壁纸设置:@&quot;prefs:root=Wallpaper
+声音设置:prefs:root=Sounds
+隐私设置:prefs:root=privacy
+APP Store:prefs:root=STORE
+还原设置:prefs:root=General&amp;path=Reset
+应用通知:prefs:root=NOTIFICATIONS_ID&amp;path=应用的boundleId
+定位：prefs:root=LOCATION_SERVICES
+蜂窝网络：prefs:root=MOBILE_DATA_SETTINGS_ID
+VPN — prefs:root=General&amp;path=Network/VPN
+Wi-Fi：prefs:root=WIFI
+定位服务：prefs:root=LOCATION_SERVICES
+个人热点：prefs:root=INTERNET_TETHERING
+辅助功能：prefs:root=General&amp;path=ACCESSIBILITY
+飞行模式：prefs:root=AIRPLANE_MODE
+锁定：prefs:root=General&amp;path=AUTOLOCK
+亮度：prefs:root=Brightness
+蓝牙：prefs:root=General&amp;path=Bluetooth
+时间设置：prefs:root=General&amp;path=DATE_AND_TIME
+FaceTime：prefs:root=FACETIME
+设置：prefs:root=General
+键盘设置：prefs:root=General&amp;path=Keyboard
+iCloud：prefs:root=CASTLE
+iCloud备份：prefs:root=CASTLE&amp;path=STORAGE_AND_BACKUP
+语言：prefs:root=General&amp;path=INTERNATIONAL
+音乐：prefs:root=MUSIC
+Music Equalizer — prefs:root=MUSIC&amp;path=EQ
+Music Volume Limit — prefs:root=MUSIC&amp;path=VolumeLimit
+Network — prefs:root=General&amp;path=Network
+Nike + iPod — prefs:root=NIKE_PLUS_IPOD
+Notes — prefs:root=NOTES
+Notification — prefs:root=NOTIFICATIONS_ID
+Phone — prefs:root=Phone
+Photos — prefs:root=Photos
+Profile — prefs:root=General&amp;path=ManagedConfigurationList
+Reset — prefs:root=General&amp;path=Reset
+Safari — prefs:root=Safari
+Siri — prefs:root=General&amp;path=Assistant
+Sounds — prefs:root=Sounds
+Software Update — prefs:root=General&amp;path=SOFTWARE_UPDATE_LINK
+Store — prefs:root=STORE
+Twitter — prefs:root=TWITTER
+Usage — prefs:root=General&amp;path=USAGE
+Wallpaper — prefs:root=Wallpaper
+
+</code></pre>
+
+<p>方式三<br/>
+当 iOS系统版本 &gt;= iOS8，支持跳转到自己应用设置，不支持跳转到系统设置</p>
+
+<pre><code>NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+</code></pre>
+
+<p>UIApplicationOpenSettingsURLString字段，是在iOS8上才提供的，支持iOS8,iOS9,iOS10系统，推荐使用。</p>
+
+<p>当iOS系统版本&gt;= iOS10，支持跳转到自己应用设置，不支持跳转到系统设置</p>
+
+<pre><code>NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString]; 
+</code></pre>
+
+<p>跳转。<br/>
+而 prefs:root=bundleID和 prefs:root=服务 都将不起作用。</p>
+
+<p>总结一下:</p>
+
+<p>方式一：prefs:root=某项服务 适用于 小于 iOS10的系统；<br/>
+方式二：prefs:root=bundleID 适用于 大于等于iOS8系统，小于iOS10的系统<br/>
+方式三：UIApplicationOpenSettingsURLString 适用于 大于等于iOS8的系统</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[iOS APP提交审核被拒因Guideline 2.5.2 - Performance - Software Requirements]]></title>
+    <link href="http://www.hanyegudeng.com/15017289646320.html"/>
+    <updated>2017-08-03T10:56:04+08:00</updated>
+    <id>http://www.hanyegudeng.com/15017289646320.html</id>
+    <content type="html"><![CDATA[
+<p>如果找不到原因试试这个方法<br/>
+找到打包的ipa文件，找到对应的执行文件，copy一个出来<br/>
+运行下面命令</p>
+
+<pre><code>nm -n xxx(可执行文件或者.a) &gt;&gt; a.txt
+</code></pre>
+
+<p>搜索a.txt里面是否有dlopen(), dlsym()。如果有，就要查看对应的第三方.a那个有，然后更新或者删除。再重新提交</p>
+
+<p>后续：<br/>
+这个检测过又被拒了，还是一样的原因。没辙，只好苦苦哀求苹果大大，问原因了，还好，告诉我了，是用了fir.im的接口。我哭了。很早测试的时候用了fir.im的自动更新接口，没想到埋了这么大一个地雷。fir.im进了苹果的黑名单，也没通知，就这么悲催了。移除fir.im的任何东西，审核通过（等了2周）</p>
+
+<p>再续：<br/>
+后面又提交了一个版本，还想着还会2周呢，没想到隔天就过了。😄</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Swift使用pod找不到文件的解决方案]]></title>
+    <link href="http://www.hanyegudeng.com/14966306832048.html"/>
+    <updated>2017-06-05T10:44:43+08:00</updated>
+    <id>http://www.hanyegudeng.com/14966306832048.html</id>
+    <content type="html"><![CDATA[
+<p>遇到提示 .pcm 文件 outdate 的情况下需要你删除 $HOME/Library/Developer/Xcode/DerivedData/ModuleCache 目录，这个目录保存的是预编译模块，类似于预编译头文件。</p>
+
+<p>目前 Swift 还是有很多 BUG 的，调用 NSObject 也许会让编译器直接 segment fault ，不带任何出错信息。很伤情。此时请第一时间检查语法是否有诡异，其次将所有用到字符串或者 Optional 的地方都额外用变量处理，避免用字面常量。（个人经验）</p>
+
+<p>如果多次调用 pod install 并在其中修改过 Podfile，那么有可能你的项目依赖会乱掉，多了不存在的 .a 文件到依赖或者多次包含。手工在项目树和项目选项里删除就可以了。此类编译错误都是链接错误。</p>
+
+<p>build setting —&gt;Framework Search Paths<br/>
+add \((inherited),\)(SRCROOT)</p>
+
+<p>/Users/xxx/Library/Developer/Xcode/DerivedData/ModuleCache/ </p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[iOS监听键盘的删除按键事件]]></title>
+    <link href="http://www.hanyegudeng.com/14942311266949.html"/>
+    <updated>2017-05-08T16:12:06+08:00</updated>
+    <id>http://www.hanyegudeng.com/14942311266949.html</id>
+    <content type="html"><![CDATA[
+<p><strong>原文地址：<a href="http://blog.csdn.net/que_li/article/details/50586702">http://blog.csdn.net/que_li/article/details/50586702</a></strong></p>
+
+<p>需求场景描述 <br/>
+最近项目里有个场景，搜索添加成员的时候，需要类似于微信创建讨论组加人时的效果：启动搜索输入文本，点击删除文本，当文本全删除完的时候，在点击删除按键，可以删除选中的人，或者取消搜索状态。</p>
+
+<p>技术要点 <br/>
+这里，最主要的难点就是监听键盘删除键的点击事件。不管你用的是UITextView还是UITextField，当它们本身没有内容的时候点击删除按键，其实delegate是没有任何响应的，这里就需要我们用其它的办法监听到点击事件。</p>
+
+<p>实现过程 <br/>
+查看API我们不难发现，其实系统是有事件抛出来的：</p>
+
+<pre><code> @protocol UIKeyInput &lt;UITextInputTraits&gt;
+
+    - (BOOL)hasText;
+    - (void)insertText:(NSString *)text;
+    - (void)deleteBackward;
+
+    @end
+</code></pre>
+
+<p>所以，我们现在要做的就是实现这个协议，拿到deleteBackward的回调。 <br/>
+不过这个协议已经被UITextField实现了：</p>
+
+<pre><code>    NS_CLASS_AVAILABLE_IOS(2_0) @interface UITextField : UIControl &lt;UITextInput, NSCoding&gt; 
+
+</code></pre>
+
+<p>但是UITextFieldDelegate并没有抛出来。 <br/>
+所以，我们要做的就是从UITextField里面抛出这个协议。 <br/>
+自定义一个类，继承UITextField  </p>
+
+<pre><code>#import &lt;UIKit/UIKit.h&gt;
+
+@protocol keyInputTextFieldDelegate &lt;NSObject&gt;
+
+- (void) deleteBackward;
+
+@end
+
+@interface UITextFieldKeybordDelete : UITextField
+@property (nonatomic,weak) id&lt;keyInputTextFieldDelegate&gt;keyInputDelegate;
+@end
+</code></pre>
+
+<pre><code>#import &quot;UITextFieldKeybordDelete.h&quot;
+
+@implementation UITextFieldKeybordDelete
+
+/*
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect {
+    // Drawing code
+}
+*/
+
+- (void) deleteBackward{
+    [super deleteBackward];
+    
+    if (_keyInputDelegate &amp;&amp; [_keyInputDelegate respondsToSelector:@selector(deleteBackward)]) {
+        [_keyInputDelegate deleteBackward];
+    }
+    
+}
+
+@end
+</code></pre>
+
+<p>到此，我们已经能知道键盘的删除事件了，后面需要做什么逻辑，直接在deleteBackward回调里做就OK！</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Swift - Realm数据库的使用详解（附样例）]]></title>
+    <link href="http://www.hanyegudeng.com/14939612071684.html"/>
+    <updated>2017-05-05T13:13:27+08:00</updated>
+    <id>http://www.hanyegudeng.com/14939612071684.html</id>
+    <content type="html"><![CDATA[
+<p>原文：<a href="http://www.hangge.com/blog/cache/detail_891.html">http://www.hangge.com/blog/cache/detail_891.html</a></p>
+
+<p>1，什么是Realm<br/>
+Realm 于2014 年7月发布，是一个跨平台的移动数据库引擎，专门为移动应用的数据持久化而生。其目的是要取代 Core Data 和 SQLite。</p>
+
+<p>2，关于Realm，你要知道下面几点：<br/>
+（1）使用简单，大部分常用的功能（比如插入、查询等）都可以用一行简单的代码轻松完成，学习成本低。<br/>
+（2）Realm 不是基于 Core Data，也不是基于 SQLite 封装构建的。它有自己的数据库存储引擎。<br/>
+（3）Realm 具有良好的跨平台特性，可以在 iOS 和 Android 平台上共同使用。代码可以使用 Swift 、 Objective-C 以及 Java 语言来编写。<br/>
+（4）Realm 还提供了一个轻量级的数据库查看工具（Realm Browser）。你也可以用它进行一些简单的编辑操作（比如插入和删除操作） </p>
+
+<p>3，支持的类型<br/>
+（1）Realm 支持以下的属性类型：Bool、Int8、Int16、Int32、Int64、Double、Float、String、Date（精度到秒）以及Data.<br/>
+（2）也可以使用 List<object> 和 Object 来建立诸如一对多、一对一之类的关系模型，此外 Object 的子类也支持此功能。</p>
+
+<p>4，Realm的安装配置 <br/>
+（1）先去 Realm 的官网去下载最新框架：<a href="http://static.realm.io/downloads/swift/latest">http://static.realm.io/downloads/swift/latest</a><br/>
+（2）拖拽 RealmSwift.framework 和 Realm.framework 文件到”Embedded Binaries”选项中。选中 Copy items if needed 并点击 Finish<br/>
+原文:Swift - Realm数据库的使用详解（附样例）</p>
+
+<p>5，将数据插入到数据库中<br/>
+下面代码判断默认数据库中是否有数据，如果没有的话将几个自定义对像插入到数据库中。<br/>
+（1）这里以个人消费记录为例，我们先定义消费类别类，和具体消费记录类</p>
+
+<pre><code>import Foundation
+import RealmSwift
+ 
+//消费类型
+class ConsumeType:Object {
+    //类型名
+    dynamic var name = &quot;&quot;
+}
+ 
+//消费条目
+class ConsumeItem:Object {
+    //条目名
+    dynamic var name = &quot;&quot;
+    //金额
+    dynamic var cost = 0.00
+    //时间
+    dynamic var date = Date()
+    //所属消费类别
+    dynamic var type:ConsumeType?
+}
+</code></pre>
+
+<p>（2）判断数据库记录是否为空，空的话则插入数据库（这里以默认数据库为例）<br/>
+```<br/>
+import UIKit<br/>
+import RealmSwift</p>
+
+<p>class ViewController: UIViewController {</p>
+
+<pre><code>override func viewDidLoad() {
+    super.viewDidLoad()
+
+    //使用默认的数据库
+    let realm = try! Realm()
+    //查询所有的消费记录
+    let items = realm.objects(ConsumeItem.self)
+    //已经有记录的话就不插入了
+    if items.count&gt;0 {
+        return
+    }
+
+    //创建两个消费类型
+    let type1 = ConsumeType()
+    type1.name = &quot;购物&quot;
+    let type2 = ConsumeType()
+    type2.name = &quot;娱乐&quot;
+
+    //创建三个消费记录
+    let item1 = ConsumeItem(value: [&quot;买一台电脑&quot;,5999.00,Date(),type1]) //可使用数组创建
+
+    let item2 = ConsumeItem()
+    item2.name = &quot;看一场电影&quot;
+    item2.cost = 30.00
+    item2.date = Date(timeIntervalSinceNow: -36000)
+    item2.type = type2
+
+    let item3 = ConsumeItem()
+    item3.name = &quot;买一包泡面&quot;
+    item3.cost = 2.50
+    item3.date = Date(timeIntervalSinceNow: -72000)
+    item3.type = type1
+
+    // 数据持久化操作（类型记录也会自动添加的）
+    try! realm.write {
+        realm.add(item1)
+        realm.add(item2)
+        realm.add(item3)
+    }
+
+    //打印出数据库地址
+    print(realm.configuration.fileURL)
+}
+
+override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+}
+</code></pre>
+
+<p>}<br/>
+```<br/>
+6，Data类型数据的存取<br/>
+参考另一篇文章：Swift - Realm数据库中图片的插入、读取（Data类型数据的存储） </p>
+
+<p>7，使用Realm Browser查看数据库<br/><br/>
+（1）默认数据库是应用的 Documents 文件夹下的一个名为“default.realm”。</p>
+
+<p>//打印出数据库地址<br/>
+print(realm.configuration.fileURL)<br/>
+（2）使用 Realm Browser 工具可以很方便的对.realm数据库进行读取和编辑（在 App Store 中搜索 Realm Browser 即可下载）。<br/>
+可以看到，上面的几个对象已经成功的插入到数据库中来。</p>
+
+<p>8，从数据库中读取记录并显示到表格中来<br/>
+（1）通过查询操作，Realm 将会返回包含 Object 集合的 Results 实例。Results 的表现和 Array 十分相似，并且包含在 Results 中的对象能够通过索引下标进行访问。 <br/>
+（2）所有的查询（包括查询和属性访问）在 Realm 中都是延迟加载的，只有当属性被访问时，才能够读取相应的数据。 <br/>
+（3）查询结果并不是数据的拷贝：修改查询结果（在写入事务中）会直接修改硬盘上的数据。</p>
+
+<p>下面我们把库里的数据加载出来，并通过表格显示出来。<br/>
+效果图如下：<br/>
+原文:Swift - Realm数据库的使用详解（附样例）</p>
+
+<p>代码如下：<br/>
+```<br/>
+import UIKit<br/>
+import RealmSwift</p>
+
+<p>class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource  {</p>
+
+<pre><code>@IBOutlet weak var tableView: UITableView!
+
+var dformatter = DateFormatter()
+
+//保存从数据库中查询出来的结果集
+var consumeItems:Results&lt;ConsumeItem&gt;?
+
+override func viewDidLoad() {
+    super.viewDidLoad()
+
+    self.dformatter.dateFormat = &quot;MM月dd日 HH:mm&quot;
+
+    self.tableView!.delegate = self
+    self.tableView!.dataSource = self
+    //创建一个重用的单元格
+    self.tableView!.register(UITableViewCell.self, forCellReuseIdentifier: &quot;MyCell&quot;)
+
+    //使用默认的数据库
+    let realm = try! Realm()
+    //查询所有的消费记录
+    consumeItems = realm.objects(ConsumeItem.self)
+}
+
+//在本例中，只有一个分区
+func numberOfSections(in tableView: UITableView) -&gt; Int {
+    return 1;
+}
+
+//返回表格行数（也就是返回控件数）
+func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int {
+    return self.consumeItems!.count
+}
+
+//创建各单元显示内容(创建参数indexPath指定的单元）
+func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
+    -&gt; UITableViewCell {
+    //同一形式的单元格重复使用，在声明时已注册
+    let cell = UITableViewCell(style: .value1, reuseIdentifier: &quot;MyCell&quot;)
+    let item = self.consumeItems![indexPath.row]
+    cell.textLabel?.text = item.name + &quot; ￥&quot; + String(format: &quot;%.1f&quot;, item.cost)
+    cell.detailTextLabel?.text = self.dformatter.string(from: item.date)
+    return cell
+}
+
+override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+}
+</code></pre>
+
+<p>}<br/>
+<code><br/>
+9，查询前N条数据<br/>
+Realm无法直接限制查询数量。所以我们如果想要查出部分数据（比如前5条记录），也是全部查出来后在结果集中捞取。<br/>
+</code><br/>
+//查询并取出前5条数据<br/>
+let dogs = try! Realm().objects(Dog.self)<br/>
+for i in 0..&lt;5 {<br/>
+    let dog = dogs[i]<br/>
+    // ...<br/>
+}<br/>
+```<br/>
+Realm为何无法限制查询数量？<br/>
+通常查询数据库数据时，我们可以在sql语句中添加一些限制语句（比如rownum，limit，top等）来限制返回的结果集的行数。<br/>
+但我们使用Realm会发现，它没有这种分页功能，感觉不管查什么都是把所有的结果都捞出来。比如我们只要User表的前10条数据，那么做法是先查询出所有的User数据，再从结果集中取出前10条数据。<br/>
+有人可能会担心，如果数据库中数据非常多，那每次都这么查不会影响性能吗？<br/>
+其实大可放心，由于Realm都是延迟加载的，只有当属性被访问时，才能够读取相应的数据。不像通常数据库，查询后，查询结果是从数据库拷贝一份出来放在内存中的。而Realm的查询结果应该说是数据库数据的引用，就算你查出来，如果不用也不会占用什么内存。</p>
+
+<p>10，支持断言查询(Predicate)，这样可以通过条件查询特定数据<br/>
+同时可以使用链式查询数据。<br/>
+```<br/>
+//查询花费超过10元的消费记录(使用断言字符串查询)<br/>
+consumeItems = realm.objects(ConsumeItem.self).filter(&quot;cost &gt; 10&quot;)</p>
+
+<p>//查询花费超过10元的购物记录(使用 NSPredicate 查询)<br/>
+let predicate = NSPredicate(format: &quot;type.name = &#39;购物&#39; AND cost &gt; 10&quot;)<br/>
+consumeItems = realm.objects(ConsumeItem.self).filter(predicate)</p>
+
+<p>//使用链式查询<br/>
+consumeItems = realm.objects(ConsumeItem.self).filter(&quot;cost &gt; 10&quot;).filter(&quot;type.name = &#39;购物&#39;&quot;)</p>
+
+<pre><code>
+</code></pre>
+
+<p>支持的断言：<br/>
+比较操作数(comparison operand)可以是属性名称或者某个常量，但至少有一个操作数必须是属性名称；<br/>
+比较操作符 ==、&lt;=、&lt;、&gt;=、&gt;、!=, 以及 BETWEEN 支持 int、long、long long、float、double 以及 NSDate 属性类型的比较，比如说 age == 45；<br/>
+相等比较 ==以及!=，比如说Results<Employee>().filter(&quot;company == %@&quot;, company)<br/>
+比较操作符 == and != 支持布尔属性；<br/>
+对于 NSString 和 NSData 属性来说，我们支持 ==、!=、BEGINSWITH、CONTAINS 以及 ENDSWITH 操作符，比如说 name CONTAINS ‘Ja’；<br/>
+字符串支持忽略大小写的比较方式，比如说 name CONTAINS[c] ‘Ja’ ，注意到其中字符的大小写将被忽略；<br/>
+Realm 支持以下复合操作符：“AND”、“OR” 以及 “NOT”。比如说 name BEGINSWITH ‘J’ AND age &gt;= 32；<br/>
+包含操作符 IN，比如说 name IN {‘Lisa’, ‘Spike’, ‘Hachi’}；<br/>
+==、!=支持与 nil 比较，比如说 Results<Company>().filter(&quot;ceo == nil&quot;)。注意到这只适用于有关系的对象，这里 ceo 是 Company 模型的一个属性。<br/>
+ANY 比较，比如说 ANY student.age &lt; 21<br/>
+注意，虽然我们不支持复合表达式类型(aggregate expression type)，但是我们支持对对象的值使用 BETWEEN 操作符类型。比如说，Results<Person>.filter(&quot;age BETWEEN %@&quot;, [42, 43]])。<br/>
+<code><br/>
+11，查询结果的排序<br/>
+</code><br/>
+//查询花费超过10元的消费记录,并按升序排列<br/>
+consumeItems = realm.objects(ConsumeItem.self).filter(&quot;cost &gt; 10&quot;).sorted(byProperty: &quot;cost&quot;)<br/>
+<code><br/>
+12，使用List实现一对多关系<br/>
+List 中可以包含简单类型的 Object，表面上和可变的 Array 非常类似。<br/>
+注意：List 只能够包含 Object 类型，不能包含诸如String之类的基础类型。 <br/>
+如果打算给我们的 Person 数据模型添加一个“dogs”属性，以便能够和多个“dogs”建立关系，也就是表明一个 Person 可以有多个 Dog，那么我们可以声明一个List类型的属性：<br/>
+</code><br/>
+class Person: Object {<br/>
+    ... // 其余的属性声明<br/>
+    let dogs = List<Dog>()<br/>
+}</p>
+
+<p>// 这里我们就可以使用已存在的狗狗对象来完成初始化<br/>
+let aPerson = Person(value: [&quot;李四&quot;, 30, [aDog, anotherDog]])</p>
+
+<p>// 还可以使用多重嵌套<br/>
+let aPerson = Person(value: [&quot;李四&quot;, 30, [[&quot;小黑&quot;, 5], [&quot;旺财&quot;, 6]]])<br/>
+可以和之前一样，对 List 属性进行访问和赋值：</p>
+
+<p>let someDogs = realm.objects(Dog.self).filter(&quot;name contains &#39;小白&#39;&quot;)<br/>
+ZhangSan.dogs.append(objectsIn: someDogs)<br/>
+ZhangSan.dogs.append(dahuang)<br/>
+<code><br/>
+反向关系(Inverse Relationship)<br/>
+通过反向关系(也被称为反向链接(backlink))，您可以通过一个特定的属性获取和给定对象有关系的所有对象。 Realm 提供了“链接对象 (linking objects)” 属性来表示这些反向关系。借助链接对象属性，您可以通过指定的属性来获取所有链接到指定对象的对象。<br/>
+例如，一个 Dog 对象可以拥有一个名为 owners 的链接对象属性，这个属性中包含了某些 Person 对象，而这些 Person 对象在其 dogs 属性中包含了这一个确定的 Dog 对象。您可以将 owners 属性设置为 LinkingObjects 类型，然后指定其关系，说明其当中包含了 Person 对象。<br/>
+</code><br/>
+class Dog: Object {<br/>
+    dynamic var name = &quot;&quot;<br/>
+    dynamic var age = 0</p>
+
+<pre><code>// Realm 并不会存储这个属性，因为这个属性只定义了 getter
+// 定义“owners”，和 Person.dogs 建立反向关系
+let owners = LinkingObjects(fromType: Person.self, property: &quot;dogs&quot;)
+</code></pre>
+
+<p>}<br/>
+<code><br/>
+13，添加主键(Primary Keys) <br/>
+重写 Object.primaryKey() 可以设置模型的主键。<br/>
+声明主键之后，对象将被允许查询，更新速度更加高效，并且要求每个对象保持唯一性。<br/>
+一旦带有主键的对象被添加到 Realm 之后，该对象的主键将不可修改。<br/>
+</code><br/>
+class Person: Object {<br/>
+  dynamic var id = 0<br/>
+  dynamic var name = &quot;&quot;</p>
+
+<p>override static func primaryKey() -&gt; String? {<br/>
+    return &quot;id&quot;<br/>
+  }<br/>
+}<br/>
+<code><br/>
+14，添加索引属性(Indexed Properties)<br/>
+重写 Object.indexedProperties() 方法可以为数据模型中需要添加索引的属性建立索引：<br/>
+</code><br/>
+class Book: Object {<br/>
+  dynamic var price = 0<br/>
+  dynamic var title = &quot;&quot;</p>
+
+<p>override static func indexedProperties() -&gt; [String] {<br/>
+    return [&quot;title&quot;]<br/>
+  }<br/>
+}<br/>
+<code><br/>
+15，设置忽略属性(Ignored Properties)<br/>
+重写 Object.ignoredProperties() 可以防止 Realm 存储数据模型的某个属性。Realm 将不会干涉这些属性的常规操作，它们将由成员变量(var)提供支持，并且您能够轻易重写它们的 setter 和 getter。<br/>
+</code><br/>
+class Person: Object {<br/>
+  dynamic var tmpID = 0<br/>
+  var name: String { // 计算属性将被自动忽略<br/>
+    return &quot;(firstName) (lastName)&quot;<br/>
+  }<br/>
+  dynamic var firstName = &quot;&quot;<br/>
+  dynamic var lastName = &quot;&quot;</p>
+
+<p>override static func ignoredProperties() -&gt; [String] {<br/>
+    return [&quot;tmpID&quot;]<br/>
+  }<br/>
+}<br/>
+<code><br/>
+16，修改更新数据 <br/>
+（1）直接更新内容<br/>
+</code><br/>
+// 在一个事务中更新对象<br/>
+try! realm.write {<br/>
+  consumeItem.name = &quot;去北京旅行&quot;<br/>
+}<br/>
+<code><br/>
+（2）通过主键更新<br/>
+如果您的数据模型中设置了主键的话，那么您可以使用 Realm().add(_:update:) 来更新对象（当对象不存在时也会自动插入新的对象。）<br/>
+</code><br/>
+/****** 方式1 ***/<br/>
+// 创建一个带有主键的“书籍”对象，作为事先存储的书籍<br/>
+let cheeseBook = Book()<br/>
+cheeseBook.title = &quot;奶酪食谱&quot;<br/>
+cheeseBook.price = 9000<br/>
+cheeseBook.id = 1</p>
+
+<p>// 通过 id = 1 更新该书籍<br/>
+try! realm.write {<br/>
+    realm.add(cheeseBook, update: true)<br/>
+}</p>
+
+<p>/****** 方式2 ***/<br/>
+// 假设带有主键值 <code>1</code> 的“书籍”对象已经存在<br/>
+try! realm.write {<br/>
+    realm.create(Book.self, value: [&quot;id&quot;: 1, &quot;price&quot;: 22], update: true)<br/>
+    // 这本书的<code>title</code>属性不会被改变<br/>
+}<br/>
+（3）键值编码 <br/>
+这个是在运行时才能决定哪个属性需要更新的时候，这个对于大量更新的对象极为有用。</p>
+
+<p>let persons = realm.objects(Person.self)<br/>
+try! realm.write {<br/>
+    // 更新第一个<br/>
+    persons.first?.setValue(true, forKeyPath: &quot;isFirst&quot;)<br/>
+    // 将每个人的 planet 属性设置为“地球”<br/>
+    persons.setValue(&quot;地球&quot;, forKeyPath: &quot;planet&quot;)<br/>
+}<br/>
+<code><br/>
+17，删除数据<br/>
+</code><br/>
+let cheeseBook = ... // 存储在 Realm 中的 Book 对象</p>
+
+<p>// 在事务中删除一个对象<br/>
+try! realm.write {<br/>
+  realm.delete(cheeseBook)<br/>
+}<br/>
+也能够删除数据库中的所有数据</p>
+
+<p>// 从 Realm 中删除所有数据<br/>
+try! realm.write {<br/>
+  realm.deleteAll()<br/>
+}<br/>
+<code><br/>
+18，Realm数据库配置 <br/>
+（1）修改默认的的数据库<br/>
+通过调用 Realm() 来初始化以及访问我们的 realm 变量。其指向的是应用的 Documents 文件夹下的一个名为“default.realm”的文件。<br/>
+通过对默认配置进行更改，我们可以使用不同的数据库。比如给每个用户帐号创建一个特有的 Realm 文件，通过切换配置，就可以直接使用默认的 Realm 数据库来直接访问各自数据库：<br/>
+</code><br/>
+func setDefaultRealmForUser(username: String) {<br/>
+    var config = Realm.Configuration()</p>
+
+<pre><code>// 使用默认的目录，但是使用用户名来替换默认的文件名
+config.fileURL = config.fileURL!.deletingLastPathComponent()
+    .appendingPathComponent(&quot;\(username).realm&quot;)
+
+// 将这个配置应用到默认的 Realm 数据库当中
+Realm.Configuration.defaultConfiguration = config
+</code></pre>
+
+<p>}<br/>
+<code><br/>
+（2）打包进项目里的数据库的使用<br/>
+如果需要将应用的某些数据（比如配置信息，初始化信息等）打包到一个 Realm 文件中，作为主要 Realm 数据库的扩展，操作如下：<br/>
+</code><br/>
+let config = Realm.Configuration(<br/>
+    // 获取需要打包文件的 URL 路径<br/>
+    fileURL: Bundle.main.url(forResource: &quot;MyBundledData&quot;, withExtension: &quot;realm&quot;),<br/>
+    // 以只读模式打开文件，因为应用数据包并不可写<br/>
+    readOnly: true)</p>
+
+<p>// 通过配置打开 Realm 数据库<br/>
+let realm = try! Realm(configuration: config)</p>
+
+<p>// 通过配置打开 Realm 数据库<br/>
+let results = realm.objects(Dog.self).filter(&quot;age &gt; 5&quot;)<br/>
+<code><br/>
+（3）内存数据库<br/>
+内存数据库在每次程序运行期间都不会保存数据。但是，这不会妨碍到 Realm 的其他功能，包括查询、关系以及线程安全。 假如您需要灵活的数据读写但又不想储存数据的话，那么内存数据库对您来说一定是一个不错的选择。<br/>
+</code><br/>
+let realm = try! Realm(configuration: Realm.Configuration(inMemoryIdentifier: &quot;MyInMemoryRealm&quot;))<br/>
+<code><br/>
+19，加密数据库 <br/>
+（1）加密后的 Realm文件不能跨平台使用（因为 NSFileProtection 只有 iOS 才可以使用） <br/>
+（2）Realm 文件不能在没有密码保护的 iOS 设备中进行加密。为了避免这些问题（或者您想构建一个 OS X 的应用），可以使用 Realm 提供的加密方法。 <br/>
+（3）加密过的 Realm 只会带来很少的额外资源占用（通常最多只会比平常慢10%）。<br/>
+</code><br/>
+/*****   在创建 Realm 数据库时采用64位的密钥对数据库文件进行 AES-256+SHA2 加密   ****/<br/>
+// 产生随机密钥<br/>
+var key = Data(count: 64)<br/>
+_ = key.withUnsafeMutableBytes { bytes in<br/>
+    SecRandomCopyBytes(kSecRandomDefault, 64, bytes)<br/>
+}</p>
+
+<p>// 打开加密文件<br/>
+let config = Realm.Configuration(encryptionKey: key)<br/>
+let realm:Realm<br/>
+do {<br/>
+    realm = try Realm(configuration: config)<br/>
+} catch let error as NSError {<br/>
+    // 如果密钥错误，<code>error</code> 会提示数据库不可访问<br/>
+    fatalError(&quot;Error opening realm: (error)&quot;)<br/>
+}</p>
+
+<p>// 和往常一样使用 Realm 即可<br/>
+let dogs = realm.objects(Book.self).filter(&quot;name contains &#39;Fido&#39;&quot;)<br/>
+<code><br/>
+20，数据迁移(Migration)<br/>
+（1）为何要迁移<br/>
+比如原来有如下 Person 模型：<br/>
+</code><br/>
+class Person: Object {<br/>
+    dynamic var firstName = &quot;&quot;<br/>
+    dynamic var lastName = &quot;&quot;<br/>
+    dynamic var age = 0<br/>
+}<br/>
+<code><br/>
+假如我们想要更新数据模型，给它添加一个 fullname 属性， 而不是将“姓”和“名”分离开来。<br/>
+</code><br/>
+class Person: Object {<br/>
+    dynamic var fullName = &quot;&quot;<br/>
+    dynamic var age = 0<br/>
+}<br/>
+```<br/>
+在这个时候如果您在数据模型更新之前就已经保存了数据的话，那么 Realm 就会注意到代码和硬盘上数据不匹配。 每当这时，您必须进行数据迁移，否则当您试图打开这个文件的话 Realm 就会抛出错误。 </p>
+
+<p>（2）如何进行数据迁移<br/>
+假设我们想要把上面所声明 Person 数据模型进行迁移。如下所示是最简单的数据迁移的必需流程：</p>
+
+<p>// 在(application:didFinishLaunchingWithOptions:)中进行配置<br/>
+ ```<br/>
+let config = Realm.Configuration(<br/>
+  // 设置新的架构版本。这个版本号必须高于之前所用的版本号<br/>
+  // （如果您之前从未设置过架构版本，那么这个版本号设置为 0）<br/>
+  schemaVersion: 1,</p>
+
+<p>// 设置闭包，这个闭包将会在打开低于上面所设置版本号的 Realm 数据库的时候被自动调用<br/>
+  migrationBlock: { migration, oldSchemaVersion in<br/>
+    // 目前我们还未进行数据迁移，因此 oldSchemaVersion == 0<br/>
+    if (oldSchemaVersion &lt; 1) {<br/>
+      // 什么都不要做！Realm 会自行检测新增和需要移除的属性，然后自动更新硬盘上的数据库架构<br/>
+    }<br/>
+  })</p>
+
+<p>// 告诉 Realm 为默认的 Realm 数据库使用这个新的配置对象<br/>
+Realm.Configuration.defaultConfiguration = config<br/>
+ ```<br/>
+// 现在我们已经告诉了 Realm 如何处理架构的变化，打开文件之后将会自动执行迁移<br/>
+let realm = try! Realm()<br/>
+虽然这个迁移操作是最精简的了，但是我们需要让这个闭包能够自行计算新的属性（这里指的是 fullName），这样才有意义。 在迁移闭包中，我们能够调用Migration().enumerateObjects(_:_:) 来枚举特定类型的每个 Object 对象，然后执行必要的迁移逻辑。注意，对枚举中每个已存在的 Object 实例来说，应该是通过访问 oldObject 对象进行访问，而更新之后的实例应该通过 newObject 进行访问：</p>
+
+<p>// 在 application(application:didFinishLaunchingWithOptions:) 中进行配置<br/>
+ <code><br/>
+Realm.Configuration.defaultConfiguration = Realm.Configuration(<br/>
+  schemaVersion: 1,<br/>
+  migrationBlock: { migration, oldSchemaVersion in<br/>
+    if (oldSchemaVersion &lt; 1) {<br/>
+      // enumerateObjects(ofType:_:) 方法遍历了存储在 Realm 文件中的每一个“Person”对象<br/>
+      migration.enumerateObjects(ofType: Person.className()) { oldObject, newObject in<br/>
+        // 将名字进行合并，存放在 fullName 域中<br/>
+        let firstName = oldObject![&quot;firstName&quot;] as! String<br/>
+        let lastName = oldObject![&quot;lastName&quot;] as! String<br/>
+        newObject![&quot;fullName&quot;] = &quot;\(firstName) \(lastName)&quot;<br/>
+      }<br/>
+    }<br/>
+  })<br/>
+</code><br/>
+21，使用带有 REST API 功能的 Realm 数据库示例<br/>
+我们将从 豆瓣FM的API 那里获取一组 JSON 格式的频道数据，然后将它以 Realm Objects 的形式储存到默认的 Realm 数据库里。 <br/>
+（1）json数据格式如下：<br/>
+<code><br/>
+{ <br/>
+ &quot;channels&quot;: [<br/>
+        {<br/>
+            &quot;name_en&quot;: &quot;Personal Radio&quot;,<br/>
+            &quot;seq_id&quot;: 0,<br/>
+            &quot;abbr_en&quot;: &quot;My&quot;,<br/>
+            &quot;name&quot;: &quot;私人兆赫&quot;,<br/>
+            &quot;channel_id&quot;: 0<br/>
+        },<br/>
+        {<br/>
+            &quot;name&quot;: &quot;华语&quot;,<br/>
+            &quot;seq_id&quot;: 0,<br/>
+            &quot;abbr_en&quot;: &quot;&quot;,<br/>
+            &quot;channel_id&quot;: &quot;1&quot;,<br/>
+            &quot;name_en&quot;: &quot;&quot;<br/>
+        },<br/>
+        {<br/>
+            &quot;name&quot;: &quot;欧美&quot;,<br/>
+            &quot;seq_id&quot;: 1,<br/>
+            &quot;abbr_en&quot;: &quot;&quot;,<br/>
+            &quot;channel_id&quot;: &quot;2&quot;,<br/>
+            &quot;name_en&quot;: &quot;&quot;<br/>
+        }<br/>
+    ]<br/>
+}<br/>
+</code><br/>
+（2）我们将直接把 Dictionary 插入到 Realm 中，然后让 Realm 自行快速地将其映射到 Object 上。<br/>
+（从 iOS9 起，新特性要求App访问网络请求，要采用 HTTPS 协议。直接请求HTTP数据会报错，解决办法可以参照的我另一篇文章：Swift - 网络请求报App Transport Security has blocked a cleartext错）<br/>
+为了确保示例能够成功，我们需要一个所有属性完全匹配 JSON 键结构的 Object 结构体。如果 JSON 的键结构不匹配 Object 结构体属性结构的话，那么就会在插入时被忽略。<br/>
+```<br/>
+import UIKit<br/>
+import RealmSwift</p>
+
+<p>class ViewController: UIViewController {</p>
+
+<pre><code>override func viewDidLoad() {
+    super.viewDidLoad()
+
+    // 调用API
+    let url = URL(string: &quot;http://www.douban.com/j/app/radio/channels&quot;)!
+    let response = try! Data(contentsOf: url)
+
+    // 对 JSON 的回应数据进行反序列化操作
+    let json = try! JSONSerialization.jsonObject(with: response,
+                            options: .allowFragments) as! [String:Any]
+    let channels = json[&quot;channels&quot;] as! [[String:Any]]
+
+    let realm = try! Realm()
+    try! realm.write {
+        // 为数组中的每个元素保存一个对象（以及其依赖对象）
+        for channel in channels {
+            if channel[&quot;seq_id&quot;] as! Int == 0 {continue} //第一个频道数据有问题,丢弃三
+            realm.create(DoubanChannel.self, value: channel, update: true)
+        }
+    }
+
+    print(realm.configuration.fileURL)
+}
+
+override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+}
+</code></pre>
+
+<p>}<br/>
+ ```</p>
+
+<pre><code>//豆瓣频道
+class DoubanChannel:Object {
+    //频道id
+    dynamic var channel_id = &quot;&quot;
+    //频道名称
+    dynamic var name = &quot;&quot;
+    //频道英文名称
+    dynamic var name_en = &quot;&quot;
+    //排序
+    dynamic var seq_id = 0
+    dynamic var abbr_en = &quot;&quot;
+     
+    //设置主键
+    override static func primaryKey() -&gt; String? {
+        return &quot;channel_id&quot;
+    }
+}
+```
+
+（3）可以看到数据已经成功插入到库中了
+原文:Swift - Realm数据库的使用详解（附样例）
+
+
+22，当前版本的限制
+Realm 致力于平衡数据库读取的灵活性和性能。为了实现这个目标，在 Realm 中所存储的信息的各个方面都有基本的限制。例如：
+（1）类名称的长度最大只能存储 57 个 UTF8 字符。
+（2）属性名称的长度最大只能支持 63 个 UTF8 字符。
+（3）NSData 以及 String 属性不能保存超过 16 MB 大小的数据。如果要存储大量的数据，可通过将其分解为16MB 大小的块，或者直接存储在文件系统中，然后将文件路径存储在 Realm 中。如果您的应用试图存储一个大于 16MB 的单一属性，系统将在运行时抛出异常。
+（4）对字符串进行排序以及不区分大小写查询只支持“基础拉丁字符集”、“拉丁字符补充集”、“拉丁文扩展字符集 A” 以及”拉丁文扩展字符集 B“（UTF-8 的范围在 0~591 之间）。
+
+
+</code></pre>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[protocol buffer在iOS中的使用]]></title>
+    <link href="http://www.hanyegudeng.com/14938901246167.html"/>
+    <updated>2017-05-04T17:28:44+08:00</updated>
+    <id>http://www.hanyegudeng.com/14938901246167.html</id>
+    <content type="html"><![CDATA[
+<p>安装环境：</p>
+
+<pre><code>1. brew install automake
+2. brew install libtool
+3. brew install protobuf
+</code></pre>
+
+<p>安装好以后使用<code>protoc --help</code>看下是否有这个玩意<code>--objc_out</code>如果有就可以用protoc编译生成objective-c的代码了<br/>
+如果没有</p>
+
+<pre><code>1. gitclonegit@github.com:alexeyxo/protobuf-objc.git
+
+2. cdprotobuf-objc
+
+3. ./autogen.sh
+
+# 后面的参数保证 configure 能找到 protobuf 相关的头文件和库
+
+# 避免报 protobuf headers are required 错误
+
+4. ./configure CXXFLAGS=-I/usr/local/include LDFLAGS=-L/usr/local/lib
+
+5. make
+
+6. make install
+</code></pre>
+
+<p>编写proto文件：<br/>
+文件名为<code>user.proto</code></p>
+
+<pre><code class="language-syntax">
+message Contact {
+  string first_name = 1;
+  string last_name = 2;
+};
+
+message TestMessage{
+    string name = 1;
+    string address = 2;
+    Contact con = 3;
+};
+</code></pre>
+
+<p>使用protoc生成所需文件：<br/>
+1.生成oc的代码</p>
+
+<pre><code>protoc user.proto(这里是proto文件路径） --objc_out=“生成oc的路径”
+</code></pre>
+
+<p>2.生成swfit代码<br/>
+按照<code>https://github.com/apple/swift-protobuf</code>上面的说明，安装swift的plugin<br/>
+然后运行如下命令</p>
+
+<pre><code>protoc --plugin=protoc-gen-swift=“protoc-gen-swift所在路径” --swift_out=“生成的swfit路径” “proto文件所在路径”
+例如
+protoc --plugin=protoc-gen-swift=/Users/xxx/swift-protobuf/.build/debug/protoc-gen-swift --swift_out=. user.proto
+</code></pre>
+
+<p>使用</p>
+
+<pre><code>func getTestMessage(name:String,address:String) -&gt; TestMessage {
+        var t = TestMessage()
+        t.name = name
+        t.address = address
+        return t
+    }
+</code></pre>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Github 搜索技巧]]></title>
+    <link href="http://www.hanyegudeng.com/14938045272036.html"/>
+    <updated>2017-05-03T17:42:07+08:00</updated>
+    <id>http://www.hanyegudeng.com/14938045272036.html</id>
+    <content type="html"><![CDATA[
+<p>具体请移步：<a href="http://www.jianshu.com/p/7321caea2a08">http://www.jianshu.com/p/7321caea2a08</a></p>
+
+<ol>
+<li>Search
+如何查看一门语言的 Repository 排行榜（按 stars 数量排）？
+如图所示，以 Objective-C 为例，直接在输入框中输入 language:Objective-C stars:&gt;0， 然后再在右侧排名选项中选择 Most stars。
+为什么有些数据模糊搜索不到？
+比如，输入搜索关键字 “collectionView”，然后在左侧边栏 Languages 中选择 Objective-C ，发现搜索结果中没有 “PSTCollectionView” 这个Repository，实际上，如果搜索的是 “PSTCollectionView” 的话，确实是能搜索到的。
+从搜索结果中来看，“collectionView” 是被作为一个单词整体来进行搜索的，所以搜到的结果都是 Repository name 或者 description 中出现以 “collectionView” 开头或者包含 “-collectionView” 的单词的 Repository。
+所以为了能搜索到更多想要的结果，我们最好以单词为单位，用 OR 将各个关键字拼接起来进行搜索，例如，搜 “CollectionView OR UICollectionView OR collection” 而不是 “collectionView”。
+下面是两种搜索词的结果对比。</li>
+</ol>
+
+<p>2.Trending</p>
+
+<p>作为一枚程序猿，除了有目的的搜索之外，我们有时也需要去“瞎逛逛”，开阔一下眼界。如果你有空，不妨去 Github 的 <a href="https://github.com/trending">Trending</a> 看看最近发生了什么。See what the GitHub community is most excited about today! 在这里你可以看到各种不同开发语言的每天/周/月的最热门的 Repositories 和 Developers。比如前一段时间走红的 YYKit，苹果最近开源的 CareKit，等等。</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Git合并特定commits 到另一个分支]]></title>
+    <link href="http://www.hanyegudeng.com/14919781270379.html"/>
+    <updated>2017-04-12T14:22:07+08:00</updated>
+    <id>http://www.hanyegudeng.com/14919781270379.html</id>
+    <content type="html"><![CDATA[
+<p>有时候会遇到这种情况，对一个项目开了不同的几个分支，在开发的时候应该是要在A上开发的，结果跑到了B上面去，提交合并的时候也没看到，结果就郁闷了，各种混乱，回滚，代码没了。修改后再合并，会影响到对应的分支，最好就是针对某几次的提交，合并的特定的分支上。这个是可以实现的。<br/>
+做了如下的实验<br/>
+<img src="media/14919781270379/14919782919144.jpg" alt=""/><br/>
+master上输入1，2，3，4，5<br/>
+dev上1，2，3，4，5，6，7，8<br/>
+master上要实现1，2，3，4，5，7这样的功能，也就是要把dev上的7这次提交合并到master上。我是这么做的<br/>
+首先通过master再拉一个分支dev2（也可以不用拉），然后找到7的这次提交“f572e2a”，运行如下命令：<code>git cherry-pick f572e2a</code>，如果有冲突，解决冲突后即可。</p>
+
+<p><strong>合并某个分支上的一系列commits</strong><br/>
+在一些特性情况下，合并单个commit并不够，你需要合并一系列相连的commits。这种情况下就不要选择cherry-pick了，rebase 更适合。还以上例为例，假设你需要合并feature分支的commit aa7aa5d ~5bfe5c0 到master分支。<br/>
+首先需要基于feature创建一个新的分支，并指明新分支的最后一个commit：<code>git checkout -bnewbranch 5bfe5c0</code><br/>
+然后，rebase这个新分支的commit到master（--ontomaster）。aa7aa5d^ 指明你想从哪个特定的commit开始。<code>git rebase --ontomaster aa7aa5d^</code><br/>
+得到的结果就是feature分支的commit aa7aa5d ~5bfe5c0 都被合并到了master分支。</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[服务器使用分工及发布流程服务器环境分工]]></title>
+    <link href="http://www.hanyegudeng.com/14919041540453.html"/>
+    <updated>2017-04-11T17:49:14+08:00</updated>
+    <id>http://www.hanyegudeng.com/14919041540453.html</id>
+    <content type="html"><![CDATA[
+<p>服务器使用分工及发布流程服务器环境分工 <br/>
+每个系统四套环境<br/>
+1. 开发环境<br/>
+2. 测试环境<br/>
+3. 回归测试环境 (预生产环境)<br/>
+4. 生产环境</p>
+
+<p>各个环境说明以及发布流程<br/>
+开发环境<br/>
+环境说明<br/>
+* 项目负责人管理<br/>
+* 开发团队共享使用<br/>
+* 运维团队监控、协助、调整资源配额</p>
+
+<p>流程说明<br/>
+* 开发团队自行商议</p>
+
+<p>测试环境<br/>
+环境说明<br/>
+* 测试组负责人管理<br/>
+* 测试团队共享使用<br/>
+* 运维团队监控、协助、调整资源配额<br/>
+如果有项目多分支同时要进行测试，测试人员可以向运维申请临时测试服务器，申请时标注以下信息。<br/>
+* CPU几核<br/>
+* 内存<br/>
+* 网络要求<br/>
+* 临时服务器存活期<br/>
+* 临时服务器默认存活期2周<br/>
+* 需要续期的话测试团队至少提前一天向运维团队提出续期申请</p>
+
+<p>流程说明<br/>
+开发完毕后，由项目负责人发邮件至测试团队申请提测，标明以下事项：<br/>
+* 代码所在位置（分支或者tag）<br/>
+* 功能变动<br/>
+* 网络变动<br/>
+* SQL脚本<br/>
+* 发布脚本<br/>
+由测试组负责测试由代码变更影响的功能。<br/>
+回归测试环境<br/>
+环境说明<br/>
+* 测试组负责人管理<br/>
+* 测试团队共享使用<br/>
+* 运维团队监控、协助、调整资源配额</p>
+
+<p>流程说明<br/>
+测试完毕后<br/>
+* 把数据库变更的 SQL 脚本交给 DBA 审核<br/>
+* 由测试组把通过测试的代码拷贝到回归测试环境<br/>
+* 测试组负责全量回归</p>
+
+<p>生产环境<br/>
+环境说明<br/>
+* 运维团队管理<br/>
+* 运维以外人员无权登录<br/>
+* 运维团队监控、调整资源配额</p>
+
+<p>流程说明<br/>
+需要发布系统到生产环境时，需要项目负责人提供以下材料：<br/>
+* 发布的代码<br/>
+* 发布脚本<br/>
+* 更新数据库SQL脚本<br/>
+* 生产环境的配置文件<br/>
+* 域名<br/>
+* 发布时间<br/>
+* 环境依赖变更<br/>
+* 需要运维检查的注意事项<br/>
+运维人员需要比对运维组的线上发布检查列表<br/>
+1. 数据库更新脚本<br/>
+2. 配置文件及脚本<br/>
+3. 域名指向检查<br/>
+4. 测试是否跑通<br/>
+5. 回归测试是否跑通<br/>
+6. 目标机器环境是否满足发布条件<br/>
+7. 数据库更新脚本是否经过 DBA 审核</p>
+
+<p>注意事项<br/>
+* 运维会根据需要分配所需硬件资源，如内存，CPU，硬盘等<br/>
+* 运维定期负责检查各个系统的运行情况，监控内存，CPU，硬盘使用情况，如果需要可以做出动态调整<br/>
+* 回归测试前，针对数据库的修改脚本需要DBA审核通过后方可执行</p>
+
+<p><img src="media/14919041540453/FoRN5Z5WgO9LrMvzJ6wdmZx_g1l1.png" alt="FoRN5Z5WgO9LrMvzJ6wdmZx_g1"/></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[数据库备份会议记录]]></title>
+    <link href="http://www.hanyegudeng.com/14919034697502.html"/>
+    <updated>2017-04-11T17:37:49+08:00</updated>
+    <id>http://www.hanyegudeng.com/14919034697502.html</id>
+    <content type="html"><![CDATA[
+<p>对数据的备份是每家公司都要做的事情，简单的可以做一个定时任务，通过Mysql的自带的备份工具实现定时备份，至于时间间隔可以根据自己业务的复杂度数据库的读写频率来定。<br/>
+我们讨论了2种方案<br/>
+1.对主机做增量备份的方案<br/>
+    定时对数据库做全量备份<br/>
+    增量备份数据库或者Binlog文件<br/>
+    定时备份binlog历史数据<br/>
+2.针对主机做从库<br/>
+    定时对数据库做全量备份<br/>
+    定时备份binlog历史数据<br/>
+针对这两个方案，第一种方案对单个主机做增量备份，节省从库服务器资源，也能实现备份效果。第二种方案，增加一台从库作为备份机器，实时更新主机数据库内容，并且对后续的报表查询可以直接使用从库，减轻主数据库的压力。</p>
+
+<p>备份的过程中，要检测备份的完整性，例如备份出来的文件是否可用，备份是否及时。备份出现问题第一时间发出提醒。</p>
+
+<p>备份方案都需要依赖于Jenkins的环境，如果Jenkins机器出现故障，所有的备份将无法进行。所以我们对Jenkins服务器做了相互监控操作，开启一个服务监控Jenkins服务器，并且该服务是和Jenkins服务器不在同一个环境下，如果Jenkins服务器出现故障，第一时间响应处理。</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[提交AppStore前检查列表]]></title>
+    <link href="http://www.hanyegudeng.com/14909393913559.html"/>
+    <updated>2017-03-31T13:49:51+08:00</updated>
+    <id>http://www.hanyegudeng.com/14909393913559.html</id>
+    <content type="html"><![CDATA[
+<p>1.检查对应的Host连接是否正确<br/>
+2.检查对应的bundle设置是否正确<br/>
+3.检查对应的第三方key是否连接正常<br/>
+4.检查版本更新是否走的线上版本<br/>
+5.检查资源文件<br/>
+6.</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[运维]]></title>
+    <link href="http://www.hanyegudeng.com/14901491186168.html"/>
+    <updated>2017-03-22T10:18:38+08:00</updated>
+    <id>http://www.hanyegudeng.com/14901491186168.html</id>
+    <content type="html"><![CDATA[
+<p>1.整理公司服务器资源<br/>
+2.按照系统分配资源，开发，测试1，测试2，回归（预发布），正式。控制各个部分的权限<br/>
+    开发机器用于开发人员调试使用<br/>
+    测试1，测试2用于测试发布测试环境<br/>
+    回归测试发布<br/>
+    预发布运维人员发布<br/>
+    正式运维人员发布<br/>
+3.正式环境如果改变配置以及数据库等信息，必须要有记录，可以追溯到ip以及登录用户等信息<br/>
+4.服务器监控（硬盘，内存，网络），数据库监控<br/>
+5.文件资源管理服务搭建，用于保存对应的文档等资源文件<br/>
+6.公司内部VPN搭建，开发，测试可以放内网使用<br/>
+7.各个系统对应的swagger地址</p>
+
+<p>1.公司的服务器资源都有哪些，哪些是外部的，哪些是内部的<br/>
+2.这些资源都是如何分配的，设备上都运行的那个产品<br/>
+3.如何跟踪服务器的操作记录<br/>
+4.服务器监控都从哪几个方面入手，主要监控哪些指标，应急预案都有哪些<br/>
+5.如何和其他开发协作提供必要的帮助，例如参数数据库设计，开发的时候考虑性能问题等<br/>
+6.如何保证数据的安全，不丢失一条数据，数据备份、容灾预案<br/>
+7.如何确保线上环境的安全性，不被黑客轻而易举的攻击；预警应急机制的制定和实施<br/>
+8.哪些系统必须部署在外网，哪些可以在内网，哪些需要vpn访问<br/>
+9.制定开发，测试，生产发布流程，后续部署严格按照流程操作（需要和测试，开发一起讨论制定）<br/>
+10.绘制公司服务器架构图<br/>
+11.文档管理<br/>
+12.预演<br/>
+13.内部dns配置，防止每次改变ip后，开发就要对应修改地址<br/>
+14.域名系统整理和配置</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[T]]></title>
+    <link href="http://www.hanyegudeng.com/14878982505399.html"/>
+    <updated>2017-02-24T09:04:10+08:00</updated>
+    <id>http://www.hanyegudeng.com/14878982505399.html</id>
+    <content type="html"><![CDATA[
+<p>per APP VPN</p>
+
+<p><a href="https://developer.apple.com/library/prerelease/ios/featuredarticles/iPhoneConfigurationProfileRef/Introduction/Introduction.html">https://developer.apple.com/library/prerelease/ios/featuredarticles/iPhoneConfigurationProfileRef/Introduction/Introduction.html</a></p>
+
+<p><a href="http://blog.bi119ate5hxk.net/2013/09/13/ios-7%E4%B8%8A%E8%BF%9B%E8%A1%8Cper-app-vpn%E8%AE%BE%E7%BD%AE/">http://blog.bi119ate5hxk.net/2013/09/13/ios-7%E4%B8%8A%E8%BF%9B%E8%A1%8Cper-app-vpn%E8%AE%BE%E7%BD%AE/</a></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Objective-C中的锁及应用]]></title>
+    <link href="http://www.hanyegudeng.com/14864371153216.html"/>
+    <updated>2017-02-07T11:11:55+08:00</updated>
+    <id>http://www.hanyegudeng.com/14864371153216.html</id>
+    <content type="html"><![CDATA[
+<p><code>转自：http://foredoomed.org/blog/2014/02/26/olocks-in-objective-c/</code></p>
+
+<p>在多线程编程中，锁是非常重要的工具，而Objective-C提供了好几种不同类型的锁，下面就来看一下这些锁都是怎么用的。</p>
+
+<ol>
+<li>POSIX Mutex Lock</li>
+</ol>
+
+<p>Mutex lock也就是互斥锁，是Unix/Linux平台上提供的一套同步机制。互斥锁提供了三个函数，从函数名就可以知道他们的作用：</p>
+
+<pre><code>int pthread_mutex_lock(pthread_mutex_t *mutex);
+int pthread_mutex_trylock(pthread_mutex_t *mutex);
+int pthread_mutex_unlock(pthread_mutex_t *mutex);
+</code></pre>
+
+<p>函数pthread_mutex_trylock和pthread_mutex_lock的功能完全一致，只不过前者在获取锁失败的情况下会立即返回，而后者则会一直阻塞在那里直到获取到锁为止。互斥锁的使用非常的简单，直接调用上面三个API就可以了：</p>
+
+<pre><code>pthread_mutex_t mutex;
+void MyInitFunction()
+{
+    pthread_mutex_init(&amp;mutex, NULL);
+}
+ 
+void MyLockingFunction()
+{
+    pthread_mutex_lock(&amp;mutex);
+    // Do work.
+    pthread_mutex_unlock(&amp;mutex);
+}
+</code></pre>
+
+<ol>
+<li>NSLock</li>
+</ol>
+
+<p>NSLock类使用的是POSIX线程来实现它的锁操作，而且需要注意的是必须在同一线程内发送unlock消息，否则会发生不确定的情况。NSLock不能被用来实现迭代锁，因为如果发生lock消息两次的话，整个线程将被永久锁住。</p>
+
+<pre><code>BOOL moreToDo = YES;
+NSLock *theLock = [[NSLock alloc] init];
+...
+while (moreToDo) {
+    /* Do another increment of calculation */
+    /* until there’s no more to do. */
+    if ([theLock tryLock]) {
+        /* Update display used by all threads. */
+        [theLock unlock];
+    }
+}
+</code></pre>
+
+<ol>
+<li>@synchronized</li>
+</ol>
+
+<p>@synchronized是在Objective-C中最简单方法，只要有个Objective-C对象就可以完成线程同步操作。</p>
+
+<pre><code>- (void)myMethod:(id)anObj
+{
+    @synchronized(anObj)
+    {
+        // Everything between the braces is protected by the @synchronized directive.
+    }
+}
+</code></pre>
+
+<p>需要注意的是，@synchronized会隐式地添加异常处理代码，也就是当发生异常时会自动释放互斥锁，所以会有一定的性能损耗。</p>
+
+<ol>
+<li>NSRecursiveLock</li>
+</ol>
+
+<p>NSRecursiveLock类定义了可以被同一线程获取多次而不会造成死锁的锁。NSRecursiveLock可以被用在递归调用中，但是只有当多次获取的锁全部释放时，NSRecursiveLock才能被其他线程获取。</p>
+
+<pre><code>NSRecursiveLock *theLock = [[NSRecursiveLock alloc] init];
+ 
+void MyRecursiveFunction(int value)
+{
+    [theLock lock];
+    if (value != 0)
+    {
+        --value;
+        MyRecursiveFunction(value);
+    }
+    [theLock unlock];
+}
+ 
+MyRecursiveFunction(5);
+</code></pre>
+
+<ol>
+<li>NSConditionLock</li>
+</ol>
+
+<p>NSConditionLock定义了一个条件互斥锁，也就是当条件成立时就会获取到锁，反之就会释放锁。因为这个特性，条件锁可以被用在有特定顺序的处理流程中，比如生产者-消费者问题。</p>
+
+<pre><code>id condLock = [[NSConditionLock alloc] initWithCondition:NO_DATA];
+ 
+// producer
+while(true)
+{
+    [condLock lock];
+    /* Add data to the queue. */
+    [condLock unlockWithCondition:HAS_DATA];
+}
+ 
+// consumer
+while (true)
+{
+    [condLock lockWhenCondition:HAS_DATA];
+    /* Remove data from the queue. */
+    [condLock unlockWithCondition:(isEmpty ? NO_DATA : HAS_DATA)];
+ 
+    // Process the data locally.
+}
+</code></pre>
+
+<p>条件锁的初始状态是NO_DATA，所以生产者线程在这个时候就会获取到锁，生产完成后再把状态设置为HAS_DATA；这时消费者线程发现条件变成HAS_DATA后就可以获取到锁，直到消费结束后再把状态设置成NO_DATA。</p>
+
+<ol>
+<li>NSDistributedLock</li>
+</ol>
+
+<p>NSDistributedLock是跨进程的分布式锁，底层是用文件系统实现的互斥锁。NSDistributedLock没有实现NSLocking协议，所以没有会阻塞线程的lock方法，取而代之的是非阻塞的tryLock方法。NSDistributedLock只有在锁持有者显式地释放后才会被释放，也就是说当持有锁的应用崩溃后，其他应用就不能访问受保护的共享资源了。</p>
+
+<ol>
+<li>NSCondition</li>
+</ol>
+
+<p>NSCondition类是互斥锁和条件锁的结合体，也就是一个线程在等待信号而阻塞时，可以被另外一个线程唤醒。需要注意的是，由于操作系统实现的差异，即使在代码中没有发送signal消息，线程也有可能被唤醒，所以需要增加谓词变量来保证程序的正确性。</p>
+
+<pre><code>[cocoaCondition lock];
+while (timeToDoWork &lt;= 0)
+    [cocoaCondition wait];
+ 
+timeToDoWork--;
+ 
+// Do real work here.
+ 
+[cocoaCondition unlock];
+</code></pre>
+
+<p>在其他线程中唤醒：</p>
+
+<pre><code>[cocoaCondition lock];
+timeToDoWork++;
+[cocoaCondition signal];
+[cocoaCondition unlock];
+</code></pre>
+
+<ol>
+<li>POSIX Conditions</li>
+</ol>
+
+<p>在Unix/Linux平台上也提供了一套条件互斥锁的API：</p>
+
+<pre><code>// 初始化
+int pthread_cond_init (pthread_cond_t *cond, pthread_condattr_t *attr);
+ 
+// 等待（会阻塞）
+int pthread_cond_wait (pthread_cond_t *cond, pthread_mutex_t *mut);
+ 
+// 定时等待
+int pthread_cond_timedwait (pthread_cond_t *cond, pthread_mutex_t *mut, const struct timespec *abstime);
+ 
+// 唤醒
+int pthread_cond_signal (pthread_cond_t *cond);
+ 
+// 广播唤醒
+int pthread_cond_broadcast (pthread_cond_t *cond);
+ 
+// 销毁
+int pthread_cond_destroy (pthread_cond_t *cond);
+</code></pre>
+
+<p>和NSCondition类一样，POSIX Conditions也需要和谓词配合使用以确保程序的正确性。</p>
+
+<pre><code>pthread_mutex_t mutex;
+pthread_cond_t condition;
+Boolean     ready_to_go = true;
+ 
+void MyCondInitFunction()
+{
+    pthread_mutex_init(&amp;mutex);
+    pthread_cond_init(&amp;condition, NULL);
+}
+ 
+void MyWaitOnConditionFunction()
+{
+    // Lock the mutex.
+    pthread_mutex_lock(&amp;mutex);
+ 
+    // If the predicate is already set, then the while loop is bypassed;
+    // otherwise, the thread sleeps until the predicate is set.
+    while(ready_to_go == false)
+    {
+        pthread_cond_wait(&amp;condition, &amp;mutex);
+    }
+ 
+    // Do work. (The mutex should stay locked.)
+ 
+    // Reset the predicate and release the mutex.
+    ready_to_go = false;
+    pthread_mutex_unlock(&amp;mutex);
+}
+ 
+void SignalThreadUsingCondition()
+{
+    // At this point, there should be work for the other thread to do.
+    pthread_mutex_lock(&amp;mutex);
+    ready_to_go = true;
+ 
+    // Signal the other thread to begin work.
+    pthread_cond_signal(&amp;condition);
+ 
+    pthread_mutex_unlock(&amp;mutex);
+}
+</code></pre>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[iOS RSA的网络安全模型、iOS签名机制总结（登录、token安全、签名）]]></title>
+    <link href="http://www.hanyegudeng.com/14864326299242.html"/>
+    <updated>2017-02-07T09:57:09+08:00</updated>
+    <id>http://www.hanyegudeng.com/14864326299242.html</id>
+    <content type="html"><![CDATA[
+<p><code>转自：http://www.jianshu.com/p/2927ca2b3719</code></p>
+
+<p>摘要</p>
+
+<p>最近公司准备做一个安全级别比较高的项目：技术总监给我们提出了一个这样子的需求:在http请求过程中，即使嗅探器捕获到网络请求的链接也无法去请求到数据。经过一番思考，觉得支付宝的签名完全符合这样子的需求。但是之前自己对签名、RSA等知识也是知道的很少，所以花了一番功夫学习了一下。本文将针对RSA登录和http请求作讲解，希望对大家有所帮助。</p>
+
+<p>一.登录、登录保持（http请求）</p>
+
+<p>登录机制</p>
+
+<p>登录机制大概可以分为一下三个阶段：</p>
+
+<pre><code>1. 登录验证：是指客户端提供用户名和密码，向服务器提出登录请求，服务器判断客户端是否可以登录并向客户端确认。
+2. 登录保持：是指客户端登录后， 服务器能够分辨出已登录的客户端，并为其持续提供登录权限的服务器。
+3. 登出：是指客户端主动退出登录状态。
+</code></pre>
+
+<p>第一种网络请求情况（安全级别：II）</p>
+
+<p>一般的情况是这个样子的：一但用户登陆成功（单方面MD5加密：服务器加密则客户端不加密，客户端加密则明文传输），服务器为客户端分配sessionID(也可以称为userID),当然有些服务器不但为客户端分配了userID还有可能会为用户提供token了(这个下面会做解释)，然后每次网络请求都将sessionID当做参数传递给服务器。</p>
+
+<p>优点</p>
+
+<p>能够保持用户登录状态、区分用户，相对于不返回任何信息的登录要安全了一些。</p>
+
+<p>缺点</p>
+
+<p>如果通过网络嗅探器（例如：青花瓷）可以获取到http链接，这样子服务器返回的sessionID便会被获取到，这样子依然会造成信息泄露，并且还能被伪造请求（浏览器请求）。</p>
+
+<p>第二种网络请求情况 （安全级别：III）</p>
+
+<p>第一种存在明显的安全隐患，但是目前市面上的好多app依然采用第一种方法去实现登录、网络请求，但是对于安全级别较高的app，已经不再适用了。所以在此基础上进行优化----采用非对称加密（公钥、私钥）。</p>
+
+<p>登录模型</p>
+
+<p>客户端第一次发出登录请求时， 用户密码以明文的方式传输， 一旦被截获， 后果严重。因此密码需要加密，例如可采用RSA非对称加密。具体流程如下：</p>
+
+<p>客户端向服务器第一次发起登录请求（不传输用户名和密码）。<br/>
+服务器利用RSA算法产生一对公钥和私钥。并保留私钥， 将公钥发送给客户端。<br/>
+客户端收到公钥后， 加密用户密码， 向服务器发起第二次登录请求（传输用户名和加密后的密码）。<br/>
+服务器利用保留的私钥对密文进行解密，得到真正的密码。<br/>
+第三种网络请求情况（安全级别：IIII）</p>
+
+<p>再仔细核对上述登录流程， 我们发现服务器判断用户是否登录， 完全依赖于sessionId, 一旦其被截获， 黑客就能够模拟出用户的请求。于是我们需要引入token的概念： 用户登录成功后， 服务器不但为其分配了sessionId, 还分配了token， token是维持登录状态的关键秘密数据。在服务器向客户端发送的token数据，也需要加密。于是一次登录的细节再次扩展。</p>
+
+<p>客户端向服务器第一次发起登录请求（不传输用户名和密码）。<br/>
+服务器利用RSA算法产生一对公钥和私钥。并保留私钥， 将公钥发送给客户端。<br/>
+客户端收到公钥后， 加密用户密码，向服务器发送用户名和加密后的用户密码； 同时另外产生一对公钥和私钥，自己保留私钥, 向服务器发送公钥； 于是第二次登录请求传输了用户名和加密后的密码以及客户端生成的公钥。<br/>
+服务器利用保留的私钥对密文进行解密，得到真正的密码。 经过判断， 确定用户可以登录后，生成sessionId和token， 同时利用客户端发送的公钥，对token进行加密。最后将sessionId和加密后的token返还给客户端。<br/>
+客户端利用自己生成的私钥对token密文解密， 得到真正的token。<br/>
+图示如下：<br/>
+<img src="media/14864326299242/1678515-b2469d974979f153.png" alt="1678515-b2469d974979f153"/><br/>
+登录保持（也就是http数据请求阶段）</p>
+
+<p>引入token后，http请求被获取问题便可得到解决。 服务器将token和其它的一些变量， 利用散列加密算法得到签名后，连同sessionId一并发送给服务器； 服务器取出保存于服务器端的token,利用相同的法则生成校验签名， 如果客户端签名与服务器的校验签名一致， 就认为请求来自登录的客户端。（支付宝一样的机制）<br/>
+结构图如下：<br/>
+<img src="media/14864326299242/1678515-9297d2d63a3e12a1.png" alt="1678515-9297d2d63a3e12a1"/><br/>
+注：token失效的两种情况：</p>
+
+<pre><code> 1. 用户登录出系统
+ 2. token在后台的规定时间内失效（每个token都是有时间效应的）
+</code></pre>
+
+<p>失效原理：<br/>
+在服务器端的redis中删除相应key为session的键值对。</p>
+
+<p>二.散列算法</p>
+
+<p>散列是信息的提炼，通常其长度要比信息小得多，且为一个固定长度。加密性强的散列一定是不可逆的，这就意味着通过散列结果，无法推出任何部分的原始信息。任何输入信息的变化，哪怕仅一位，都将导致散列结果的明显变化，这称之为雪崩效应。散列还应该是防冲突的，即找不出具有相同散列结果的两条信息。具有这些特性的散列结果就可以用于验证信息是否被修改。</p>
+
+<p>散列算法可以用来加密token生成签名， 以便token信息不暴露在网络同时还能验证登录的有效性。</p>
+
+<p>MD5</p>
+
+<p>全写： Message Digest Algorithm MD5（中文名为消息摘要算法第五版）<br/>
+输出： 128bit</p>
+
+<p>MD5算法具有以下特点：</p>
+
+<p>1、压缩性：任意长度的数据，算出的MD5值长度都是固定的。<br/>
+2、容易计算：从原数据计算出MD5值很容易。<br/>
+3、抗修改性：对原数据进行任何改动，哪怕只修改1个字节，所得到的MD5值都有很大区别。<br/>
+4、弱抗碰撞：已知原数据和其MD5值，想找到一个具有相同MD5值的数据（即伪造数据）是非常困难的。<br/>
+5、强抗碰撞：想找到两个不同的数据，使它们具有相同的MD5值，是非常困难的。<br/>
+缺陷：Md5一度被认为十分靠谱。2004年8月17日的美国加州圣巴巴拉的国际密码学会议（Crypto’2004）上，来自中国山东大学的王小云教授做了破译MD5、HAVAL-128、 MD4和RIPEMD算法的报告，公布了MD系列算法的破解结果。2009年，冯登国、谢涛二人利用差分攻击，将MD5的碰撞算法复杂度从王小云的2<sup>42进一步降低到2<sup>21，极端情况下甚至可以降低至2<sup>10。仅仅2<sup>21的复杂度意味着即便是在2008年的计算机上，也只要几秒便可以找到一对碰撞。Md5已老，</sup></sup></sup></sup> 在安全性要求较高的场合，不建议使用。</p>
+
+<p>SHA1</p>
+
+<p>全名： 安全哈希算法（Secure Hash Algorithm）输出： 160bit<br/>
+与Md5比较<br/>
+相同点：因为二者均由MD4导出，SHA-1和MD5彼此很相似。相应的，他们的强度和其他特性也是相似。不同点：1. 对强行攻击的安全性：最显著和最重要的区别是SHA-1摘要比MD5摘要长32 位。使用强行技术，产生任何一个报文使其摘要等于给定报摘要的难度对MD5是2<sup>128数量级的操作，而对SHA-1则是2<sup>160数量级的操作。这样，SHA-1对强行攻击有更大的强度。2.</sup></sup> 对密码分析的安全性：由于MD5的设计，易受密码分析的攻击，SHA-1显得不易受这样的攻击。3. 速度：在相同的硬件上，SHA-1的运行速度比MD5慢。</p>
+
+<p>加盐</p>
+
+<p>所谓加盐， 就是在原本需要加密的信息基础上，糅入其它内容salt。签名的生成就是一次加盐。</p>
+
+<p>对称加密</p>
+
+<p>本系统使用对称加密对用户密码进行加密以及生成token字符串。<br/>
+AuthCode加密<br/>
+AuthCode是康盛科技发明的加密方式， 开源产品Discuz的密码是用这个算法进行加密。但是有点遗憾，这个函数所有权属于康盛创想，并不能自由使用的。不知使用是否有风险？？<br/>
+AES加密<br/>
+高级加密标准（英语：Advanced Encryption Standard，缩写：AES），在密码学中又称Rijndael加密法，是美国联邦政府采用的一种区块加密标准。这个标准用来替代原先的DES，已经被多方分析且广为全世界所使用。</p>
+
+<p>非对称加密</p>
+
+<p>RSA是目前最有影响力的公钥加密算法，它能够抵抗到目前为止已知的绝大多数密码攻击，已被ISO推荐为公钥数据加密标准。RSA的安全基于大数分解的难度。其公钥和私钥是一对大素数（100到200位十进制数或更大）的函数。从一个公钥和密文恢复出明文的难度，等价于分解两个大素数之积（这是公认的数学难题）。<br/>
+算法描述：<br/>
+（1）选择一对不同的、足够大的素数p，q。<br/>
+（2）计算n=pq。<br/>
+（3）计算f(n)=(p-1)(q-1)，同时对p, q严加保密，不让任何人知道。<br/>
+（4）找一个与f(n)互质的数e（公钥指数），且1&lt;e&lt;f(n)。<br/>
+（5）计算d（私钥指数），使得de≡1 mod f(n)。这个公式也可以表达为d ≡e-1 mod f(n)注，≡是数论中表示同余的符号。<br/>
+（6）公钥KU=(e,n)，私钥KR=(d,n)。<br/>
+（7）加密时，先将明文变换成0至n-1的一个整数M。若明文较长，可先分割成适当的组，然后再进行交换。设密文为C，则加密过程为：<br/>
+<img src="media/14864326299242/14864329106667.jpg" alt=""/></p>
+
+<p>（8）解密过程为：<br/>
+<img src="media/14864326299242/14864328974432.jpg" alt=""/></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[开始学习ES6]]></title>
+    <link href="http://www.hanyegudeng.com/14829148983172.html"/>
+    <updated>2016-12-28T16:48:18+08:00</updated>
+    <id>http://www.hanyegudeng.com/14829148983172.html</id>
+    <content type="html"><![CDATA[
+<p><a href="https://zhuanlan.zhihu.com/p/22712172">https://zhuanlan.zhihu.com/p/22712172</a><br/>
+安装配置需要的环境<br/>
+1.安装Node JS。这个简单<br/>
+检查是否安装成功<code>npm -v；node -v</code><br/>
+2.修改npm源为淘宝<code>npm config set registry https://registry.npm.taobao.org/</code><br/>
+3.安装Gulp<code>npm install -g gulp</code><br/>
+<code>有的时候需要sudo哦</code><br/>
+查看是否安装成功<code>gulp -v</code><br/>
+4.安装gulp-babel和gulp-watch<code>npm install gulp-babel；npm install gulp-babel</code><br/>
+5.配置Gulp<br/>
+对于我这从来没搞过js的小白，查看上面文章的时候比较懵逼啊。创建到哪里，怎么跑不懂啊<br/>
+下面是我尝试的结果<br/>
+a.创建一个测试目录<br/>
+b.进入该目录，创建3个文件<br/>
+    <img src="media/14829148983172/14829151957077.jpg" alt=""/><br/>
+c.运行<code>npm install</code><br/>
+d.运行<code>npm gulp</code><br/>
+贴上上面几个文件的代码：<br/>
+ES6Test.html</p>
+
+<pre><code class="language-&lt;html&gt;">&lt;head&gt;
+    &lt;script src=&quot;./ES6Test.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;title&gt;ES6测试&lt;/title&gt;
+&lt;body&gt;
+&lt;h1&gt;ES6测试&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>ES6Test.js文件</p>
+
+<pre><code class="language-let">    name:&#39;Hi 你好，我是小明&#39;,
+    getName(){
+        return &#39;Hello &#39; + this.name;
+    }
+}
+
+alert(hello.getName());
+</code></pre>
+
+<p>gulpfile.js</p>
+
+<pre><code class="language-var">var babel = require(&#39;gulp-babel&#39;);
+var watch = require(&#39;gulp-watch&#39;);
+
+gulp.task(&#39;default&#39;,function(){
+    return watch(&#39;js/*.js&#39;)
+        .pipe(babel())
+        .pipe(gulp.dest(&#39;dest/js&#39;)
+        );
+});
+</code></pre>
+
+<p>我用的是IDE是webstorm，然后在html上直接点击chrome浏览器，就可以查看效果</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Git统计每个人提交的Commit次数和代码行数]]></title>
+    <link href="http://www.hanyegudeng.com/14828902722239.html"/>
+    <updated>2016-12-28T09:57:52+08:00</updated>
+    <id>http://www.hanyegudeng.com/14828902722239.html</id>
+    <content type="html"><![CDATA[
+<p>提交次数<code>git shortlog --numbered --summary</code><br/>
+查看所有的commit数<code>git log --oneline | wc -l</code><br/>
+提交删除行数<code>git log --author=&quot;$(git config --get user.name)&quot; --pretty=tformat: --numstat | awk &#39;{ add += $1 ; subs += $2 ; loc += $1 - $2 } END { printf &quot;added lines: %s removed lines : %s total lines: %s\n&quot;,add,subs,loc }&#39;</code><br/>
+使用cloc统计代码行数给力：<br/>
+安装<code>brew install cloc</code><br/>
+统计目录下的所有文件，代码行数<code>cloc ./</code><br/>
+排除文件夹<code>cloc ./ --exclude-dir=Pods,Tests,Utility</code></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[创建一个RN项目]]></title>
+    <link href="http://www.hanyegudeng.com/14823842291606.html"/>
+    <updated>2016-12-22T13:23:49+08:00</updated>
+    <id>http://www.hanyegudeng.com/14823842291606.html</id>
+    <content type="html"><![CDATA[
+<p>在机器上如何安装React Native以及需要的工具等，网上都有。<br/>
+1.创建项目<code>react-native init MyRNDemo</code><br/>
+2.npm install<br/>
+3.npm start</p>
+
+]]></content>
+  </entry>
+  
+</feed>

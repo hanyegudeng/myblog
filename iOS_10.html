@@ -1,0 +1,1278 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  iOS - 寒夜孤灯
+  
+  </title>
+  
+  
+  <link href="atom.xml" rel="alternate" title="寒夜孤灯" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+  <script src="asset/highlightjs/highlight.pack.js"></script>
+  <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+  function before_search(){
+    var searchVal = 'site:www.hanyegudeng.com ' + document.getElementById('search_input').value;
+    document.getElementById('search_q').value = searchVal;
+    return true;
+  }
+</script>
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+
+  <section class="top-bar-section">
+  <div class="row">
+      <div style="position: relative;width:100%;"><div style="position: absolute; width:100%;">
+        <ul id="main-menu" class="left">
+        
+        <li id=""><a target="self" href="index.html">Home</a></li>
+        
+        <li id=""><a target="_self" href="archives.html">Archives</a></li>
+        
+        </ul>
+
+        <ul class="right" id="search-wrap">
+          <li>
+<form target="_blank" onsubmit="return before_search();" action="https://google.com/search" method="get">
+    <input type="hidden" id="search_q" name="q" value="" />
+    <input tabindex="1" type="search" id="search_input"  placeholder="Search"/>
+</form>
+</li>
+          </ul>
+      </div></div>
+  </div>
+  </section>
+
+</nav>
+
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; 寒夜孤灯</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+       
+       <li><a href="index.html">首页</a></li>
+    <li><a href="archives.html">目录</a></li>
+    <li><a href="about.html">关于</a></li>
+
+    <li><label>Categories</label></li>
+
+        
+            <li><a href="iOS.html">iOS</a></li>
+        
+            <li><a href="Mac.html">Mac</a></li>
+        
+            <li><a href="PHP.html">PHP</a></li>
+        
+            <li><a href="Python.html">Python</a></li>
+        
+            <li><a href="%E6%9D%82%E8%B0%88.html">杂谈</a></li>
+        
+            <li><a href="%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87.html">疑难杂症</a></li>
+        
+            <li><a href="Redis.html">Redis</a></li>
+        
+            <li><a href="React%20Native.html">React Native</a></li>
+        
+            <li><a href="%E8%BF%90%E7%BB%B4.html">运维</a></li>
+         
+
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+
+        <section id="main-content" role="main" class="scroll-container">
+        
+       
+
+ <script type="text/javascript">
+	$(function(){
+		$('#menu_item_index').addClass('is_active');
+	});
+</script>
+<div class="row">
+	<div class="large-8 medium-8 columns">
+		<div class="markdown-body home-categories">
+		
+			<div class="article">
+                <a class="clearlink" href="14417645285619.html">
+                
+                  <h1>解决View Layer圆角卡顿的问题</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<p>使用layer绘制圆角的时候回造成界面滑动的时候卡顿，主要是：</p>
+
+<p>原理</p>
+
+<p>上面拖慢帧率的原因其实都是Off-Screen Rendering（离屏渲染）的原因。离屏渲染是个好东西，但是频繁发生离屏渲染是非常耗时的。</p>
+
+<p>Off-Screen Rendering</p>
+
+<p>离屏渲染，指的是GPU在当前屏幕缓冲区以外新开辟一个缓冲区进行渲染操作。由上面的一个结论视图和圆角的大小对帧率并没有什么卵影响，数量才是伤害的核心输出啊。可以知道离屏渲染耗时是发生在离屏这个动作上面，而不是渲染。为什么离屏这么耗时？原因主要有创建缓冲区和上下文切换。创建新的缓冲区代价都不算大，付出最大代价的是上下文切换。</p>
+
+<p>上下文切换</p>
+
+<p>上下文切换，不管是在GPU渲染过程中，还是一直所熟悉的进程切换，上下文切换在哪里都是一个相当耗时的操作。首先我要保存当前屏幕渲染环境，然后切换到一个新的绘制环境，申请绘制资源，初始化环境，然后开始一个绘制，绘制完毕后销毁这个绘制环境，如需要切换到On-Screen Rendering或者再开始一个新的离屏渲染重复之前的操作。 下图描述了一次mask的渲染操作。</p>
+
+<p>一次mask发生了两次离屏渲染和一次主屏渲染。即使忽略昂贵的上下文切换，一次mask需要渲染三次才能在屏幕上显示，这已经是普通视图显示3陪耗时，若再加上下文环境切换，一次mask就是普通渲染的30倍以上耗时操作。问我这个30倍以上这个数据怎么的出来的？当我在cell的UIImageView的实例增加到150个，并去掉圆角的时候，帧数才跌至28帧每秒。虽然不是甚准确，但至少反映mask这个耗时是无mask操作的耗时的数十倍的。</p>
+
+<p>应对</p>
+
+<p>那么如何应对这个问题呢？不要在滚动视图使用cornerRadius或者mask。如果你非要作死怎么办呢？那么这样也可以拯救你：</p>
+
+<pre><code>self.layer.shouldRasterize = YES;  
+self.layer.rasterizationScale = [UIScreen mainScreen].scale;
+</code></pre>
+
+<p>这样大部分情况下可以马上挽救你的帧数在55帧每秒以上。shouldRasterize = YES会使视图渲染内容被缓存起来，下次绘制的时候可以直接显示缓存，当然要在视图内容不改变的情况下。</p>
+
+<p>除了上面非要作死的人外，大家还是采取预先生成圆角图片，并缓存起来这个方法才是比较好的手段。预处理圆角图片可以在后台处理，处理完毕后缓存起来，再在主线程显示，这就避免了不必要的离屏渲染了。</p>
+
+<p>另外也有在图片上面覆盖一个镂空圆形图片的方法可以实现圆形头像效果，这个也是极为高效的方法。缺点就是对视图的背景有要求，单色背景效果就最为理想。</p>
+
+<p>总结</p>
+
+<p>实现圆角corneradius要比mask高效很多。</p>
+
+<p>Rasterize在大部分情况下极大减少GPU工作。在有空间的情况下，大部分情况下缓存总能帮到你，不是吗？</p>
+
+<p>后台预处理图片也能很简单帮上你很大的忙。</p>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2015/9/9</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='iOS.html'>iOS</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+			<div class="article">
+                <a class="clearlink" href="14406673838298.html">
+                
+                  <h1>ios 跳转到设置相应项</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<p>打开设置各项</p>
+
+<p>5.0+后可在代码中调用如下代码打开设置相应界面：</p>
+
+<p>NSURL*url=[NSURL URLWithString:@&quot;command stringI&quot;];<br/>
+[[UIApplication sharedApplication] openURL:url];<br/>
+即可跳转到设置页面的对应项:command string:</p>
+
+<pre><code>prefs:root=General&amp;path=About
+prefs:root=General&amp;path=ACCESSIBILITY
+prefs:root=AIRPLANE_MODE
+prefs:root=General&amp;path=AUTOLOCK
+prefs:root=General&amp;path=USAGE/CELLULAR_USAGE
+prefs:root=Brightness
+prefs:root=General&amp;path=Bluetooth
+prefs:root=General&amp;path=DATE_AND_TIME
+prefs:root=FACETIME
+prefs:root=General
+prefs:root=General&amp;path=Keyboard
+prefs:root=CASTLE
+prefs:root=CASTLE&amp;path=STORAGE_AND_BACKUP
+prefs:root=General&amp;path=INTERNATIONAL
+prefs:root=LOCATION_SERVICES
+prefs:root=ACCOUNT_SETTINGS
+prefs:root=MUSIC
+prefs:root=MUSIC&amp;path=EQ
+prefs:root=MUSIC&amp;path=VolumeLimit
+prefs:root=General&amp;path=Network
+prefs:root=NIKE_PLUS_IPOD
+prefs:root=NOTES
+prefs:root=NOTIFICATIONS_ID
+prefs:root=Phone
+prefs:root=Photos
+prefs:root=General&amp;path=ManagedConfigurationList
+prefs:root=General&amp;path=Reset
+prefs:root=Sounds&amp;path=Ringtone
+prefs:root=Safari
+prefs:root=General&amp;path=Assistant
+prefs:root=Sounds
+prefs:root=General&amp;path=SOFTWARE_UPDATE_LINK
+prefs:root=STORE
+prefs:root=TWITTER
+prefs:root=General&amp;path=USAGE
+prefs:root=VIDEO
+prefs:root=General&amp;path=Network/VPN
+prefs:root=Wallpaper
+prefs:root=WIFI
+prefs:root=INTERNET_TETHERING
+</code></pre>
+
+<p>10-30更新：iOS8后要增加一个URL Schemes：perfs，</p>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2015/8/27</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='iOS.html'>iOS</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+			<div class="article">
+                <a class="clearlink" href="14406567954330.html">
+                
+                  <h1>iOS开发之玩转字符串</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<p>转自 <code>http://segmentfault.com/a/1190000000444620</code></p>
+
+<p>在每个应用里我们都大量使用字符串。下面我们将快速看看一些常见的操作字符串的方法，过一遍常见操作的最佳实践。</p>
+
+<p>字符串的比较、搜索和排序</p>
+
+<p>排序和比较字符串比第一眼看上去要复杂得多。不只是因为字符串可以包含代理对（surrogate pairs ）(详见 Ole 写的这篇关于 Unicode 的文章) ，而且比较还与字符串的本地化相关。在某些极端情况下相当棘手。</p>
+
+<p>苹果文档中 String Programming Guide 里有一节叫做 “字符与字形集群（Characters and Grapheme Clusters）”，里面提到一些陷阱。例如对于排序来说，一些欧洲语言将序列“ch”当作单个字母。在一些语言里，“ä”被认为等同于 ‘a’ ，而在其它语言里它却被排在 ‘z’ 后面。</p>
+
+<p>而 NSString 有一些方法来帮助我们处理这种复杂性。首先看下面的方法：</p>
+
+<pre><code>- (NSComparisonResult)compare:(NSString *)aString 
+                      options:(NSStringCompareOptions)mask 
+                        range:(NSRange)range 
+                       locale:(id)locale
+</code></pre>
+
+<p>它带给我们充分的灵活性。另外，还有很多“便捷函数”都使用了这个方法。</p>
+
+<p>与比较有关的可用参数如下：</p>
+
+<pre><code>NSCaseInsensitiveSearch
+NSLiteralSearch
+NSNumericSearch
+NSDiacriticInsensitiveSearch
+NSWidthInsensitiveSearch
+NSForcedOrderingSearch
+</code></pre>
+
+<p>它们都可以用逻辑或运算组合在一起。</p>
+
+<p>NSCaseInsensitiveSearch ：“A”等同于“a”，然而在某些地方还有更复杂的情况。例如，在德国，“ß” 和 “SS”是等价的。</p>
+
+<p>NSLiteralSearch ：Unicode 的点对 Unicode 点比较。它只在所有字符都用相同的方式组成的情况下才会返回相等。LATIN CAPITAL LETTER A 加上 COMBINING RING ABOVE 并不等同于 LATIN CAPITAL LETTER A WITH RING ABOVE.</p>
+
+<p>译注：这个要解释一下，首先，每一个Unicode都是有官方名字的！LATIN CAPITAL &gt; LETTER A是一个大写“A”，COMBINING RING ABOVE是一个  ̊，LATIN CAPITAL &gt; LETTER A WITH RING ABOVE，这是Å前两者的组合不等同于后者。<br/>
+NSNumericSearch：它对字符串里的数字排序，所以 “Section 9” &lt; “Section 20” &lt; “Section 100.”</p>
+
+<p>NSDiacriticInsensitiveSearch : “A” 等同于 “Å” 等同于 “Ä.”</p>
+
+<p>NSWidthInsensitiveSearch : 一些东亚文字（平假名 和 片假名）有全宽与半宽两种形式。</p>
+
+<p>很值得一提的是 - (NSComparisonResult)localizedStandardCompare: ，它排序的方式和 Finder 一样。它对应的选项是 NSCaseInsensitiveSearch 、 NSNumericSearch 、NSWidthInsensitiveSearch 以及 NSForcedOrderingSearch 。如果我们要在UI上显示一个文件列表，用它就最合适不过了。</p>
+
+<p>大小写不敏感的比较和音调符号不敏感的比较都是相对复杂和昂贵的操作。如果我们需要比较很多次字符串那这就会成为一个性能上的瓶颈（例如对一个大的数据集进行排序），一个常见的解决方法是同时存储原始字符串和折叠字符串。例如，我们的 Contact  类有一个正常的 name  属性，在内部它还有一个foldedName  属性，它将自动在 name变化时更新。那么我们就可以使用 NSLiteralSearch  来比较 name  的折叠版本。 NSString  有一个方法来创建折叠版本：</p>
+
+<pre><code>- (NSString *)stringByFoldingWithOptions:(NSStringCompareOptions)options 
+                                  locale:(NSLocale *)locale
+</code></pre>
+
+<p>搜索</p>
+
+<p>要在一个字符串中搜索子字符串，最灵活性的方法是:</p>
+
+<pre><code>- (NSRange)rangeOfString:(NSString *)aString 
+                 options:(NSStringCompareOptions)mask 
+                   range:(NSRange)searchRange 
+                  locale:(NSLocale *)locale
+</code></pre>
+
+<p>同时，还有一些“便捷方法”，它们在最终都会调用上面这个方法，我们可以传入上面列出的参数，以及以下这些额外的参数：</p>
+
+<pre><code>NSBackwardsSearch
+NSAnchoredSearch
+NSRegularExpressionSearch
+</code></pre>
+
+<p>NSBackwardsSearch ：在字符串的末尾开始反向搜索。</p>
+
+<p>NSAnchoredSearch ： 只考虑搜索的起始点（单独使用）或终止点（当与 NSBackwardsSearch  结合使用时）。这个方法可以用来检查前缀或者后缀，以及大小写不敏感（case-insensitive）或者音调不敏感（diacritic-insensitive）的比较。</p>
+
+<p>NSRegularExpressionSearch ：使用正则表达式搜索，要了解更多与使用正则表达式有关的信息，请关注 Chris’s 的 String Parsing 。</p>
+
+<p>另外，还有一个方法：</p>
+
+<pre><code>- (NSRange)rangeOfCharacterFromSet:(NSCharacterSet *)aSet 
+                           options:(NSStringCompareOptions)mask 
+                             range:(NSRange)aRange
+</code></pre>
+
+<p>与前面搜索字符串不同的是， 它只搜索给定字符集的第一个字符。即使只搜索一个字符，但如果由于此字符是由元字符组成的序列（composed character sequence），所以返回范围的长度也可能大于1。</p>
+
+<p>大写与小写</p>
+
+<p>一定不要使用 NSString  的 -uppercaseString  或者 -lowercaseString  的方法来处理 UI 显示的字符串，而应该使用 -uppercaseStringWithLocale  来代替， 比如：</p>
+
+<pre><code>NSString *name = @&quot;Tómas&quot;; 
+cell.text = [name uppercaseStringWithLocale:[NSLocale currentLocale]];
+</code></pre>
+
+<p>格式化字符串</p>
+
+<p>同C语言中的 sprintf 函数( ANSI C89 中的一个函数 )类似, Objective C 中的 NSString 类也有如下的3个方法:</p>
+
+<pre><code>-initWithFormat:
+-initWithFormat:arguments:
++stringWithFormat:
+</code></pre>
+
+<p>需要注意这些格式化方法都是 非本地化 的 。所以这些方法得到的字符串是不能直接拿来显示在用户界面上的。如果需要本地化，那我们需要使用下面这些方法:</p>
+
+<pre><code>-initWithFormat:locale:
+-initWithFormat:locale:arguments:
++localizedStringWithFormat:
+</code></pre>
+
+<p>Florian 有一篇关于 字符串的本地化 的文章更详细地讨论了这个问题。</p>
+
+<p>printf(3)的man页面有关于它如何格式化字符串的全部细节。除了所谓的转换格式（它以％字符开始），格式化字符串会被逐字复制：</p>
+
+<pre><code>double a = 25812.8074434;
+float b = 376.730313461;
+NSString *s = [NSString stringWithFormat:@&quot;%g :: %g&quot;, a, b];
+// &quot;25812.8 :: 376.73&quot;
+</code></pre>
+
+<p>我们格式化了两个浮点数。注意单精度浮点数和双精度浮点数共同了一个转换格式。</p>
+
+<p>对象</p>
+
+<p>除了来自 printf(3) 的转换规范，我们还可以使用 %@  来输出一个对象。在对象描述那一节中有述，如果对象响应 -descriptionWithLocale:  方法，则调用它，否则调用 -description 。  %@  被结果替换。</p>
+
+<p>整数</p>
+
+<p>使用整形数字时，有些需要注意的细节。首先，有符号数（d和i）和无符号数（o、u、x和X）分别有转换规范。需要使用者选择具体的类型。</p>
+
+<p>如果我们使用的东西是 printf不知道的，我们必须要做类型转换。 NSUInteger  正是这样一个例子，它在64位和32位平台上是不一样的。下面的例子可以同时工作在32位和64位平台。</p>
+
+<pre><code>uint64_t p = 2305843009213693951;
+NSString *s = [NSString stringWithFormat:@&quot;The ninth Mersenne prime is %llu&quot;, (unsigned long long) p];
+// &quot;The ninth Mersenne prime is 2305843009213693951&quot;
+</code></pre>
+
+<pre><code>  Modifier       d, i            o, u, x, X
+  -------------- --------------- ----------------------
+  hh               signed char     unsigned char
+  h                short           unsigned short
+  (none)           int             unsigned int
+  l (ell)          long            unsigned long
+  ll (ell ell)     long long       unsigned long long
+  j                intmax\_t       uintmax\_t
+  t                ptrdiff\_t    
+  z                                size\_t
+</code></pre>
+
+<p>适用于整数的转换规则有：</p>
+
+<pre><code>int m = -150004021;
+uint n = 150004021U;
+NSString *s = [NSString stringWithFormat:@&quot;d:%d i:%i o:%o u:%u x:%x X:%X&quot;, m, m, n, n, n, n];
+// &quot;d:-150004021 i:-150004021 o:1074160465 u:150004021 x:8f0e135 X:8F0E135&quot;
+</code></pre>
+
+<p>%d  和 %i  具有一样的功能，它们都打印出有符号十进制数。 %o  就较为晦涩了：它使用八进制表示。 %u  输出无符号十进制数——它是我们常用的。最后 %x  和 %X  使用十六进制表示——后者使用大写字母。</p>
+
+<p>对于 x%  和 X%  ，我们可以在 0x 前面添加 “#” 井字符前缀看，增加可读性。</p>
+
+<p>我们可以传入特定参数，来设置最小字段宽度和最小数字位数（默认两者都是0），以及左/右对齐。请查看man页面获取详细信息。下面是一些例子：</p>
+
+<pre><code>int m = 42;
+NSString *s = [NSString stringWithFormat:@&quot;&#39;%4d&#39; &#39;%-4d&#39; &#39;%+4d&#39; &#39;%4.3d&#39; &#39;%04d&#39;&quot;, m, m, m, m, m];
+// ‘42’ ‘42 ’ ‘ +42’ ‘ 042’ ‘0042’
+m = -42;
+NSString *s = [NSString stringWithFormat:@&quot;&#39;%4d&#39; &#39;%-4d&#39; &#39;%+4d&#39; &#39;%4.3d&#39; &#39;%04d&#39;&quot;, m, m, m, m, m];
+// ‘ -42’ ‘-42 ’ ‘ -42’ ‘-042’ ‘-042’
+</code></pre>
+
+<p>%p  可用于打印出指针——它和 %#x  相似但可同时在32位和64位平台上正常工作。</p>
+
+<p>浮点数</p>
+
+<p>关于浮点数的转换规则有8个：eEfFgGaA。但除了 %f 和 %g 外我们很少使用其它的。对于指数部分，小写的版本使用小写 e，大写的版本就使用大写 E。</p>
+
+<p>通常 ％g  是浮点数的全能转换符 ，它与 %f  的不同在下面的例子里显示得很清楚：</p>
+
+<pre><code>double v[5] = {12345, 12, 0.12, 0.12345678901234, 0.0000012345678901234};
+NSString *s = [NSString stringWithFormat:@&quot;%g %g %g %g %g&quot;, v[0], v[1], v[2], v[3], v[4]];
+// &quot;12345 12 0.12 0.123457 1.23457e-06&quot;
+NSString *s = [NSString stringWithFormat:@&quot;%f %f %f %f %f&quot;, v[0], v[1], v[2], v[3], v[4]];
+// &quot;12345.000000 12.000000 0.120000 0.123457 0.000001&quot;
+</code></pre>
+
+<p>和整数一样，我们依然可以指定最小字段宽度和最小数字数。</p>
+
+<p>指定位置</p>
+
+<p>格式化字符串允许使用参数来改变顺序：</p>
+
+<pre><code>[NSString stringWithFormat:@&quot;%2$@ %1$@&quot;, @&quot;1st&quot;, @&quot;2nd&quot;];
+// &quot;2nd 1st&quot;
+</code></pre>
+
+<p>我们只需将从1开始的参数与一个$接在%后面。这种写法在进行本地化的时候极其常见，因为在不同语言中，各个参数所处的顺序位置可能不尽相同。</p>
+
+<p>NSLog()</p>
+
+<p>NSLog() 函数与  +stringWithFormat: 的工作方式一样。我们可以调用：</p>
+
+<pre><code>int magic = 42;
+NSLog(@&quot;The answer is %d&quot;, magic);
+</code></pre>
+
+<p>下面的代码可以用同样的方式构造字符串：</p>
+
+<pre><code>int magic = 42;
+NSString *output = [NSString stringWithFormat:@&quot;The answer is %d&quot;, magic];
+</code></pre>
+
+<p>显然  NSLog()会输出字符串，并且它会加上时间戳、进程名、进程ID以及线程ID作为前缀。</p>
+
+<p>实现能接受格式化字符串的方法</p>
+
+<p>有时在我们自己的类中提供一个能接受格式化字符串的方法会很方便使用。假设我们要实现的是一个 To Do 应用，它包含一个 Item 类。我们想要提供：</p>
+
+<pre><code>+ (instancetype)itemWithTitleFormat:(NSString *)format, ...
+</code></pre>
+
+<p>如此我们就可以使用：</p>
+
+<pre><code>Item *item = [Item itemWithFormat:@&quot;Need to buy %@ for %@&quot;, food, pet];
+</code></pre>
+
+<p>这种类型的方法可以接受可变数量的参数，所以被称为可变参数方法。我们必须使用一个定义在stdarg.h里的宏来使用可变参数。上面方法的实现代码可能会像下面这样：</p>
+
+<pre><code>+ (instancetype)itemWithTitleFormat:(NSString *)format, ...;
+{
+    va_list ap;
+    va_start(ap, format);
+    NSString *title = [[NSString alloc] initWithFormat:format locale:[NSLocale currentLocale] arguments:ap];
+    va_end(ap);
+    return [self itemWithTitle:title];
+}
+</code></pre>
+
+<p>进一步，我们要添加 NS_FORMAT_FUNCTION 到方法的定义里（在头文件中），如下所示：</p>
+
+<pre><code>+ (instancetype)itemWithTitleFormat:(NSString *)format, ... NS_FORMAT_FUNCTION(1,2);
+</code></pre>
+
+<p>NS_FORMAT_FUNCTION 展开为一个方法 <strong>attribute</strong>，它会告诉编译器在索引1处的参数是一个格式化字符串，而实际参数从索引2开始。这将允许编译器检查格式化字符串而且会像 NSLog() 和 -[NSString stringWithFormat:] 一样输出警告信息。</p>
+
+<p>字符与字符串组件</p>
+
+<p>如有一个字符串 “bird” ，找出组成它的独立字母是很简单的。第二个字母是“i”（Unicode: LATIN SMALL LETTER I）。而对于像Åse这样的字符串就没那么简单了。看起来像三个字母的组合可有多种方式，例如：</p>
+
+<pre><code>A LATIN CAPITAL LETTER A
+̊ COMBINING RING ABOVE
+s LATIN SMALL LETTER S
+e LATIN SMALL LETTER E
+或者
+
+Å LATIN CAPITAL LETTER A WITH RING ABOVE
+s LATIN SMALL LETTER S
+e LATIN SMALL LETTER E
+</code></pre>
+
+<p>从 Ole 写的这篇关于 Unicode 的文章 里可以读到更多关于联合标记（combining marks）的信息，其他语言文字有更多复杂的代理对（complicated surrogate pairs）。</p>
+
+<p>如果我们要在字符层面处理一个字符串，那我们就要小心翼翼。苹果官方文档中 String Programming Guide 有一节叫做 “Characters and Grapheme Clusters”，里面有更多关于这一点的细节。<br/>
+NSString有两个方法：</p>
+
+<pre><code>-rangeOfComposedCharacterSequencesForRange:
+-rangeOfComposedCharacterSequenceAtIndex:
+</code></pre>
+
+<p>上面这两个方法在有的时候很有帮助，例如，分开一个字符串时保证我们不会分开被称为代理对（surrogate pairs）的东西。</p>
+
+<p>如果我们要在字符串的字符上做工作， NSString 有个叫做 -enumerateSubstringsInRange:options:usingBlock: 的方法。</p>
+
+<p>将 NSStringEnumerationByComposedCharacterSequences 作为选项传递，我们就能扫描所有的字符。例如，用下面的方法，我们可将字符串 “International Business Machines” 变成 “IBM”。</p>
+
+<pre><code>- (NSString *)initials;
+{
+    NSMutableString *result = [NSMutableString string];
+    [self enumerateSubstringsInRange:NSMakeRange(0, self.length) 
+                             options:NSStringEnumerationByWords | NSStringEnumerationLocalized 
+                          usingBlock:^(NSString *word, NSRange wordRange, NSRange enclosingWordRange, BOOL *stop1) {
+        __block NSString *firstLetter = nil;
+        [self enumerateSubstringsInRange:NSMakeRange(0, word.length) 
+                                 options:NSStringEnumerationByComposedCharacterSequences 
+                              usingBlock:^(NSString *letter, NSRange letterRange, NSRange enclosingLetterRange, BOOL *stop2) {
+            firstLetter = letter;
+            *stop2 = YES;
+        }];
+        if (letter != nil) {
+            [result appendString:letter];
+        };
+    }];
+    return result;
+}
+</code></pre>
+
+<p>如文档所示，词和句的分界可能基于地区的变化而变化。因此有 NSStringEnumerationLocalized选项。</p>
+
+<p>多行文字字面量</p>
+
+<p>编译器的确有一个隐蔽的特性：把空格分隔开的字符串衔接到一起。这是什么意思呢？下面两段代码是完全等价的：</p>
+
+<pre><code>NSString *limerick = @&quot;A lively young damsel named Menzies\n&quot;
+@&quot;Inquired: «Do you know what this thenzies?»\n&quot;
+@&quot;Her aunt, with a gasp,\n&quot;
+@&quot;Replied: &quot;It&#39;s a wasp,\n&quot;
+@&quot;And you&#39;re holding the end where the stenzies.\n&quot;;
+</code></pre>
+
+<pre><code>NSString *limerick = @&quot;A lively young damsel named Menzies\nInquired: «Do you know what this thenzies?»\nHer aunt, with a gasp,\nReplied: &quot;It&#39;s a wasp,\nAnd you&#39;re holding the end where the stenzies.\n&quot;;
+
+</code></pre>
+
+<p>前者看起来更舒服，但是有一点要注意千万不要在任意一行末尾加入逗号或者分号。</p>
+
+<p>同时也可以这样做：</p>
+
+<pre><code>NSString * string = @&quot;The man &quot; @&quot;who knows everything &quot; @&quot;learns nothing&quot; @&quot;.&quot;;
+
+</code></pre>
+
+<p>译者注：上面这行代码原文是有误的，原文是 NSString * @&quot;The man &quot; @&quot;who knows everything &quot; @&quot;learns nothing&quot; @&quot;.&quot;  ，读者可以尝试一下，如果这样写是无法通过编译的。</p>
+
+<p>编译器只是为我们提供了一个便捷的方式，将多个字符串在编译期组合在了一起。</p>
+
+<p>可变字符串</p>
+
+<p>可变字符串有两个常见的使用场景：（1）拼接字符串（2）替换部分字符串</p>
+
+<p>创建字符串</p>
+
+<p>可变字符串可以很轻易地把多个字符串在你需要的时候组合起来。</p>
+
+<pre><code>- (NSString *)magicToken
+{
+    NSMutableString *string = [NSMutableString string];
+    if (usePrefix) {
+        [string appendString:@&quot;&gt;&gt;&gt;&quot;];
+    }
+    [string appendFormat:@&quot;%d--%d&quot;, self.foo, self.bar];
+    if (useSuffix) {
+        [string appendString:@&quot;&gt;&gt;&gt;&quot;];
+    }
+    return string;
+}
+</code></pre>
+
+<p>这里要注意的是，虽然原本返回值应该是一个 NSString  类型的对象，我们只是简单地返回一个NSMutableString 类型的对象。</p>
+
+<p>替换字符串</p>
+
+<p>可变字符串除了追加组合之外，还提供了以下4个方法：</p>
+
+<pre><code>-deleteCharactersInRange:
+-insertString:atIndex:
+-replaceCharactersInRange:withString:
+-replaceOccurrencesOfString:withString:options:range:
+</code></pre>
+
+<p>这些方法和 NSString 的类似：</p>
+
+<pre><code>-stringByReplacingOccurrencesOfString:withString:
+-stringByReplacingOccurrencesOfString:withString:options:range:
+-stringByReplacingCharactersInRange:withString:
+</code></pre>
+
+<p>但是它没有创建新的字符串仅仅把当前字符串变成了一个可变的类型，这样让代码更容易阅读，以及提升些许性能。</p>
+
+<pre><code>NSMutableString *string; // 假设我们已经有了一个名为 string 的字符串
+// 现在要去掉它的一个前缀，做法如下:
+NSString *prefix = @&quot;WeDon’tWantThisPrefix&quot;
+NSRange r = [string rangeOfString:prefix 
+                          options:NSAnchoredSearch 
+                            range:NSMakeRange(0, string.length) 
+                           locale:nil];
+if (r.location != NSNotFound) {
+    [string deleteCharactersInRange:r];
+}
+</code></pre>
+
+<p>连接组件</p>
+
+<p>一个看似微不足道但很常见的情况是字符串连接。比如现在有这样几个字符串：</p>
+
+<pre><code>Hildr
+Heidrun
+Gerd
+Guðrún
+Freya
+Nanna
+Siv
+Skaði
+Gróa
+</code></pre>
+
+<p>我们想用它们来创建下面这样的一个字符串：</p>
+
+<pre><code>Hildr, Heidrun, Gerd, Guðrún, Freya, Nanna, Siv, Skaði, Gróa
+</code></pre>
+
+<p>那么就可以这样做：</p>
+
+<pre><code>NSArray *names = @[&quot;Hildr&quot;, @&quot;Heidrun&quot;, @&quot;Gerd&quot;, @&quot;Guðrún&quot;, @&quot;Freya&quot;, @&quot;Nanna&quot;, @&quot;Siv&quot;, @&quot;Skaði&quot;, @&quot;Gróa&quot;];
+NSString *result = [names componentsJoinedByString:@&quot;, &quot;];
+</code></pre>
+
+<p>如果我们将其显示给用户，我们就要使用本地化表达，确保将最后一部分替换相应语言的 , and ：</p>
+
+<pre><code>@implementation NSArray (ObjcIO_GroupedComponents)
+
+- (NSString *)groupedComponentsWithLocale:(NSLocale *)locale;
+{
+    if (self.count &lt; 1) {
+        return @&quot;&quot;;
+    } else if (self.count &lt; 2) {
+        return self[0];
+    } else if (self.count &lt; 3) {
+        NSString *joiner = NSLocalizedString(@&quot;joiner.2components&quot;, @&quot;&quot;);
+        return [NSString stringWithFormat:@&quot;%@%@%@&quot;, self[0], joiner, self[1]];
+    } else {
+        NSString *joiner = [NSString stringWithFormat:@&quot;%@ &quot;, [locale objectForKey:NSLocaleGroupingSeparator]];
+        NSArray *first = [self subarrayWithRange:NSMakeRange(0, self.count - 1)];
+        NSMutableString *result = [NSMutableString stringWithString:[first componentsJoinedByString:joiner]];
+        NSString *lastJoiner = NSLocalizedString(@&quot;joiner.3components&quot;, @&quot;&quot;);
+        [result appendString:lastJoiner];
+        [result appendString:self.lastObject];
+        return result;
+    }
+}
+@end
+</code></pre>
+
+<p>那么在本地化的时候，如果是英语，应该是：</p>
+
+<pre><code>&quot;joiner.2components&quot; = &quot; and &quot;;
+&quot;joiner.3components&quot; = &quot;, and &quot;;
+</code></pre>
+
+<p>如果是德语，则应该是：</p>
+
+<pre><code>&quot;joiner.2components&quot; = &quot; und &quot;;
+&quot;joiner.3components&quot; = &quot; und &quot;;
+</code></pre>
+
+<p>结合组件的逆过程可以用   -componentsSeparatedByString: ，这个方法会将一个字符串变成一个数组。例如，将 “12|5|3” 变成 “12”、“5” 和 “3”。</p>
+
+<p>对象描述</p>
+
+<p>在许多面向对象编程语言里，对象有一个叫做 toString() 或类似的方法。在 Objective C 里，这个方法是：</p>
+
+<pre><code>- (NSString *)description
+</code></pre>
+
+<p>以及它的兄弟方法:</p>
+
+<pre><code>- (NSString *)debugDescription
+</code></pre>
+
+<p>当自定义模型对象时，覆写 -description 方法是一个好习惯，在UI上显示该对象时调用的就是description方法的返回值。假定我们有一个 Contact类，下面是它的 description方法实现。</p>
+
+<pre><code>- (NSString *)description
+{
+    return self.name;
+}
+</code></pre>
+
+<p>我们可以像下面代码这样格式化字符串：</p>
+
+<pre><code>label.text = [NSString stringWithFormat:NSLocalizedString(@&quot;%@ has been added to the group “%@”.&quot;, @&quot;&quot;), contact, group];
+
+</code></pre>
+
+<p>因为该字符串是用来做UI显示的，我们可能需要做本地化，那么我们就需要覆写descriptionWithLocale:(NSLocale *)locale方法。</p>
+
+<pre><code>- (NSString *)descriptionWithLocale:(NSLocale *)locale;
+</code></pre>
+
+<p>%@ 会首先调用 -descriptionWithLocale，如果没有返回值，再调用 -description，在调试时，打印一个对象，我们用 po这个命令（它是print object的缩写）</p>
+
+<pre><code>(lldb) po contact
+</code></pre>
+
+<p>如果在调试窗口的终端下输入 po contact, 它会调用对象的 debugDescription方法。默认情况下debugDescription是直接调用 description。如果你希望输出不同的信息，那么就分别覆写两个方法。大多数情况下，尤其是对于非数据模型的对象，你只需要覆写 -description就能满足需求了。</p>
+
+<p>实际上对象的标准格式化输出是这样的：</p>
+
+<pre><code>- (NSString *)description;
+{
+    return [NSString stringWithFormat:@&quot;&lt;%@: %p&gt;&quot;, self.class, self];
+}
+</code></pre>
+
+<p>NSObject就是这么干的。当你覆写该方法时，也可以像这样写。假定我们有一个DetailViewController，在它的UI上要显示一个 contact ，我们可能会这样覆写该方法：</p>
+
+<pre><code>- (NSString *)description;
+{
+    return [NSString stringWithFormat:@&quot;&lt;%@: %p&gt; contact = %@&quot;, self.class, self, self.contact.debugDescription];
+}
+</code></pre>
+
+<p>NSManagedObject子类的描述</p>
+
+<p>我们将特别注意向 NSManagedObject 的子类添加 -description / -debugDescription 的情况。由于 Core Data的惰性加载机制（faulting mechanism）允许未加载数据的对象存在，所以当我们调用 -debugDescription 我们并不希望改变我们的应用程序的状态，因此我要确保检查 isFault  这个属性。例如，我们可如下这样实现它：</p>
+
+<pre><code>- (NSString *)debugDescription;
+{
+    NSMutableString *description = [NSMutableString stringWithFormat:@&quot;&lt;%@: %p&gt;&quot;, self.class, self];
+    if (! self.isFault) {
+        [description appendFormat:@&quot; %@ \&quot;%@\&quot; %gL&quot;, self.identifier, self.name, self.metricVolume];
+    }
+    return description;
+}
+</code></pre>
+
+<p>再次，因为它们是模型对象，重载 -description 简单地返回描述实例的属性名就可以了。</p>
+
+<p>文件路径</p>
+
+<p>简单来说就是我们不应该使用 NSString来描述文件路径。对于 OS X 10.7 和 iOS 5， NSURL更便于使用，而且更有效率，它还能缓存文件系统的属性。</p>
+
+<p>再者， NSURL 有八个方法来访问被称为 resource values 的东西。它们提供给我们一个稳定的接口来获取和设置文件与目录的多种属性，例如本地化文件名（ NSURLLocalizedNameKey）、文件大小（NSURLFileSizeKey），以及创建日期（ NSURLCreationDateKey），等等。</p>
+
+<p>尤其是在遍历目录内容时，使用 -[NSFileManagerenumeratorAtURL:includingPropertiesForKeys:options:errorHandler:] 附带一个关键词列表，然后用 -getResourceValue:forKey:error: 检索它们，能带来显著的性能提升。</p>
+
+<p>下面是一个简短的例子展示了如何将它们组合在一起：</p>
+
+<pre><code>NSError *error = nil;
+NSFileManager *fm = [[NSFileManager alloc] init];
+NSURL *documents = [fm URLForDirectory:NSDocumentationDirectory 
+                              inDomain:NSUserDomainMask 
+                     appropriateForURL:nil 
+                                create:NO 
+                                 error:&amp;error];
+NSArray *properties = @[NSURLLocalizedNameKey, NSURLCreationDateKey];
+NSDirectoryEnumerator *dirEnumerator = [fm enumeratorAtURL:documents
+                                includingPropertiesForKeys:properties
+                                                   options:0
+                                              errorHandler:nil];
+for (NSURL *fileURL in dirEnumerator) {
+    NSString *name = nil;
+    NSDate *creationDate = nil;
+    if ([fileURL getResourceValue:&amp;name 
+                           forKey:NSURLLocalizedNameKey 
+                            error:NULL] &amp;&amp;
+        [fileURL getResourceValue:&amp;creationDate 
+                           forKey:NSURLCreationDateKey 
+                            error:NULL])
+    {
+        NSLog(@&quot;&#39;%@&#39; was created at %@&quot;, name, creationDate);
+    }
+}
+</code></pre>
+
+<p>我们把属性的键传给  -enumeratorAtURL: 方法中，在遍历目录内容时，这个方法能确保用非常高效的方式获取它们。在循环中，调用 -getResourceValue:… 能简单地从 NSURL 得到已缓存的值，而不用去访问文件系统。</p>
+
+<p>传递路径到UNIX API</p>
+
+<p>因为 Unicode 非常复杂，同一个字母有多种表示方式，所以我们需要很小心地传递路径给UNIX API。在这些情况里，一定不能使用 UTF8String ，正确地做法是使用 -fileSystemRepresentation 方法，如下：</p>
+
+<pre><code>NSURL *documentURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory 
+                                                            inDomain:NSUserDomainMask 
+                                                   appropriateForURL:nil 
+                                                              create:NO 
+                                                               error:NULL];
+documentURL = [documentURL URLByAppendingPathComponent:name];
+int fd = open(documentURL.fileSystemRepresentation, O_RDONLY);
+</code></pre>
+
+<p>与 NSURL 类似，同样的情况也发生在 NSString 上。如果我们不这么做，在打开一个文件名或路径名包含合成字符的文件时我们将看到随机错误。在 OS X 上，当用户的短名刚好包含合成字符时就会显得特别糟糕。</p>
+
+<p>我们需要一个 char const * 版本的路径的一些常见情况是UNIX open() 和 close() 指令。但这也可能发生在 GCD / libdispatch 的 I/O API 上。</p>
+
+<pre><code>dispatch_io_t
+dispatch_io_create_with_path(dispatch_io_type_t type,
+        const char *path, int oflag, mode_t mode,
+        dispatch_queue_t queue,
+        void (^cleanup_handler)(int error));
+</code></pre>
+
+<p>如果我们要使用 NSString 来做，那我们要保证像下面这样做：</p>
+
+<pre><code>NSString *path = ... // 假设我们已经有一个名为 path 的字符串
+io = dispatch_io_create_with_path(DISPATCH_IO_STREAM,
+    path.fileSystemRepresentation,
+    O_RDONLY, 0, queue, cleanupHandler);
+</code></pre>
+
+<p>-fileSystemRepresentation 所做的是它首先将这个字符串转换成文件系统的规范形式然后用UTF-8编码。</p>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2015/8/27</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='iOS.html'>iOS</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+			<div class="article">
+                <a class="clearlink" href="14387633246550.html">
+                
+                  <h1>修改statusbar颜色</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<p>如果是黑色，默认就是的。如果需要修改成白色<br/>
+在info.plist里面添加<code>View controller-based status bar appearance</code>并且设置为NO。然后设置<code>statusBarStyle</code>为<code>UIStatusBarStyleLightContent</code>这样就白了。</p>
+
+<p>如何需要来回切换，用下面的方式：<br/>
+首先默认设置成黑色的<br/>
+白色：<br/>
+<code>[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];</code><br/>
+黑色：<br/>
+[UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;</p>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2015/8/5</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='iOS.html'>iOS</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+			<div class="article">
+                <a class="clearlink" href="14386666541252.html">
+                
+                  <h1>iOS多线程GCD</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<p>&lt;转：<a href="http://www.cnblogs.com/pure/archive/2013/03/31/2977420.html">http://www.cnblogs.com/pure/archive/2013/03/31/2977420.html</a> &gt;</p>
+
+<p>Grand Central Dispatch (GCD)是Apple开发的一个多核编程的解决方法。</p>
+
+<p>dispatch queue分成以下三种：</p>
+
+<p>1）运行在主线程的Main queue，通过dispatch_get_main_queue获取。</p>
+
+<pre><code>/*!
+* @function dispatch_get_main_queue
+*
+* @abstract
+* Returns the default queue that is bound to the main thread.
+*
+* @discussion
+* In order to invoke blocks submitted to the main queue, the application must
+* call dispatch_main(), NSApplicationMain(), or use a CFRunLoop on the main
+* thread.
+*
+* @result
+* Returns the main queue. This queue is created automatically on behalf of
+* the main thread before main() is called.
+*/
+__OSX_AVAILABLE_STARTING(__MAC_10_6,__IPHONE_4_0)
+DISPATCH_EXPORT struct dispatch_queue_s _dispatch_main_q;
+#define dispatch_get_main_queue() \
+DISPATCH_GLOBAL_OBJECT(dispatch_queue_t, _dispatch_main_q)
+</code></pre>
+
+<p>可以看出，dispatch_get_main_queue也是一种dispatch_queue_t。</p>
+
+<p>2）并行队列global dispatch queue，通过dispatch_get_global_queue获取，由系统创建三个不同优先级的dispatch queue。并行队列的执行顺序与其加入队列的顺序相同。</p>
+
+<p>3）串行队列serial queues一般用于按顺序同步访问，可创建任意数量的串行队列，各个串行队列之间是并发的。</p>
+
+<p>当想要任务按照某一个特定的顺序执行时，串行队列是很有用的。串行队列在同一个时间只执行一个任务。我们可以使用串行队列代替锁去保护共享的数据。和锁不同，一个串行队列可以保证任务在一个可预知的顺序下执行。</p>
+
+<p>serial queues通过dispatch_queue_create创建，可以使用函数dispatch_retain和dispatch_release去增加或者减少引用计数。</p>
+
+<p>GCD的用法：</p>
+
+<pre><code>//  后台执行：
+ dispatch_async(dispatch_get_global_queue(0, 0), ^{
+      // something
+ });
+
+ // 主线程执行：
+ dispatch_async(dispatch_get_main_queue(), ^{
+      // something
+ });
+
+ // 一次性执行：
+ static dispatch_once_t onceToken;
+ dispatch_once(&amp;onceToken, ^{
+     // code to be executed once
+ });
+
+ // 延迟2秒执行：
+ double delayInSeconds = 2.0;
+ dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+ dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+     // code to be executed on the main queue after delay
+ });
+
+ // 自定义dispatch_queue_t
+ dispatch_queue_t urls_queue = dispatch_queue_create(&quot;blog.devtang.com&quot;, NULL);
+ dispatch_async(urls_queue, ^{  
+　 　// your code 
+ });
+ dispatch_release(urls_queue);
+
+ // 合并汇总结果
+ dispatch_group_t group = dispatch_group_create();
+ dispatch_group_async(group, dispatch_get_global_queue(0,0), ^{
+      // 并行执行的线程一
+ });
+ dispatch_group_async(group, dispatch_get_global_queue(0,0), ^{
+      // 并行执行的线程二
+ });
+ dispatch_group_notify(group, dispatch_get_global_queue(0,0), ^{
+      // 汇总结果
+ });
+</code></pre>
+
+<p>一个应用GCD的例子：</p>
+
+<pre><code> dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSURL * url = [NSURL URLWithString:@&quot;http://www.baidu.com&quot;];
+        NSError * error;
+        NSString * data = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&amp;error];
+        if (data != nil) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@&quot;call back, the data is: %@&quot;, data);
+            });
+        } else {
+            NSLog(@&quot;error when download:%@&quot;, error);
+        }
+    });
+</code></pre>
+
+<p>GCD的另一个用处是可以让程序在后台较长久的运行。</p>
+
+<p>在没有使用GCD时，当app被按home键退出后，app仅有最多5秒钟的时候做一些保存或清理资源的工作。但是在使用GCD后，app最多有10分钟的时间在后台长久运行。这个时间可以用来做清理本地缓存，发送统计数据等工作。</p>
+
+<p>让程序在后台长久运行的示例代码如下：</p>
+
+<pre><code>// AppDelegate.h文件
+@property (assign, nonatomic) UIBackgroundTaskIdentifier backgroundUpdateTask;
+
+// AppDelegate.m文件
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
+    [self beingBackgroundUpdateTask];
+    // 在这里加上你需要长久运行的代码
+    [self endBackgroundUpdateTask];
+}
+
+- (void)beingBackgroundUpdateTask
+{
+    self.backgroundUpdateTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        [self endBackgroundUpdateTask];
+    }];
+}
+
+- (void)endBackgroundUpdateTask
+{
+    [[UIApplication sharedApplication] endBackgroundTask: self.backgroundUpdateTask];
+    self.backgroundUpdateTask = UIBackgroundTaskInvalid;
+}
+</code></pre>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2015/8/4</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='iOS.html'>iOS</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+              
+
+
+			<div class="row">
+			  <div class="large-6 columns">
+			  <p class="text-left" style="padding-top:25px;">
+			   <a href="iOS_9.html">&laquo; Prev Page</a>  
+			  </p>
+			  </div>
+			  <div class="large-6 columns">
+			<p class="text-right" style="padding-top:25px;">
+			 <a href="iOS_11.html">&raquo; Next Page</a> 
+			</p>
+			  </div>
+			</div>
+		</div>
+	</div><!-- large 8 -->
+
+ <div class="large-4 medium-4 columns">
+  <div class="hide-for-small">
+    <div id="sidebar" class="sidebar">
+          <div id="site-info" class="site-info">
+            
+                <h1>寒夜孤灯</h1>
+                <div class="site-des">寒夜里的一盏孤灯</div>
+                <div class="social">
+
+
+
+
+
+
+
+
+
+
+
+  <a target="_blank" class="rss" href="atom.xml" title="RSS">RSS</a>
+                
+              	 </div>
+          	</div>
+
+             
+
+              <div id="site-categories" class="side-item ">
+                <div class="side-header">
+                  <h2>分类</h2>
+                </div>
+                <div class="side-content">
+
+      	<p class="cat-list">
+        
+            <a href="iOS.html"><strong>iOS</strong></a>
+        
+            <a href="Mac.html"><strong>Mac</strong></a>
+        
+            <a href="PHP.html"><strong>PHP</strong></a>
+        
+            <a href="Python.html"><strong>Python</strong></a>
+        
+            <a href="%E6%9D%82%E8%B0%88.html"><strong>杂谈</strong></a>
+        
+            <a href="%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87.html"><strong>疑难杂症</strong></a>
+        
+            <a href="Redis.html"><strong>Redis</strong></a>
+        
+            <a href="React%20Native.html"><strong>React Native</strong></a>
+        
+            <a href="%E8%BF%90%E7%BB%B4.html"><strong>运维</strong></a>
+         
+        </p>
+
+
+                </div>
+              </div>
+
+              <div id="site-categories" class="side-item">
+                <div class="side-header">
+                  <h2>最新文章</h2>
+                </div>
+                <div class="side-content">
+                <ul class="posts-list">
+	      
+		      
+			      <li class="post">
+			        <a href="15036253170711.html">Xcode Build Settings 分析</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15030458956017.html">发现女儿早恋，这个爸爸的做法刷爆朋友圈！</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15017301944011.html">iOS应用内跳转到系统设置页面</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15017289646320.html">iOS APP提交审核被拒因Guideline 2.5.2 - Performance - Software Requirements</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14966306832048.html">Swift使用pod找不到文件的解决方案</a>
+			      </li>
+		     
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		   
+		  		</ul>
+                </div>
+              </div>
+        </div><!-- sidebar -->
+      </div><!-- hide for small -->
+</div><!-- large 4 -->
+
+</div><!-- row -->
+
+ <div class="page-bottom clearfix">
+  <div class="row">
+   <p class="copyright">Copyright &copy; 2017
+通过 <a target="_blank" href="http://www.mweb.im">MWeb</a>制作&nbsp; <a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备15015428号-1</a>&nbsp; 
+</p>
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+
+  
+    
+
+    <script src="asset/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+      function fixSidebarHeight(){
+        var w1 = $('.markdown-body').height();
+          var w2 = $('#sidebar').height();
+          if (w1 > w2) { $('#sidebar').height(w1); };
+      }
+      $(function(){
+        fixSidebarHeight();
+      })
+      $(window).load(function(){
+          fixSidebarHeight();
+      });
+     
+    </script>
+
+    
+
+
+
+  </body>
+</html>

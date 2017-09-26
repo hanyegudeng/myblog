@@ -1,0 +1,832 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  寒夜孤灯
+  
+  </title>
+  
+  
+  <link href="atom.xml" rel="alternate" title="寒夜孤灯" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+  <script src="asset/highlightjs/highlight.pack.js"></script>
+  <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+  function before_search(){
+    var searchVal = 'site:www.hanyegudeng.com ' + document.getElementById('search_input').value;
+    document.getElementById('search_q').value = searchVal;
+    return true;
+  }
+</script>
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+
+  <section class="top-bar-section">
+  <div class="row">
+      <div style="position: relative;width:100%;"><div style="position: absolute; width:100%;">
+        <ul id="main-menu" class="left">
+        
+        <li id=""><a target="self" href="index.html">Home</a></li>
+        
+        <li id=""><a target="_self" href="archives.html">Archives</a></li>
+        
+        </ul>
+
+        <ul class="right" id="search-wrap">
+          <li>
+<form target="_blank" onsubmit="return before_search();" action="https://google.com/search" method="get">
+    <input type="hidden" id="search_q" name="q" value="" />
+    <input tabindex="1" type="search" id="search_input"  placeholder="Search"/>
+</form>
+</li>
+          </ul>
+      </div></div>
+  </div>
+  </section>
+
+</nav>
+
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; 寒夜孤灯</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+       
+       <li><a href="index.html">首页</a></li>
+    <li><a href="archives.html">目录</a></li>
+    <li><a href="about.html">关于</a></li>
+
+    <li><label>Categories</label></li>
+
+        
+            <li><a href="iOS.html">iOS</a></li>
+        
+            <li><a href="Mac.html">Mac</a></li>
+        
+            <li><a href="PHP.html">PHP</a></li>
+        
+            <li><a href="Python.html">Python</a></li>
+        
+            <li><a href="%E6%9D%82%E8%B0%88.html">杂谈</a></li>
+        
+            <li><a href="%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87.html">疑难杂症</a></li>
+        
+            <li><a href="Redis.html">Redis</a></li>
+        
+            <li><a href="React%20Native.html">React Native</a></li>
+        
+            <li><a href="%E8%BF%90%E7%BB%B4.html">运维</a></li>
+         
+
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+
+        <section id="main-content" role="main" class="scroll-container">
+        
+       
+
+ <script type="text/javascript">
+	$(function(){
+		$('#menu_item_index').addClass('is_active');
+	});
+</script>
+<div class="row">
+	<div class="large-8 medium-8 columns">
+		<div class="markdown-body home-categories">
+		
+			<div class="article">
+                <a class="clearlink" href="14636210864710.html">
+                
+                  <h1>换工作前需要研究的点</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<p>虽然是搞笑的一个图片，但是觉得挺有道理的</p>
+
+<p><img src="media/14636210864710/F4WS2TI_7FPI6%25CHI5MG%60%5BN.jpg" alt="F4WS2TI_7FPI6%CHI5MG`[N"/></p>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2016/5/19</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='%E6%9D%82%E8%B0%88.html'>杂谈</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+			<div class="article">
+                <a class="clearlink" href="14627793549322.html">
+                
+                  <h1>AFNetworking添加Cookie以及Header</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<p>添加Cookie</p>
+
+<pre><code>NSMutableDictionary *cookieProperties = [NSMutableDictionary dictionary];
+[cookieProperties setObject:@&quot;TOKEN&quot; forKey:NSHTTPCookieName];
+[cookieProperties setObject:uuid forKey:NSHTTPCookieValue];
+[cookieProperties setObject:@&quot;xxx.xxx.xxx.xxx&quot; forKey:NSHTTPCookieDomain];
+[cookieProperties setObject:@&quot;xxx.xxx.xxx.xxx&quot; forKey:NSHTTPCookieOriginURL];
+[cookieProperties setObject:@&quot;/&quot; forKey:NSHTTPCookiePath];
+[cookieProperties setObject:@&quot;0&quot; forKey:NSHTTPCookieVersion];
+
+NSHTTPCookie *cookie = [NSHTTPCookie cookieWithProperties:cookieProperties];
+[[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
+</code></pre>
+
+<p>添加Header</p>
+
+<pre><code>AFHTTPRequestSerializer *serializer = [AFHTTPRequestSerializer serializer];
+        
+NSDictionary* dic = @{@&quot;a&quot;:@&quot;a&quot;,@&quot;b&quot;:@&quot;b&quot;,@&quot;c&quot;:@&quot;c&quot;,@&quot;d&quot;:@&quot;d&quot;};
+        NSString* json = [Util convertObjectToJSON:dic];
+json = [json stringByReplacingOccurrencesOfString:@&quot;\n&quot; withString:@&quot;&quot;];//有换行，没法添加，要去掉换行
+[serializer setValue:json forHTTPHeaderField:@&quot;Security-Token&quot;];
+[manager setRequestSerializer:serializer];
+</code></pre>
+
+<p>POST修改content type为application json</p>
+
+<pre><code>NSMutableURLRequest *request=[[NSMutableURLRequest alloc]initWithURL:[NSURL URLWithString:url]
+                                                                 cachePolicy:NSURLRequestReloadIgnoringCacheData
+                                                             timeoutInterval:kTimeOut];
+[request setHTTPMethod: @&quot;POST&quot;];
+[request setValue: @&quot;application/json&quot; forHTTPHeaderField:@&quot;Content-Type&quot;];
+[request setHTTPBody:[[Util convertObjectToJSON:parameters] dataUsingEncoding:NSUTF8StringEncoding]];
+        
+AFHTTPRequestOperation *currentoperation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+            sucessBlock(responseObject,[HTTPRequestResult resultWithAttributes:responseObject]);
+        } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+            if(error.code == -999){}//取消请求，不用返回
+        }];
+[currentoperation start];
+
+</code></pre>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2016/5/9</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='iOS.html'>iOS</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+			<div class="article">
+                <a class="clearlink" href="14623309266047.html">
+                
+                  <h1>xcode使用workspace管理项目</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<p>1.创建一个工作空间的文件夹<br/>
+2.xcode新建一个workspace<br/>
+3.新建项目，或者把原始项目copy到该目录下面<br/>
+4.创建公共静态库项目<br/>
+5.自己的项目中引用自己的静态库。<br/>
+    添加Header Serach Paths,User Header Serach Paths,并且类型为recursive不是non-recursive</p>
+
+<pre><code>引用之前已经添加过pod的项目，会出现diff: /../Podfile.lock: No such file or directory错误信息
+把该项目的pods目录下的xcconfig文件删除，从新install下pod就可以了
+继续报错：ld: library not found for -lPods
+删除build phases-link binary with libraries-libPods.a
+</code></pre>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2016/5/4</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='iOS.html'>iOS</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+			<div class="article">
+                <a class="clearlink" href="14616364679062.html">
+                
+                  <h1>去掉后台持续定位的蓝条</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<p>NSLocationWhenInUseUsageDescription 允许在前台使用时获取GPS的描述<br/>
+ NSLocationAlwaysUsageDescription 允许永远可获取GPS的描述<br/>
+这两个不要一块添加，如果两个都添加，默认采用NSLocationWhenInUseUsageDescription。<br/>
+永远后台的时候只需要设置allowsBackgroundLocationUpdates为yes后就没有蓝条了</p>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2016/4/26</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='iOS.html'>iOS</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+			<div class="article">
+                <a class="clearlink" href="14592385075519.html">
+                
+                  <h1>FMDB的一些基本操作小结</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<p>转自：<a href="http://blog.csdn.net/iunion/article/details/7204625">http://blog.csdn.net/iunion/article/details/7204625</a></p>
+
+<pre><code>#import &lt;Foundation/Foundation.h&gt;
+#import &quot;FMDatabase.h&quot;
+#import &quot;FMDatabaseAdditions.h&quot;
+
+@interface wiDBRoot : NSObject
+@property (retain, nonatomic) FMDatabase *DB;
+@property (retain, nonatomic) NSString *DBName;
+
+//+ (id)modelWithDBName:(NSString *)dbName;
+- (id)initWithDBName:(NSString *)dbName;
+// 删除数据库
+- (void)deleteDatabse;
+
+// 数据库存储路径
+//- (NSString *)getPath:(NSString *)dbName;
+// 打开数据库
+- (void)readyDatabse;
+
+// 判断是否存在表
+- (BOOL) isTableOK:(NSString *)tableName;
+// 获得表的数据条数
+- (BOOL) getTableItemCount:(NSString *)tableName;
+// 创建表
+- (BOOL) createTable:(NSString *)tableName withArguments:(NSString *)arguments;
+// 删除表-彻底删除表
+- (BOOL) deleteTable:(NSString *)tableName;
+// 清除表-清数据
+- (BOOL) eraseTable:(NSString *)tableName;
+// 插入数据
+- (BOOL)insertTable:(NSString*)sql, ...;
+// 修改数据
+- (BOOL)updateTable:(NSString*)sql, ...;
+
+
+// 整型
+- (NSInteger)getDb_Integerdata:(NSString *)tableName withFieldName:(NSString *)fieldName;
+// 布尔型
+- (BOOL)getDb_Booldata:(NSString *)tableName withFieldName:(NSString *)fieldName;
+// 字符串型
+- (NSString *)getDb_Stringdata:(NSString *)tableName withFieldName:(NSString *)fieldName;
+// 二进制数据型
+- (NSData *)getDb_Bolbdata:(NSString *)tableName withFieldName:(NSString *)fieldName;
+
+@end
+
+</code></pre>
+
+<pre><code>#import &quot;wiDBRoot.h&quot;
+
+@interface wiDBRoot ()
+- (NSString *)getPath:(NSString *)dbName;
+@end
+
+@implementation wiDBRoot
+@synthesize DB;
+@synthesize DBName;
+
+/*
++ (id)modelWithDBName:(NSString *)dbName
+{
+    [[[self alloc] initWithDBName:dbName] autorelease];
+    return self;
+}
+*/
+
+- (id)initWithDBName:(NSString *)dbName
+{
+
+    self = [super init];
+    
+    if(nil != self)
+    {
+        DBName = [self getPath:dbName];
+        WILog(@&quot;DBName: %@&quot;, DBName);
+    }
+    
+    return self;
+}
+
+- (void)dealloc {
+    [DB close];
+    [DB release];
+    [DBName release];
+    [super dealloc];
+}
+
+// 数据库存储路径(内部使用)
+- (NSString *)getPath:(NSString *)dbName
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    return [documentsDirectory stringByAppendingPathComponent:dbName];
+}
+
+// 打开数据库
+- (void)readyDatabse
+{
+    //BOOL success;
+    //NSError *error;
+    
+    //NSFileManager *fileManager = [NSFileManager defaultManager];
+    //success = [fileManager fileExistsAtPath:self.DBName];
+    
+    if ([DB databaseExists])
+        return;
+    
+    //DB = [FMDatabase databaseWithPath:DBName];
+    DB = [[FMDatabase alloc] initWithPath:DBName];
+    
+    if (![DB open])
+    {
+        [DB close];
+        NSAssert1(0, @&quot;Failed to open database file with message &#39;%@&#39;.&quot;, [DB lastErrorMessage]);
+    }
+
+    // kind of experimentalish.
+    [DB setShouldCacheStatements:YES];
+}
+
+#pragma mark 删除数据库
+// 删除数据库
+- (void)deleteDatabse
+{
+    BOOL success;
+    NSError *error;
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    // delete the old db.
+    if ([fileManager fileExistsAtPath:DBName])
+    {
+        [DB close];
+        success = [fileManager removeItemAtPath:DBName error:&amp;error];
+        if (!success) {
+            NSAssert1(0, @&quot;Failed to delete old database file with message &#39;%@&#39;.&quot;, [error localizedDescription]);
+        }
+    }    
+}
+
+// 判断是否存在表
+- (BOOL) isTableOK:(NSString *)tableName
+{
+    FMResultSet *rs = [DB executeQuery:@&quot;SELECT count(*) as &#39;count&#39; FROM sqlite_master WHERE type =&#39;table&#39; and name = ?&quot;, tableName];
+    while ([rs next])
+    {
+        // just print out what we&#39;ve got in a number of formats.
+        NSInteger count = [rs intForColumn:@&quot;count&quot;];
+        WILog(@&quot;isTableOK %d&quot;, count);
+        
+        if (0 == count)
+        {
+            return NO;
+        }
+        else
+        {
+            return YES;
+        }
+    }
+
+    return NO;
+}
+
+// 获得表的数据条数
+- (BOOL) getTableItemCount:(NSString *)tableName
+{
+    NSString *sqlstr = [NSString stringWithFormat:@&quot;SELECT count(*) as &#39;count&#39; FROM %@&quot;, tableName];
+    FMResultSet *rs = [DB executeQuery:sqlstr];
+    while ([rs next])
+    {
+        // just print out what we&#39;ve got in a number of formats.
+        NSInteger count = [rs intForColumn:@&quot;count&quot;];
+        WILog(@&quot;TableItemCount %d&quot;, count);
+        
+        return count;
+    }
+    
+    return 0;
+}
+
+// 创建表
+- (BOOL) createTable:(NSString *)tableName withArguments:(NSString *)arguments
+{
+    NSString *sqlstr = [NSString stringWithFormat:@&quot;CREATE TABLE %@ (%@)&quot;, tableName, arguments];
+    if (![DB executeUpdate:sqlstr])
+    //if ([DB executeUpdate:@&quot;create table user (name text, pass text)&quot;] == nil)
+    {
+        WILog(@&quot;Create db error!&quot;);
+        return NO;
+    }
+
+    return YES;
+}
+
+// 删除表
+- (BOOL) deleteTable:(NSString *)tableName
+{
+    NSString *sqlstr = [NSString stringWithFormat:@&quot;DROP TABLE %@&quot;, tableName];
+    if (![DB executeUpdate:sqlstr])
+    {
+        WILog(@&quot;Delete table error!&quot;);
+        return NO;
+    }
+    
+    return YES;
+}
+    
+// 清除表
+- (BOOL) eraseTable:(NSString *)tableName
+{
+    NSString *sqlstr = [NSString stringWithFormat:@&quot;DELETE FROM %@&quot;, tableName];
+    if (![DB executeUpdate:sqlstr])
+    {
+        WILog(@&quot;Erase table error!&quot;);
+        return NO;
+        }
+    
+    return YES;
+    }    
+
+// 插入数据
+- (BOOL)insertTable:(NSString*)sql, ...
+{
+    va_list args;
+    va_start(args, sql);
+    
+    BOOL result = [DB executeUpdate:sql error:nil withArgumentsInArray:nil orVAList:args];
+    
+    va_end(args);
+    return result;
+}
+
+// 修改数据
+- (BOOL)updateTable:(NSString*)sql, ...
+{
+    va_list args;
+    va_start(args, sql);
+    
+    BOOL result = [DB executeUpdate:sql error:nil withArgumentsInArray:nil orVAList:args];
+    
+    va_end(args);
+    return result;
+}
+
+// 暂时无用
+#pragma mark 获得单一数据
+
+// 整型
+- (NSInteger)getDb_Integerdata:(NSString *)tableName withFieldName:(NSString *)fieldName
+{
+    NSInteger result = NO;
+    
+    NSString *sql = [NSString stringWithFormat:@&quot;SELECT %@ FROM %@&quot;, fieldName, tableName];
+    FMResultSet *rs = [DB executeQuery:sql];
+    if ([rs next])
+        result = [rs intForColumnIndex:0];
+    [rs close];
+    
+    return result;
+}
+
+// 布尔型
+- (BOOL)getDb_Booldata:(NSString *)tableName withFieldName:(NSString *)fieldName
+{
+    BOOL result;
+
+    result = [self getDb_Integerdata:tableName withFieldName:fieldName];
+
+    return result;
+}
+
+// 字符串型
+- (NSString *)getDb_Stringdata:(NSString *)tableName withFieldName:(NSString *)fieldName
+{
+    NSString *result = NO;
+    
+    NSString *sql = [NSString stringWithFormat:@&quot;SELECT %@ FROM %@&quot;, fieldName, tableName];
+    FMResultSet *rs = [DB executeQuery:sql];
+    if ([rs next])
+        result = [rs stringForColumnIndex:0];
+    [rs close];
+
+    return result;
+}
+
+// 二进制数据型
+- (NSData *)getDb_Bolbdata:(NSString *)tableName withFieldName:(NSString *)fieldName
+{
+    NSData *result = NO;
+    
+    NSString *sql = [NSString stringWithFormat:@&quot;SELECT %@ FROM %@&quot;, fieldName, tableName];
+    FMResultSet *rs = [DB executeQuery:sql];
+    if ([rs next])
+        result = [rs dataForColumnIndex:0];
+    [rs close];
+    
+    return result;
+}
+
+@end
+
+</code></pre>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2016/3/29</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='iOS.html'>iOS</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+              
+
+
+			<div class="row">
+			  <div class="large-6 columns">
+			  <p class="text-left" style="padding-top:25px;">
+			   <a href="all_7.html">&laquo; Prev Page</a>  
+			  </p>
+			  </div>
+			  <div class="large-6 columns">
+			<p class="text-right" style="padding-top:25px;">
+			 <a href="all_9.html">&raquo; Next Page</a> 
+			</p>
+			  </div>
+			</div>
+		</div>
+	</div><!-- large 8 -->
+
+ <div class="large-4 medium-4 columns">
+  <div class="hide-for-small">
+    <div id="sidebar" class="sidebar">
+          <div id="site-info" class="site-info">
+            
+                <h1>寒夜孤灯</h1>
+                <div class="site-des">寒夜里的一盏孤灯</div>
+                <div class="social">
+
+
+
+
+
+
+
+
+
+
+
+  <a target="_blank" class="rss" href="atom.xml" title="RSS">RSS</a>
+                
+              	 </div>
+          	</div>
+
+             
+
+              <div id="site-categories" class="side-item ">
+                <div class="side-header">
+                  <h2>分类</h2>
+                </div>
+                <div class="side-content">
+
+      	<p class="cat-list">
+        
+            <a href="iOS.html"><strong>iOS</strong></a>
+        
+            <a href="Mac.html"><strong>Mac</strong></a>
+        
+            <a href="PHP.html"><strong>PHP</strong></a>
+        
+            <a href="Python.html"><strong>Python</strong></a>
+        
+            <a href="%E6%9D%82%E8%B0%88.html"><strong>杂谈</strong></a>
+        
+            <a href="%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87.html"><strong>疑难杂症</strong></a>
+        
+            <a href="Redis.html"><strong>Redis</strong></a>
+        
+            <a href="React%20Native.html"><strong>React Native</strong></a>
+        
+            <a href="%E8%BF%90%E7%BB%B4.html"><strong>运维</strong></a>
+         
+        </p>
+
+
+                </div>
+              </div>
+
+              <div id="site-categories" class="side-item">
+                <div class="side-header">
+                  <h2>最新文章</h2>
+                </div>
+                <div class="side-content">
+                <ul class="posts-list">
+	      
+		      
+			      <li class="post">
+			        <a href="15036253170711.html">Xcode Build Settings 分析</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15030458956017.html">发现女儿早恋，这个爸爸的做法刷爆朋友圈！</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15017301944011.html">iOS应用内跳转到系统设置页面</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15017289646320.html">iOS APP提交审核被拒因Guideline 2.5.2 - Performance - Software Requirements</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14966306832048.html">Swift使用pod找不到文件的解决方案</a>
+			      </li>
+		     
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		   
+		  		</ul>
+                </div>
+              </div>
+        </div><!-- sidebar -->
+      </div><!-- hide for small -->
+</div><!-- large 4 -->
+
+</div><!-- row -->
+
+ <div class="page-bottom clearfix">
+  <div class="row">
+   <p class="copyright">Copyright &copy; 2017
+通过 <a target="_blank" href="http://www.mweb.im">MWeb</a>制作&nbsp; <a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备15015428号-1</a>&nbsp; 
+</p>
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+
+  
+    
+
+    <script src="asset/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+      function fixSidebarHeight(){
+        var w1 = $('.markdown-body').height();
+          var w2 = $('#sidebar').height();
+          if (w1 > w2) { $('#sidebar').height(w1); };
+      }
+      $(function(){
+        fixSidebarHeight();
+      })
+      $(window).load(function(){
+          fixSidebarHeight();
+      });
+     
+    </script>
+
+    
+
+
+
+  </body>
+</html>

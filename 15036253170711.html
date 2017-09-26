@@ -1,0 +1,644 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  Xcode Build Settings 分析 - 寒夜孤灯
+  
+  </title>
+  
+  
+  <link href="atom.xml" rel="alternate" title="寒夜孤灯" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+  <script src="asset/highlightjs/highlight.pack.js"></script>
+  <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+  function before_search(){
+    var searchVal = 'site:www.hanyegudeng.com ' + document.getElementById('search_input').value;
+    document.getElementById('search_q').value = searchVal;
+    return true;
+  }
+</script>
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+
+  <section class="top-bar-section">
+  <div class="row">
+      <div style="position: relative;width:100%;"><div style="position: absolute; width:100%;">
+        <ul id="main-menu" class="left">
+        
+        <li id=""><a target="self" href="index.html">Home</a></li>
+        
+        <li id=""><a target="_self" href="archives.html">Archives</a></li>
+        
+        </ul>
+
+        <ul class="right" id="search-wrap">
+          <li>
+<form target="_blank" onsubmit="return before_search();" action="https://google.com/search" method="get">
+    <input type="hidden" id="search_q" name="q" value="" />
+    <input tabindex="1" type="search" id="search_input"  placeholder="Search"/>
+</form>
+</li>
+          </ul>
+      </div></div>
+  </div>
+  </section>
+
+</nav>
+
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; 寒夜孤灯</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+       
+       <li><a href="index.html">首页</a></li>
+    <li><a href="archives.html">目录</a></li>
+    <li><a href="about.html">关于</a></li>
+
+    <li><label>Categories</label></li>
+
+        
+            <li><a href="iOS.html">iOS</a></li>
+        
+            <li><a href="Mac.html">Mac</a></li>
+        
+            <li><a href="PHP.html">PHP</a></li>
+        
+            <li><a href="Python.html">Python</a></li>
+        
+            <li><a href="%E6%9D%82%E8%B0%88.html">杂谈</a></li>
+        
+            <li><a href="%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87.html">疑难杂症</a></li>
+        
+            <li><a href="Redis.html">Redis</a></li>
+        
+            <li><a href="React%20Native.html">React Native</a></li>
+        
+            <li><a href="%E8%BF%90%E7%BB%B4.html">运维</a></li>
+         
+
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+
+        <section id="main-content" role="main" class="scroll-container">
+        
+       
+
+ <script type="text/javascript">
+  $(function(){
+    $('#menu_item_index').addClass('is_active');
+  });
+</script>
+<div class="row">
+  <div class="large-8 medium-8 columns">
+      <div class="markdown-body article-wrap">
+       <div class="article">
+          
+          <h1>Xcode Build Settings 分析</h1>
+     
+        <div class="read-more clearfix">
+          <span class="date">2017/8/25</span>
+
+          <span>posted in&nbsp;</span> 
+          
+              <span class="posted-in"><a href='iOS.html'>iOS</a></span>
+           
+         
+          <span class="comments">
+            
+
+            
+          </span>
+
+        </div>
+      </div><!-- article -->
+
+      <div class="article-content">
+      <p>转自：<a href="http://www.jianshu.com/p/0509b438e84e">http://www.jianshu.com/p/0509b438e84e</a></p>
+
+<p>本文主要对xcode中常见的工程配置进行介绍，仅用于记录分享，不做其他用途。</p>
+
+<p>Architectures<br/>
+<img src="media/15036253170711/4898159-94d157d9a0e48308.jpg" alt="4898159-94d157d9a0e48308"/></p>
+
+<p>Additional SDKs</p>
+
+<p>在编译的时候需要附加的SDK。</p>
+
+<p>Architectures</p>
+
+<p>支持的处理器架构。支持的指令集越多，就会编译出包含多个指令集代码的数据包，对应生成二进制包就越大，最终目标文件也会变大。</p>
+
+<p>指令集可以参考：<a href="http://www.jianshu.com/p/3fce0bd6f045">http://www.jianshu.com/p/3fce0bd6f045</a></p>
+
+<p>Base SDK</p>
+
+<p>App所能支持的最大iOS版本。Xcode默认会设置为能够支持的最新版本。</p>
+
+<p>Build Acitve Architecture Only</p>
+
+<p>如果此项为YES，则Xcode会根据当前所连接设备的版本只将相应的Architecture编译入app。否则会同时编译“Valid Architectures”中的指令集。</p>
+
+<p>建议在Debug模式下设置为YES，Release模式下设置为NO，加快编译速度。</p>
+
+<p>Supported Platform</p>
+
+<p>app支持的平台。目前可选的有iOS、macOS、tvOS、watchOS。</p>
+
+<p>Valid Architectures<br/>
+限制可能被支持的指令集的范围，也就是Xcode编译出来的二进制包类型最终从这些类型产生，而编译出哪种指令集的包，将由Architectures与Valid Architectures（因此这个不能为空）的交集来确定。</p>
+
+<p>知识延伸：lipo</p>
+
+<p>lipo源于mac系统要制作兼容powerpc平台和intel平台的程序。</p>
+
+<p>lipo 是一个在 Mac OS X 中处理通用程序（Universal Binaries）的工具。</p>
+
+<p>用途一：查看二进制所支持的指令集<br/>
+<img src="media/15036253170711/4898159-fd5d85f9daae77e4.jpg" alt="4898159-fd5d85f9daae77e4"/></p>
+
+<p>用途二：合并指令集</p>
+
+<p>lipo –create Release-iphoneos/libiphone.a Debig-iphonesimulator/libiphone.a –output libiphone.a</p>
+
+<p>用途三：拆分指令集</p>
+
+<p>lipo SDK.a -thin armv7 -output */SDK.a</p>
+
+<p>Assets<br/>
+<img src="media/15036253170711/4898159-da15ccacb10624ab.jpg" alt="4898159-da15ccacb10624ab"/><br/>
+Asset Pack Manifest URL Prefix</p>
+
+<p>资源包清单的下载路径URL前缀</p>
+
+<p>Embed Asset Packs In Product Bundle</p>
+
+<p>是否将资源包嵌入产品的bundle中</p>
+
+<p>Enable On Demand Resources</p>
+
+<p>是否开启按需获取资源功能</p>
+
+<p>On Demand Resources Initial Install Tags</p>
+
+<p>按需加载资源时的初始安装资源文件标签</p>
+
+<p>On Demand Resources Prefetch Order</p>
+
+<p>按需加载资源时预加载的标签顺序<br/>
+<img src="media/15036253170711/4898159-d76a9e0d8e185455.jpg" alt="4898159-d76a9e0d8e185455"/></p>
+
+<p><img src="media/15036253170711/4898159-461784897deb8c62.jpg" alt="4898159-461784897deb8"/><br/>
+Build Locations<br/>
+<img src="media/15036253170711/4898159-7884e20d09331fc9.jpg" alt="4898159-7884e20d09331f"/><br/>
+Build Products Paths</p>
+
+<p>产品文件和编译中间文件的根目录。产品文件和编译时临时文件都将放在这个目录的子目录中。</p>
+
+<p>Intermediate Build Files Path</p>
+
+<p>编译时临时文件的存放位置。编译中间文件格式为product name+.build，如MyProduct.build。</p>
+
+<p>Per-configuration Build Products Path</p>
+
+<p>当前编译设置下的产品存放位置。</p>
+
+<p>Per-configuration Intermediate Build Files Path</p>
+
+<p>当前编译设置下编译时临时文件的存放位置。</p>
+
+<p>Precompiled Headers Cache Path</p>
+
+<p>预编译头文件缓存存放路径。通过这个配置，Targets可以互相共享预编译的头文件。</p>
+
+<p>这个在Xcode中的设置在File-&gt;Project Setting界面进行设置，<br/>
+<img src="media/15036253170711/4898159-dc612f80b6726441.jpg" alt="4898159-dc612f80b6726441"/></p>
+
+<p><img src="media/15036253170711/4898159-312b3ed11579e1ea.jpg" alt="4898159-312b3ed11579e1ea"/><br/>
+Build Options</p>
+
+<p><img src="media/15036253170711/4898159-df88ef87e2592cc9.jpg" alt="4898159-df88ef87e2592c"/><br/>
+Always Embed Swift Standard Libraries</p>
+
+<p>始终嵌入swift标准库。对于未使用swift代码的情况可以设置为NO。</p>
+
+<p>Build Variants</p>
+
+<p>此项可以设定生成产品的变种。您可以创建额外的产品变种作为特殊用途。例如，您可以使用编译配置文件的名称来创建一个高度定制的二进制文件。</p>
+
+<p>Build Variants的值有三个：</p>
+
+<p>normal-用于生成普通的二进制文件；</p>
+
+<p>profile-用于可以生成配置信息的二进制文件；</p>
+
+<p>debug-用于生成带有debug标志、额外断言和诊断代码的二进制文件。</p>
+
+<p>Compiler For C/C++/Objective-C</p>
+
+<p>选择使用的编译器。目前Xcode8.2默认使用APPLE LLVM 8.0版本的编译器。</p>
+
+<p>Debug Information Format</p>
+
+<p>记录debug信息的文件格式。共有DWARF with dSYM File和DWARF两种可以选择。建议选择DWARF with dSYM File。DWARF是较老的文件格式，会在编译时将debug信息写在执行文件中。</p>
+
+<p>Enable BitCode</p>
+
+<p>Bitcode is an intermediate representation of a compiled program. Apps you upload to iTunes Connect that contain bitcode will be compiled and linked on the App Store. Including bitcode will allow Apple to re-optimize your app binary in the future without the need to submit a new version of your app to the store.</p>
+
+<p>Bitcode. When you archive for submission to the App Store, Xcode will compile your app into an intermediate representation. The App Store will then compile the bitcode down into the 64 or 32 bit executables as necessary.</p>
+
+<p>说的是bitcode是被编译程序的一种中间形式的代码。包含bitcode配置的程序将会在App store上被编译和链接。bitcode允许苹果在后期重新优化我们程序的二进制文件，而不需要我们重新提交一个新的版本到App store上。</p>
+
+<p>当我们提交程序到App store上时，Xcode会将程序编译为一个中间表现形式(bitcode)。然后App store会再将这个botcode编译为可执行的64位或32位程序。</p>
+
+<p>不过，我们现在需要考虑的是三个平台：iOS，Mac OS，watchOS。</p>
+
+<p>对应iOS，bitcode是可选的。</p>
+
+<p>对于watchOS，bitcode是必须的。</p>
+
+<p>Mac OS不支持bitcode。</p>
+
+<p>Enable Testability</p>
+
+<p>是否支持测试。默认选NO；</p>
+
+<p>Generate Profiling Code</p>
+
+<p>是否生成配置代码。默认选择NO。</p>
+
+<p>Precompiled Header Uses Files From Build Directory</p>
+
+<p>预编译build路径中的头文件。由于编译过程比较耗时，且两次编译之间未必会改动所有文件。因此将不会改动的常用文件保留成预编译文件将大大减少编译时的时间。建议这一项选择YES。</p>
+
+<p>Require Only App-Extension-Safe API</p>
+
+<p>如果我们要想应用扩展使用内嵌框架，那么首先要配置一下。将target的Require Only App-Extension-Safe API选项设置为Yes。如果你不这样设置，那么Xcode会向你提示警告：linking against dylib not safe for use in application extensions。</p>
+
+<p>Scan All Source Files for Includes</p>
+
+<p>扫描include文件所包含的所有源文件。</p>
+
+<p>Validate Built Product</p>
+
+<p>这个选项决定了是否在编译的时候进行验证。验证的内容和app store的审查内容一致。默认选项是debug时不验证，release时验证。</p>
+
+<p>Deployment</p>
+
+<p>Headers</p>
+
+<p>Kernel Module</p>
+
+<p>Linking</p>
+
+<p>Search Paths<br/>
+<img src="media/15036253170711/4898159-05c3d2fbc1177dcb.jpg" alt="4898159-05c3d2fbc1177dcb"/></p>
+
+<p>Always Search User Path</p>
+
+<p>是否搜索用户指定的路径，默认是NO；</p>
+
+<p>Framework Search Paths</p>
+
+<p>工程引用的framework搜索路径</p>
+
+<p>Header Search Paths</p>
+
+<p>工程中引用的头文件搜索路径</p>
+
+<p>Library Search Paths</p>
+
+<p>library搜索路径，比如静态.a库</p>
+
+<p>Rez Search Paths</p>
+
+<p>This is a list of paths to search for files included by CarbonResource Manager resources and compiled with the Rez tool.</p>
+
+<p>Sub-Directories to Exclude in Recursive Searches<br/>
+指定哪些类型的子目录在递归查找时忽略</p>
+
+<p>Sub-Directories to include in Recursive Searches<br/>
+指定哪些类型的子目录在递归查找时包含</p>
+
+<p>Use Header Maps<br/>
+User Header Search Paths</p>
+
+<p>设置头文件搜索路径，这个只有当Always Search User Path开启后才有效。</p>
+
+<p>signing<br/>
+<img src="media/15036253170711/4898159-109e2cfaad3d8e61.jpg" alt="4898159-109e2cfaad3d8e61"/><br/>
+Code Signing Entitlements</p>
+
+<p>授权机制。在Xcode的capabilities选项卡下选择一些选项后，Xcode就会生成这样一段XML，Xcode会自动生成一个entitlements文件，然后再需要的时候往里面添加条目。当构建整个应用时，这个文件也会提及给codesign作为应用所需要拥有哪些授权的参考。这些授权信息必须都在开发者中心的AppID中启用，并且包含在配置文件中。</p>
+
+<p>Code Signing Identity</p>
+
+<p>配置证书</p>
+
+<p>Development Team</p>
+
+<p>开发者所在的群组</p>
+
+<p>Other Code Signing Flags</p>
+
+<p>常见的配置为--deep。用法不详。</p>
+
+<p>Provisioning Profile</p>
+
+<p>配置描述文件。</p>
+
+<p>User-Defined<br/>
+<img src="media/15036253170711/4898159-ce5b5ce3d3baa606.jpg" alt="4898159-ce5b5ce3d3baa606"/></p>
+
+<p>这里用户可以在debug、release或者自己定义的编译模式下设置不同的变量，可以达到一套代码同时支持多个不同版本的目的。比如可以编译出叫APP1和APP2两个名字不一样的APP。</p>
+
+<p>Packaging<br/>
+<img src="media/15036253170711/4898159-d26f0763a4bcd3f1.jpg" alt="4898159-d26f0763a4bcd3f1"/><br/>
+Defines Module</p>
+
+<p>是否定义模块。默认app类的工程为NO，framwork工程默认为YES。</p>
+
+<p>Expand Build Setting in Info.plist File</p>
+
+<p>告诉编译器是否处理info.plist。默认是YES。这是一个很大的特点，因为它避免了有根据您的构建设置和配置不同的Info.plist中，避免您在多个地方修改设置。 但是如果你真的不想要它，只需在项目或目标的构建设置中关闭此设置。</p>
+
+<p>Info.plist File</p>
+
+<p>创建工程后默认会创建一个info.plist文件。也可以根据需要进行主动创建。</p>
+
+<p>Private Headers Folder Path</p>
+
+<p>私有头文件的存放位置。</p>
+
+<p>Product Bundle Identifier</p>
+
+<p>产品bundle的标识</p>
+
+<p>Product Module Name</p>
+
+<p>产品模块名称</p>
+
+<p>Product Name</p>
+
+<p>产品名称</p>
+
+<p>Public Headers Folder Path</p>
+
+<p>公共头文件路径</p>
+
+<p>Wrapper Extension</p>
+
+<p>打包的扩展名，默认app。</p>
+
+<p>Preprocessing<br/>
+<img src="media/15036253170711/4898159-fd3003b39d067534.jpg" alt="4898159-fd3003b39d067534"/></p>
+
+
+    
+
+      </div>
+
+      <div class="row">
+        <div class="large-6 columns">
+        <p class="text-left" style="padding:15px 0px;">
+      
+        </p>
+        </div>
+        <div class="large-6 columns">
+      <p class="text-right" style="padding:15px 0px;">
+      
+          <a  href="15030458956017.html" 
+          title="Next Post: 发现女儿早恋，这个爸爸的做法刷爆朋友圈！">发现女儿早恋，这个爸爸的做法刷爆朋友圈！ &raquo;</a>
+      
+      </p>
+        </div>
+      </div>
+      <div class="comments-wrap">
+        <div class="share-comments">
+          <div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://www-hanyegudeng-com.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+          
+
+          
+        </div>
+      </div>
+    </div><!-- article-wrap -->
+  </div><!-- large 8 -->
+
+
+
+
+ <div class="large-4 medium-4 columns">
+  <div class="hide-for-small">
+    <div id="sidebar" class="sidebar">
+          <div id="site-info" class="site-info">
+            
+                <h1>寒夜孤灯</h1>
+                <div class="site-des">寒夜里的一盏孤灯</div>
+                <div class="social">
+
+
+
+
+
+
+
+
+
+
+
+  <a target="_blank" class="rss" href="atom.xml" title="RSS">RSS</a>
+                
+              	 </div>
+          	</div>
+
+             
+
+              <div id="site-categories" class="side-item ">
+                <div class="side-header">
+                  <h2>分类</h2>
+                </div>
+                <div class="side-content">
+
+      	<p class="cat-list">
+        
+            <a href="iOS.html"><strong>iOS</strong></a>
+        
+            <a href="Mac.html"><strong>Mac</strong></a>
+        
+            <a href="PHP.html"><strong>PHP</strong></a>
+        
+            <a href="Python.html"><strong>Python</strong></a>
+        
+            <a href="%E6%9D%82%E8%B0%88.html"><strong>杂谈</strong></a>
+        
+            <a href="%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87.html"><strong>疑难杂症</strong></a>
+        
+            <a href="Redis.html"><strong>Redis</strong></a>
+        
+            <a href="React%20Native.html"><strong>React Native</strong></a>
+        
+            <a href="%E8%BF%90%E7%BB%B4.html"><strong>运维</strong></a>
+         
+        </p>
+
+
+                </div>
+              </div>
+
+              <div id="site-categories" class="side-item">
+                <div class="side-header">
+                  <h2>最新文章</h2>
+                </div>
+                <div class="side-content">
+                <ul class="posts-list">
+	      
+		      
+			      <li class="post">
+			        <a href="15036253170711.html">Xcode Build Settings 分析</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15030458956017.html">发现女儿早恋，这个爸爸的做法刷爆朋友圈！</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15017301944011.html">iOS应用内跳转到系统设置页面</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15017289646320.html">iOS APP提交审核被拒因Guideline 2.5.2 - Performance - Software Requirements</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14966306832048.html">Swift使用pod找不到文件的解决方案</a>
+			      </li>
+		     
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		   
+		  		</ul>
+                </div>
+              </div>
+        </div><!-- sidebar -->
+      </div><!-- hide for small -->
+</div><!-- large 4 -->
+
+</div><!-- row -->
+
+ <div class="page-bottom clearfix">
+  <div class="row">
+   <p class="copyright">Copyright &copy; 2017
+通过 <a target="_blank" href="http://www.mweb.im">MWeb</a>制作&nbsp; <a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备15015428号-1</a>&nbsp; 
+</p>
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+
+  
+    
+
+    <script src="asset/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+      function fixSidebarHeight(){
+        var w1 = $('.markdown-body').height();
+          var w2 = $('#sidebar').height();
+          if (w1 > w2) { $('#sidebar').height(w1); };
+      }
+      $(function(){
+        fixSidebarHeight();
+      })
+      $(window).load(function(){
+          fixSidebarHeight();
+      });
+     
+    </script>
+
+    
+
+
+
+  </body>
+</html>

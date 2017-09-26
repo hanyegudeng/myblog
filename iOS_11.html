@@ -1,0 +1,930 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  iOS - 寒夜孤灯
+  
+  </title>
+  
+  
+  <link href="atom.xml" rel="alternate" title="寒夜孤灯" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+  <script src="asset/highlightjs/highlight.pack.js"></script>
+  <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+  function before_search(){
+    var searchVal = 'site:www.hanyegudeng.com ' + document.getElementById('search_input').value;
+    document.getElementById('search_q').value = searchVal;
+    return true;
+  }
+</script>
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+
+  <section class="top-bar-section">
+  <div class="row">
+      <div style="position: relative;width:100%;"><div style="position: absolute; width:100%;">
+        <ul id="main-menu" class="left">
+        
+        <li id=""><a target="self" href="index.html">Home</a></li>
+        
+        <li id=""><a target="_self" href="archives.html">Archives</a></li>
+        
+        </ul>
+
+        <ul class="right" id="search-wrap">
+          <li>
+<form target="_blank" onsubmit="return before_search();" action="https://google.com/search" method="get">
+    <input type="hidden" id="search_q" name="q" value="" />
+    <input tabindex="1" type="search" id="search_input"  placeholder="Search"/>
+</form>
+</li>
+          </ul>
+      </div></div>
+  </div>
+  </section>
+
+</nav>
+
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; 寒夜孤灯</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+       
+       <li><a href="index.html">首页</a></li>
+    <li><a href="archives.html">目录</a></li>
+    <li><a href="about.html">关于</a></li>
+
+    <li><label>Categories</label></li>
+
+        
+            <li><a href="iOS.html">iOS</a></li>
+        
+            <li><a href="Mac.html">Mac</a></li>
+        
+            <li><a href="PHP.html">PHP</a></li>
+        
+            <li><a href="Python.html">Python</a></li>
+        
+            <li><a href="%E6%9D%82%E8%B0%88.html">杂谈</a></li>
+        
+            <li><a href="%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87.html">疑难杂症</a></li>
+        
+            <li><a href="Redis.html">Redis</a></li>
+        
+            <li><a href="React%20Native.html">React Native</a></li>
+        
+            <li><a href="%E8%BF%90%E7%BB%B4.html">运维</a></li>
+         
+
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+
+        <section id="main-content" role="main" class="scroll-container">
+        
+       
+
+ <script type="text/javascript">
+	$(function(){
+		$('#menu_item_index').addClass('is_active');
+	});
+</script>
+<div class="row">
+	<div class="large-8 medium-8 columns">
+		<div class="markdown-body home-categories">
+		
+			<div class="article">
+                <a class="clearlink" href="14383113526647.html">
+                
+                  <h1>iOS单页面旋转</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<p>1.首先要打开支持所有的方向。在基类里面把其他方向都关闭<br/>
+2.如果是Navigation后者是TabBarcontroller需要在对应的积累里面添加方法</p>
+
+<p><code>BaseViewController</code></p>
+
+<pre><code>- (BOOL)shouldAutorotate
+{
+    return YES;
+}
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
+}
+</code></pre>
+
+<p><code>BaseNavigationViewControoller</code></p>
+
+<pre><code>- (BOOL)shouldAutorotate
+{
+    return [self.viewControllers.lastObject shouldAutorotate];
+}
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return [self.viewControllers.lastObject supportedInterfaceOrientations];
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    return [self.viewControllers.lastObject preferredInterfaceOrientationForPresentation];
+}
+
+</code></pre>
+
+<p>3.对应需要切换的view里面</p>
+
+<pre><code>- (BOOL)shouldAutorotate
+{
+    return YES;
+}
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskAll;
+}
+</code></pre>
+
+<p>4.当前界面消失的时候强制设置为竖屏</p>
+
+<pre><code>-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [[UIDevice currentDevice] setValue:[NSNumber numberWithInteger:UIDeviceOrientationPortrait] forKey:@&quot;orientation&quot;];
+}
+</code></pre>
+
+<p>5.当前界面获取横竖屏切换事件，做特殊的处理</p>
+
+<pre><code>-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
+    //Your Code
+}
+</code></pre>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2015/7/31</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='iOS.html'>iOS</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+			<div class="article">
+                <a class="clearlink" href="14379663206243.html">
+                
+                  <h1>提高编程效率</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<p>1.使用代码片段<br/>
+    在看WWDC视频的时候，很多老师敲几个键，就输入一坨代码，自己何不也定义一些常用的代码段来快速开发呢。下面就来实现自己添加代码段。<br/>
+    代码段都在这里<br/>
+<img src="media/14379663206243/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-07-27%20%E4%B8%8A%E5%8D%8811.07.04.png" alt="屏幕快照 2015-07-27 上午11.07.04"/></p>
+
+<p>怎么添加很简单。先把代码写好，选中，拖进去就可以了。添加好以后要设置一些快捷键。设置在这里<br/>
+<img src="media/14379663206243/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202015-07-27%20%E4%B8%8A%E5%8D%8811.08.21.png" alt="屏幕快照 2015-07-27 上午11.08.21"/><br/>
+Title:自己起的名字<br/>
+Summary:提示文字<br/>
+：:平台iOS还是Mac OS<br/>
+Language:语言<br/>
+Completion Shortcut:输入的快捷键（我这里输入@Table就出来下面的代码了）<br/>
+Completion Scopes:在那里执行这个代码块，自己点开看下就明白了</p>
+
+<p>这里的Number编辑的时候可以通过<code>&lt;#Nnumber#&gt;</code>来实现</p>
+
+<p>写好的代码块都在这里<code>~/Library/Developer/Xcode/UserData/CodeSnippets</code>，可以备份备用</p>
+
+<p>2.github上搜索热门东东<code>language:Objective-C stars:&gt;900</code></p>
+
+<p>3.好用的插件管理：<br/>
+    规范注释生成器VVDocumenter： <code>https://github.com/onevcat/VVDocumenter-Xcode</code><br/>
+    颜色显示插件ColorSense：<code>https://github.com/omz/ColorSense-for-Xcode</code><br/>
+    一个用来对齐常规代码的Xcode插件--XAlign： <code>http://github.so/XAlign/</code></p>
+
+<p>4.一下好用的快捷键<br/>
+    Com+上（文件顶部）下（文件底部）左（行头）右（行尾）<br/>
+    Option+单击。查看函数说明</p>
+
+<p>统计代码行数：</p>
+
+<pre><code>find . &quot;(&quot; -name &quot;*.m&quot; -or -name &quot;*.mm&quot; -or -name &quot;*.cpp&quot; -or -name &quot;*.h&quot; -or -name &quot;*.rss&quot; &quot;)&quot; -print | xargs wc -l
+</code></pre>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2015/7/27</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='iOS.html'>iOS</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+			<div class="article">
+                <a class="clearlink" href="14379209817594.html">
+                
+                  <h1>Objective-c， Python DES互相加密加密解密</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<p>先上OC代码</p>
+
+<pre><code>#import &lt;Foundation/Foundation.h&gt;
+
+@interface NSString (OCDes)
++ (NSString *)encryptWithText:(NSString *)sText;//加密
++ (NSString *)decryptWithText:(NSString *)sText;//解密
+@end
+</code></pre>
+
+<pre><code>#import &quot;NSString+OCDes.h&quot;
+#import &quot;GTMBase64.h&quot;
+#import &lt;CommonCrypto/CommonDigest.h&gt;
+#import &lt;CommonCrypto/CommonCryptor.h&gt;
+
+#define kKeyValue @&quot;&amp;*$hyHr7&quot;
+
+@implementation NSString (OCDes)
+
++ (NSString *)encryptWithText:(NSString *)sText
+{
+    //kCCEncrypt 加密
+    return [self encrypt:sText encryptOrDecrypt:kCCEncrypt key:kKeyValue];
+}
+
++ (NSString *)decryptWithText:(NSString *)sText
+{
+    //kCCDecrypt 解密
+    return [self encrypt:sText encryptOrDecrypt:kCCDecrypt key:kKeyValue];
+}
+
++ (NSString *)encrypt:(NSString *)sText encryptOrDecrypt:(CCOperation)encryptOperation key:(NSString *)key
+{
+    const void *dataIn;
+    size_t dataInLength;
+    
+    if (encryptOperation == kCCDecrypt)//传递过来的是decrypt 解码
+    {
+        //解码 base64
+        NSData *decryptData = [GTMBase64 decodeString:sText];
+        dataInLength = [decryptData length];
+        dataIn = [decryptData bytes];
+    }
+    else  //encrypt
+    {
+        NSData* encryptData = [sText dataUsingEncoding:NSUTF8StringEncoding];
+        dataInLength = [encryptData length];
+        dataIn = (const void *)[encryptData bytes];
+    }
+    
+    NSData* keyData = [key dataUsingEncoding:NSUTF8StringEncoding];
+    /*
+     DES加密 ：用CCCrypt函数加密一下，然后用base64编码下，传过去
+     DES解密 ：把收到的数据根据base64，decode一下，然后再用CCCrypt函数解密，得到原本的数据
+     */
+    CCCryptorStatus ccStatus;
+    uint8_t *dataOut = NULL; //可以理解位type/typedef 的缩写（有效的维护了代码，比如：一个人用int，一个人用long。最好用typedef来定义）
+    size_t dataOutAvailable = 0; //size_t  是操作符sizeof返回的结果类型
+    size_t dataOutMoved = 0;
+    
+    dataOutAvailable = (dataInLength + kCCBlockSizeDES) &amp; ~(kCCBlockSizeDES - 1);
+    dataOut = malloc( dataOutAvailable * sizeof(uint8_t));
+    memset((void *)dataOut, 0x0, dataOutAvailable);//将已开辟内存空间buffer的首 1 个字节的值设为值 0
+    
+    NSString *initIv = @&quot;12345678&quot;;
+    const void *iv = (const void *) [initIv UTF8String];
+    //CCCrypt函数 加密/解密
+    ccStatus = CCCrypt(encryptOperation,//  加密/解密
+                       kCCAlgorithmDES,//  加密根据哪个标准（des，3des，aes。。。。）
+                       kCCOptionECBMode|kCCOptionPKCS7Padding,//  选项分组密码算法(des:对每块分组加一次密  3DES：对每块分组加三个不同的密)
+                       [keyData bytes],  //密钥    加密和解密的密钥必须一致
+                       kCCKeySizeDES,//   DES 密钥的大小（kCCKeySizeDES=8）
+                       iv, //  可选的初始矢量
+                       dataIn, // 数据的存储单元
+                       dataInLength,// 数据的大小
+                       (void *)dataOut,// 用于返回数据
+                       dataOutAvailable,
+                       &amp;dataOutMoved);
+    
+    
+    NSString *result = nil;
+    
+    if (encryptOperation == kCCDecrypt)//encryptOperation==1  解码
+    {
+        //得到解密出来的data数据，改变为utf-8的字符串
+        result = [[NSString alloc] initWithData:[NSData dataWithBytes:(const void *)dataOut length:(NSUInteger)dataOutMoved] encoding:NSUTF8StringEncoding];
+    }
+    else //encryptOperation==0  （加密过程中，把加好密的数据转成base64的）
+    {
+        //编码 base64
+        NSData *data = [NSData dataWithBytes:(const void *)dataOut length:(NSUInteger)dataOutMoved];
+        result = [GTMBase64 stringByEncodingData:data];
+    }
+    free(dataOut);
+    return result;
+}
+
+</code></pre>
+
+<p>python使用的pyDes，代码</p>
+
+<pre><code>#encoding:utf8
+
+from pyDes import *
+import base64
+
+# mydes = des(&#39;BHC#@*UM&#39;,CBC,&#39;12345678&#39;,pad=None,padmode=PAD_PKCS5)
+mydes = des(&#39;&amp;*$hyHr7&#39;,ECB,&#39;12345678&#39;,pad=None,padmode=PAD_PKCS5)
+
+str = &#39;哈哈加密解密搞定&#39;
+EncryptStr = mydes.encrypt(str)
+# print &quot;Encrypted:%r&quot; % binascii.hexlify(EncryptStr)
+b64Str = base64.b64encode(EncryptStr)
+print b64Str
+descstr = base64.b64decode(b64Str)
+tmp = mydes.decrypt(descstr)
+print tmp
+</code></pre>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2015/7/26</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='iOS.html'>iOS</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+			<div class="article">
+                <a class="clearlink" href="14376144452281.html">
+                
+                  <h1>快快快！27个提升效率的iOS开源库推荐</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<p><a href="http://www.csdn.net/article/2015-07-21/2825264-27-ios-open-source-libraries/5">http://www.csdn.net/article/2015-07-21/2825264-27-ios-open-source-libraries/5</a></p>
+
+<p>CSDN移动将持续为您优选移动开发的精华内容，共同探讨移动开发的技术热点话题，涵盖移动应用、开发工具、移动游戏及引擎、智能硬件、物联网等方方面面。如果您想投稿、参与内容翻译工作，或寻求近匠报道，请发送邮件至tangxy#csdn.net（请把#改成@）。 <br/>
+我热爱开源，更喜爱那些花费宝贵的业余时间来创造奇迹的开发者们，感谢他们将自己辛苦劳动的成果无偿分享给大家。开源作者和贡献者们，你们太了不起了，感谢你们所付出的一切。</p>
+
+<p>鉴于我是收集不全会死星人，这里我根据个人喜好选取了一些iOS的开源库。这些项目的顺序完全随机，每个都棒到爆。绝大多数支持CocoaPods，所以将它们添加到你的Xcode项目中只是小事一桩。</p>
+
+<p>在本文末尾你可以找到一个长文慎入版本——一个只包含题目与项目链接的简单列表。如果你觉得这篇文章有用的话，请把它分享给其他做iOS开发的小伙伴们，好酒也怕巷子深。</p>
+
+<ol>
+<li>DZNEmptyDataSet</li>
+</ol>
+
+<p>DZNEmptyDataSet算是一个很标准的iOS内建方式，适合用来处理空的table view和collection view。默认情况下，如果你的table view为空，屏幕就为空，这样一来用户体验并不理想。</p>
+
+<p>使用这个库，你只需遵守一些协议，iOS就会自动将collection view处理完善，并将用户消息以合适美观的方式显示出来。每个iOS项目都可以自动处理，不用再一一费神。</p>
+
+<ol>
+<li>PDTSimpleCalendar</li>
+</ol>
+
+<p>你的应用需要一个简单美观且正常运行的日历组件吗？现在有了——PDTSimpleCalendar也许可以算是iOS最棒的日历组件了。你可以在各个方面对它进行定制，无论是运行逻辑还是外观方面。</p>
+
+<ol>
+<li>MagicalRecord</li>
+</ol>
+
+<p>他们都说：Core Data简洁易用。他们又说：很棒很好用噢。哈？真的吗，苹果？添加到各个项目中的大量样板数据完全不符合简洁而易用的标准。更别提添加、移除和更新那一大堆的entities、保存context、按不同环境创建不同的Core Data堆栈等等。当然，我很喜欢Core Data，但是苹果真的可以把它更好地简化一下——使用MagicalRecord方式。</p>
+
+<p>MagicalRecord就像是给Core Data提供了一层外包装，隐藏掉所有不相关的东西。如果你曾经使用过active record模式（比如Ruby on Rails），你就知道了。倾情推荐，在应用中使用Core Data的童鞋们可一定要试试。</p>
+
+<ol>
+<li>Chameleon</li>
+</ol>
+
+<p>如果你已经看到这里了，我猜你更有可能是个程序猿，而不是设计狮。这里有个东东很适合你。</p>
+
+<p>Chameleon是一个iOS的色彩框架。它运用现代化flat color将UIColor扩展地非常美观。我们还可以通过它运用自定义颜色创建调色板。它还有很多功用，请浏览readme。如果你想要应用美观的话，一定要把这个库加到项目里。</p>
+
+<ol>
+<li>Alamofire</li>
+</ol>
+
+<p>Alamofire是一个简洁的网络库，用Swift语言编写。你是否曾经使用过AFNetworking呢？Alamofire是它的小弟。更年轻更时尚，当然（AFNetworking是用Objective-C编写的）。</p>
+
+<p>如果你需要进行网络的相关工作，诸如下载、上传与获取JSONs等等的话，Alamofire正是你所需要的。GitHub上8000人次推荐，一定不会错。</p>
+
+<ol>
+<li>TextFieldEffects</li>
+</ol>
+
+<p>你不觉得标准的UITextField有些枯燥么？我也这样想——来认识一下TextFieldEffects吧！废话不多说，只要看几个例子：</p>
+
+<p>是啊，都是些简单的dropin控制器。你甚至可以在storyboard中使用IBDesignables。</p>
+
+<p>不幸地是：这个库不支持CocoaPods（如果你来自未来，而这一情况什么时候会改变的话，一定要在Twitter上告诉我），但是它支持Carthage。你只管从GitHub上下载项目，把它放入你的workspace就行了。</p>
+
+<ol>
+<li>GPUImage</li>
+</ol>
+
+<p>你曾经写过照相机应用吗？如果没有的话，很快你一定会遇到这个库的。</p>
+
+<p>GPUImage为我们提供了一个GPU加速的照相机效果（同时支持照片与视频），而且处理速度飞快。在App Store中，使用这个库的应用数以百计。我有一个应用也用到了GPUImage。 它在GitHub上获得了8869个star，而且还在增长。</p>
+
+<ol>
+<li>iRate</li>
+</ol>
+
+<p>想要在App Store中获得更多评论的最佳方式是什么？想要回答这个问题，我缺乏切实数据，但如果必须猜一下的话，我会建议问问用户。也许这样做有点老套——大多开发者现在都有创建定制的应用内置alert。</p>
+
+<p>但是如果你没有时间，或者不想从头实现的话，最好用一下iRata。这个就是iRata——一个小型库——你可以把它放入项目中，把问卷调查什么的都忘记吧，iRate会在恰当的时候为你解决这个问题。</p>
+
+<ol>
+<li>GameCenterManager</li>
+</ol>
+
+<p>无论你喜不喜欢单例模式，管理一个GameCenter都比我们已知的其他相反模式要好很多。（你的游戏只有一个GameCenter，对吗？）</p>
+
+<p>说实话，在iOS上管理GameCenter vanilla并不算难，但是有了这个库会更简单也更快。好上加好不是更好么。</p>
+
+<p>我在我一个游戏中用到了这个，体验很好。</p>
+
+<ol>
+<li>PKRevealController 2</li>
+</ol>
+
+<p>这个要注意，真的很棒！是我最喜爱的iOS控件之一。PKRevealController是一个可以滑动的侧边栏菜单（可向左、向右或者同时向两侧），只需手指轻轻一点（或者按一下按钮，但是这样滑动时不够炫酷）。</p>
+
+<p>我试过一些可以提供这类控制的其他库，而PKRevealController是最棒的。安装简便，高度定制且对手势识别良好。可以当做一个标准控件用在iOS SDK中。</p>
+
+<ol>
+<li>SlackTextViewController</li>
+</ol>
+
+<p>你曾经用过Slack iOS应用吗？如果你在较大的软件公司工作，也许会用过。对那些没用过的人呢？—?Slack令人激动。用到Slack的应用也是这样，尤其是用作极佳、定制的文本输入控制时。这时你有了一个现成可用在应用中的代码。</p>
+
+<p>自适应文本区域？试一下。</p>
+
+<p>手势识别、自动填充、多媒体合并？试一下。</p>
+
+<p>快速drop-in解决方案？试一下。</p>
+
+<p>其他还想要什么？</p>
+
+<ol>
+<li>RETableViewManager</li>
+</ol>
+
+<p>RETableViewManager可以帮助你进行动态创建与管理table views。它给我们提供了预定义cells（bool类型、文本、日期等等——请看下面的截图），但是你还可以创建自定义views，并与默认视图一同使用。</p>
+
+<p>左侧截图显得非常古板！在storyboard中没有这个库的时候，你能做的就是这些了，但是有时候代码比可视化编辑器要好。</p>
+
+<ol>
+<li>PermissionScope</li>
+</ol>
+
+<p>用这个库可以在询问用户前，就告知用户所需的系统权限，为用户带来更好的体验。接受度更高—&gt;更多活跃用户-&gt;更高的留存率-&gt;数据更好-&gt;下载率更高。墙裂推荐pod。</p>
+
+<ol>
+<li>SVProgressHUD</li>
+</ol>
+
+<p>这张图片在正常加载，无需等待太久或者刷新页面。这正是SVProgressHUD在你的应用中的表现。如果你需要定制化的等待提示器，这个就是了（也许是最好的）。</p>
+
+<ol>
+<li>FontAwesomeKit</li>
+</ol>
+
+<p>Font Awesome很棒，有了它你可以很容易地给项目加字体，使用方式繁多。</p>
+
+<ol>
+<li>SnapKit</li>
+</ol>
+
+<p>喜欢自动布局吗？当然喜欢！至少在storyboard中创建时会喜欢。 在代码中纯手工创建约束灰常痛苦，但幸运的是我们有了SnapKit，在board中用上它，你可以简单直观地编写约束了。</p>
+
+<ol>
+<li>MGSwipeTableCell</li>
+</ol>
+
+<p>这是另一个常见于很多应用中的UI组件，苹果应该考虑在标准的iOS SDK中加入一些类似的内容。Swipeable表格cell是这个pod的最佳描述，也是最好的。</p>
+
+<p>这只是其中三个动画类型，还有更多变化，请查看readme。</p>
+
+<ol>
+<li>Quick</li>
+</ol>
+
+<p>用于Swift中的单元测试（也可用于Objective-C），与Xcode整合在一起。如果你是Objective-C的粉丝，我建议用Specta代替这个，但是对Swift使用者来说，Quick是最佳选择。</p>
+
+<ol>
+<li>IAPHelper</li>
+</ol>
+
+<p>应用内付费给我们提供了很多样本代码，而这个库丢掉了那些代码，将金钱交易相关的大多通用任务做了简单的封装。</p>
+
+<ol>
+<li>ReactiveCocoa</li>
+</ol>
+
+<p>好吧，这是个小怪物。</p>
+
+<p>ReactiveCocoa并不像列表中其他库一样，它不是小型的drop-in项目。ReactiveCocoa给我们带来了一个迥异的编程风格与结构，它是基于信号与数据流的。首先你需要忘掉已知的一切，才能理解它的工作方式。很有难度，但是价值不斐。</p>
+
+<p>在这里教ReactiveCocoa有点不合适，但是如果你感兴趣的话，我会提供一些好源：</p>
+
+<p>Getting Started with ReactiveCocoa<br/>
+Mattt Thompson：Reactive​Cocoa<br/>
+ReactiveCocoa Tutorial – The Definitive Introduction: Part 1/2<br/>
+注意：对我们iOS开发社区的朋友来说，这会是一个稍微有些技术含量的活儿。</p>
+
+<ol>
+<li>SwiftyJSON</li>
+</ol>
+
+<p>使Swift的JSON解析变得简单。</p>
+
+<ol>
+<li>Spring</li>
+</ol>
+
+<p>使动画在简单性、可链接性与声明性方面有所提高。</p>
+
+<ol>
+<li>FontBlaster</li>
+</ol>
+
+<p>载入定制字体时更简单。</p>
+
+<ol>
+<li>TAPromotee</li>
+</ol>
+
+<p>交叉推广应用是你可以免费实现的最佳市场推广策略之一。使用这个库做起来非常简单，不用都不可能——将TAPromotee加入你的podfile中，免费配置与享受更多下载吧。</p>
+
+<ol>
+<li>Concorde</li>
+</ol>
+
+<p>你在应用中载入了一堆jpeg吗？有了Concorde，你可以用更好的方式来解决，这是一个很大的进步。</p>
+
+<ol>
+<li>KeychainAccess</li>
+</ol>
+
+<p>管理Keychain接入的小助手。</p>
+
+<ol>
+<li>iOS-charts</li>
+</ol>
+
+<p>最后一个，但绝不是最不重要的——iOS图表库！非常有用而且美观，这里我无需赘言。向下看，你就知道用它可以做什么了。</p>
+
+<p>没错，一切都变成了drop-in组件了（也许是“code-in组件）。</p>
+
+<p>不幸的是，它还不支持CocoaPods，所以你得手动把它拽到你的Xcode workspace里面去。</p>
+
+<p>超长慎入列表：</p>
+
+<p>DZNEmptyDataSet（UI，空表格视图解算器）<br/>
+PDTSimpleCalendar（UI，drop-in日历组件）<br/>
+MagicalRecord（实施活跃记录模式的Core Data助手）<br/>
+Chameleon（UI，色彩框架）<br/>
+Alamofire（Swift 网络）<br/>
+TextFieldEffects （UI，自定义外观的文本区域）<br/>
+GPUImage（快速图片处理）<br/>
+iRate（获取用户评价）<br/>
+GameCenterManager（快速管理游戏中心）<br/>
+PKRevealController（UI，滑动侧边栏菜单）<br/>
+SlackTextViewController（UI，高度可定制的自定义文本区域）<br/>
+RETableViewManager（自动以代码创建表格视图）<br/>
+PermissionScope（UI，预询问用户系统权限的友好体验）<br/>
+SVProgressHUD （UI，自定义等待进度条）<br/>
+FontAwesomeKit （快速添加Awesome字体）<br/>
+SnapKit（在代码中快速自动布局）<br/>
+MGSwipeTableCell （UI，可滑动的表格视图cell）<br/>
+Quick（Swift单元测试框架）<br/>
+IAPHelper（应用内购买助手封装）<br/>
+ReactiveCocoa（FRP框架）<br/>
+SwiftyJSON（Swift JSON库）<br/>
+Spring（动画框架）<br/>
+FontBlaster（在应用中快速载入个性化字体）<br/>
+TAPromotee（使用drop-in视图交叉推广应用）<br/>
+Concorde（下载解码渐进式jpeg）<br/>
+KeychainAccess（简便管理keychain）<br/>
+iOS-charts（美观的图表库）</p>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2015/7/23</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='iOS.html'>iOS</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+			<div class="article">
+                <a class="clearlink" href="14375492431659.html">
+                
+                  <h1>View添加阴影</h1>
+                  <div class="a-content">
+                      
+                      <div class="a-content-text">
+                        
+                        	<pre><code>view.layer.shadowColor = [UIColor blackColor].CGColor;
+view.layer.shadowOpacity = 1.0;
+view.layer.shadowRadius = 5.0;
+view.layer.shadowOffset = CGSizeMake(0, 3);
+view.clipsToBounds = NO;
+</code></pre>
+
+                        
+                      </div>
+                  </div>
+                </a>
+                <div class="read-more clearfix">
+                  <div class="more-left left">
+                  
+                    <span class="date">2015/7/22</span>
+                    <span>posted in&nbsp;</span> 
+          				  
+          					    <span class="posted-in"><a href='iOS.html'>iOS</a></span>
+          				   
+                  </div>
+                  <div class="more-right right">
+                  <span class="comments">
+                      
+
+                       
+                  </span>
+                  </div>
+                </div>
+              </div><!-- article -->
+        
+              
+
+
+			<div class="row">
+			  <div class="large-6 columns">
+			  <p class="text-left" style="padding-top:25px;">
+			   <a href="iOS_10.html">&laquo; Prev Page</a>  
+			  </p>
+			  </div>
+			  <div class="large-6 columns">
+			<p class="text-right" style="padding-top:25px;">
+			 <a href="iOS_12.html">&raquo; Next Page</a> 
+			</p>
+			  </div>
+			</div>
+		</div>
+	</div><!-- large 8 -->
+
+ <div class="large-4 medium-4 columns">
+  <div class="hide-for-small">
+    <div id="sidebar" class="sidebar">
+          <div id="site-info" class="site-info">
+            
+                <h1>寒夜孤灯</h1>
+                <div class="site-des">寒夜里的一盏孤灯</div>
+                <div class="social">
+
+
+
+
+
+
+
+
+
+
+
+  <a target="_blank" class="rss" href="atom.xml" title="RSS">RSS</a>
+                
+              	 </div>
+          	</div>
+
+             
+
+              <div id="site-categories" class="side-item ">
+                <div class="side-header">
+                  <h2>分类</h2>
+                </div>
+                <div class="side-content">
+
+      	<p class="cat-list">
+        
+            <a href="iOS.html"><strong>iOS</strong></a>
+        
+            <a href="Mac.html"><strong>Mac</strong></a>
+        
+            <a href="PHP.html"><strong>PHP</strong></a>
+        
+            <a href="Python.html"><strong>Python</strong></a>
+        
+            <a href="%E6%9D%82%E8%B0%88.html"><strong>杂谈</strong></a>
+        
+            <a href="%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87.html"><strong>疑难杂症</strong></a>
+        
+            <a href="Redis.html"><strong>Redis</strong></a>
+        
+            <a href="React%20Native.html"><strong>React Native</strong></a>
+        
+            <a href="%E8%BF%90%E7%BB%B4.html"><strong>运维</strong></a>
+         
+        </p>
+
+
+                </div>
+              </div>
+
+              <div id="site-categories" class="side-item">
+                <div class="side-header">
+                  <h2>最新文章</h2>
+                </div>
+                <div class="side-content">
+                <ul class="posts-list">
+	      
+		      
+			      <li class="post">
+			        <a href="15036253170711.html">Xcode Build Settings 分析</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15030458956017.html">发现女儿早恋，这个爸爸的做法刷爆朋友圈！</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15017301944011.html">iOS应用内跳转到系统设置页面</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15017289646320.html">iOS APP提交审核被拒因Guideline 2.5.2 - Performance - Software Requirements</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14966306832048.html">Swift使用pod找不到文件的解决方案</a>
+			      </li>
+		     
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		   
+		  		</ul>
+                </div>
+              </div>
+        </div><!-- sidebar -->
+      </div><!-- hide for small -->
+</div><!-- large 4 -->
+
+</div><!-- row -->
+
+ <div class="page-bottom clearfix">
+  <div class="row">
+   <p class="copyright">Copyright &copy; 2017
+通过 <a target="_blank" href="http://www.mweb.im">MWeb</a>制作&nbsp; <a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备15015428号-1</a>&nbsp; 
+</p>
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+
+  
+    
+
+    <script src="asset/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+      function fixSidebarHeight(){
+        var w1 = $('.markdown-body').height();
+          var w2 = $('#sidebar').height();
+          if (w1 > w2) { $('#sidebar').height(w1); };
+      }
+      $(function(){
+        fixSidebarHeight();
+      })
+      $(window).load(function(){
+          fixSidebarHeight();
+      });
+     
+    </script>
+
+    
+
+
+
+  </body>
+</html>

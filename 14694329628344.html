@@ -1,0 +1,712 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  使用Python实现websocket - 寒夜孤灯
+  
+  </title>
+  
+  
+  <link href="atom.xml" rel="alternate" title="寒夜孤灯" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+  <script src="asset/highlightjs/highlight.pack.js"></script>
+  <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+  function before_search(){
+    var searchVal = 'site:www.hanyegudeng.com ' + document.getElementById('search_input').value;
+    document.getElementById('search_q').value = searchVal;
+    return true;
+  }
+</script>
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+
+  <section class="top-bar-section">
+  <div class="row">
+      <div style="position: relative;width:100%;"><div style="position: absolute; width:100%;">
+        <ul id="main-menu" class="left">
+        
+        <li id=""><a target="self" href="index.html">Home</a></li>
+        
+        <li id=""><a target="_self" href="archives.html">Archives</a></li>
+        
+        </ul>
+
+        <ul class="right" id="search-wrap">
+          <li>
+<form target="_blank" onsubmit="return before_search();" action="https://google.com/search" method="get">
+    <input type="hidden" id="search_q" name="q" value="" />
+    <input tabindex="1" type="search" id="search_input"  placeholder="Search"/>
+</form>
+</li>
+          </ul>
+      </div></div>
+  </div>
+  </section>
+
+</nav>
+
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; 寒夜孤灯</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+       
+       <li><a href="index.html">首页</a></li>
+    <li><a href="archives.html">目录</a></li>
+    <li><a href="about.html">关于</a></li>
+
+    <li><label>Categories</label></li>
+
+        
+            <li><a href="iOS.html">iOS</a></li>
+        
+            <li><a href="Mac.html">Mac</a></li>
+        
+            <li><a href="PHP.html">PHP</a></li>
+        
+            <li><a href="Python.html">Python</a></li>
+        
+            <li><a href="%E6%9D%82%E8%B0%88.html">杂谈</a></li>
+        
+            <li><a href="%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87.html">疑难杂症</a></li>
+        
+            <li><a href="Redis.html">Redis</a></li>
+        
+            <li><a href="React%20Native.html">React Native</a></li>
+        
+            <li><a href="%E8%BF%90%E7%BB%B4.html">运维</a></li>
+         
+
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+
+        <section id="main-content" role="main" class="scroll-container">
+        
+       
+
+ <script type="text/javascript">
+  $(function(){
+    $('#menu_item_index').addClass('is_active');
+  });
+</script>
+<div class="row">
+  <div class="large-8 medium-8 columns">
+      <div class="markdown-body article-wrap">
+       <div class="article">
+          
+          <h1>使用Python实现websocket</h1>
+     
+        <div class="read-more clearfix">
+          <span class="date">2016/7/25</span>
+
+          <span>posted in&nbsp;</span> 
+          
+              <span class="posted-in"><a href='Python.html'>Python</a></span>
+           
+         
+          <span class="comments">
+            
+
+            
+          </span>
+
+        </div>
+      </div><!-- article -->
+
+      <div class="article-content">
+      <p>来自：<code>http://blog.csdn.net/jiht594/article/details/43764941</code></p>
+
+<p>服务器代码</p>
+
+<pre><code class="language-#coding=utf8">#!/usr/bin/python
+
+
+import struct,socket
+import hashlib
+import threading,random
+import time
+import struct
+from base64 import b64encode, b64decode
+
+
+connectionlist = {}
+g_code_length = 0
+g_header_length = 0
+
+
+def hex2dec(string_num):
+    return str(int(string_num.upper(), 16))
+
+
+
+
+def get_datalength(msg):
+    global g_code_length
+    global g_header_length
+
+    print (len(msg))
+    g_code_length = ord(msg[1]) &amp; 127
+    received_length = 0;
+    if g_code_length == 126:
+    #g_code_length = msg[2:4]
+    #g_code_length = (ord(msg[2])&lt;&lt;8) + (ord(msg[3]))
+        g_code_length = struct.unpack(&#39;&gt;H&#39;, str(msg[2:4]))[0]
+        g_header_length = 8
+    elif g_code_length == 127:
+        #g_code_length = msg[2:10]
+        g_code_length = struct.unpack(&#39;&gt;Q&#39;, str(msg[2:10]))[0]
+        g_header_length = 14
+    else:
+        g_header_length = 6
+        g_code_length = int(g_code_length)
+    return g_code_length
+
+def parse_data(msg):
+    global g_code_length
+    g_code_length = ord(msg[1]) &amp; 127
+    received_length = 0;
+    if g_code_length == 126:
+        g_code_length = struct.unpack(&#39;&gt;H&#39;, str(msg[2:4]))[0]
+        masks = msg[4:8]
+        data = msg[8:]
+    elif g_code_length == 127:
+        g_code_length = struct.unpack(&#39;&gt;Q&#39;, str(msg[2:10]))[0]
+        masks = msg[10:14]
+        data = msg[14:]
+    else:
+        masks = msg[2:6]
+        data = msg[6:]
+
+
+    i = 0
+    raw_str = &#39;&#39;
+
+
+    for d in data:
+        raw_str += chr(ord(d) ^ ord(masks[i%4]))
+        i += 1
+
+
+    print (u&quot;总长度是：%d&quot; % int(g_code_length))
+    return raw_str
+
+
+def sendMessage(message):
+    global connectionlist
+    message_utf_8 = message.encode(&#39;utf-8&#39;)
+    for connection in connectionlist.values():
+        back_str = []
+        back_str.append(&#39;\x81&#39;)
+        data_length = len(message_utf_8)
+
+
+        if data_length &lt;= 125:
+            back_str.append(chr(data_length))
+        elif data_length &lt;= 65535 :
+            back_str.append(struct.pack(&#39;b&#39;, 126))
+            back_str.append(struct.pack(&#39;&gt;h&#39;, data_length))
+            #back_str.append(chr(data_length &gt;&gt; 8))
+            #back_str.append(chr(data_length &amp; 0xFF))
+            #a = struct.pack(&#39;&gt;h&#39;, data_length)
+            #b = chr(data_length &gt;&gt; 8)
+            #c = chr(data_length &amp; 0xFF)
+        elif data_length &lt;= (2^64-1):
+            #back_str.append(chr(127))
+            back_str.append(struct.pack(&#39;b&#39;, 127))
+            back_str.append(struct.pack(&#39;&gt;q&#39;, data_length))
+            #back_str.append(chr(data_length &gt;&gt; 8))
+            #back_str.append(chr(data_length &amp; 0xFF))      
+        else :
+                print (u&#39;太长了&#39;)
+        msg = &#39;&#39;
+        for c in back_str:
+            msg += c;
+        back_str = str(msg) + message_utf_8#.encode(&#39;utf-8&#39;)    
+        #connection.send(str.encode(str(u&quot;\x00%s\xFF\n\n&quot; % message))) #这个是旧版
+        #print (u&#39;send message:&#39; +  message)
+        if back_str != None and len(back_str) &gt; 0:
+            print (back_str)
+            connection.send(back_str)
+
+
+def deleteconnection(item):
+    global connectionlist
+    del connectionlist[&#39;connection&#39;+item]
+
+
+class WebSocket(threading.Thread):#继承Thread
+
+
+    GUID = &quot;258EAFA5-E914-47DA-95CA-C5AB0DC85B11&quot;
+
+
+    def __init__(self,conn,index,name,remote, path=&quot;/&quot;):
+        threading.Thread.__init__(self)#初始化父类Thread
+        self.conn = conn
+        self.index = index
+        self.name = name
+        self.remote = remote
+        self.path = path
+        self.buffer = &quot;&quot;
+        self.buffer_utf8 = &quot;&quot;
+        self.length_buffer = 0
+    def run(self):#重载Thread的run
+        print(&#39;Socket%s Start!&#39; % self.index)
+        headers = {}
+        self.handshaken = False
+
+
+        while True:
+            if self.handshaken == False:
+                print (&#39;Socket%s Start Handshaken with %s!&#39; % (self.index,self.remote))
+                self.buffer += bytes.decode(self.conn.recv(1024))
+
+
+                if self.buffer.find(&#39;\r\n\r\n&#39;) != -1:
+                    header, data = self.buffer.split(&#39;\r\n\r\n&#39;, 1)
+                    for line in header.split(&quot;\r\n&quot;)[1:]:
+                        key, value = line.split(&quot;: &quot;, 1)
+                        headers[key] = value
+
+
+                    headers[&quot;Location&quot;] = (&quot;ws://%s%s&quot; %(headers[&quot;Host&quot;], self.path))
+                    key = headers[&#39;Sec-WebSocket-Key&#39;]
+                    token = b64encode(hashlib.sha1(str.encode(str(key + self.GUID))).digest())
+
+
+                    handshake=&quot;HTTP/1.1 101 Switching Protocols\r\n&quot;\
+                        &quot;Upgrade: websocket\r\n&quot;\
+                        &quot;Connection: Upgrade\r\n&quot;\
+                        &quot;Sec-WebSocket-Accept: &quot;+bytes.decode(token)+&quot;\r\n&quot;\
+                        &quot;WebSocket-Origin: &quot;+str(headers[&quot;Origin&quot;])+&quot;\r\n&quot;\
+                        &quot;WebSocket-Location: &quot;+str(headers[&quot;Location&quot;])+&quot;\r\n\r\n&quot;
+
+
+                    self.conn.send(str.encode(str(handshake)))
+                    self.handshaken = True
+                    print (&#39;Socket %s Handshaken with %s success!&#39; %(self.index, self.remote))
+                    sendMessage(u&#39;Welcome, &#39; + self.name + &#39; !&#39;)
+                    self.buffer_utf8 = &quot;&quot;
+                    g_code_length = 0
+
+
+            else:
+                global g_code_length
+                global g_header_length
+                mm=self.conn.recv(128)
+                if len(mm) &lt;= 0:
+                    continue
+                if g_code_length == 0:
+                    get_datalength(mm)
+                #接受的长度
+                self.length_buffer = self.length_buffer + len(mm)
+                self.buffer = self.buffer + mm
+                if self.length_buffer - g_header_length &lt; g_code_length :
+                    continue
+                else :
+                    self.buffer_utf8 = parse_data(self.buffer) #utf8                
+                    msg_unicode = str(self.buffer_utf8).decode(&#39;utf-8&#39;, &#39;ignore&#39;) #unicode
+                    if msg_unicode==&#39;quit&#39;:
+                        print (u&#39;Socket%s Logout!&#39; % (self.index))
+                        nowTime = time.strftime(&#39;%H:%M:%S&#39;,time.localtime(time.time()))
+                        sendMessage(u&#39;%s %s say: %s&#39; % (nowTime, self.remote, self.name+&#39; Logout&#39;))
+                        deleteconnection(str(self.index))
+                        self.conn.close()
+                        break #退出线程
+                    else:
+                        #print (u&#39;Socket%s Got msg:%s from %s!&#39; % (self.index, msg_unicode, self.remote))
+                        nowTime = time.strftime(u&#39;%H:%M:%S&#39;,time.localtime(time.time()))
+                        sendMessage(u&#39;%s %s say: %s&#39; % (nowTime, self.remote, msg_unicode))
+                    #重置buffer和bufferlength
+                    self.buffer_utf8 = &quot;&quot;
+                    self.buffer = &quot;&quot;
+                    g_code_length = 0
+                    self.length_buffer = 0
+            self.buffer = &quot;&quot;
+
+
+class WebSocketServer(object):
+    def __init__(self):
+        self.socket = None
+    def begin(self):
+        print( &#39;WebSocketServer Start!&#39;)
+        self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.socket.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
+        self.socket.bind((&quot;127.0.0.1&quot;,12345))
+        self.socket.listen(50)
+
+
+        global connectionlist
+
+
+        i=0
+        while True:
+            connection, address = self.socket.accept()
+
+
+            username=address[0]
+            newSocket = WebSocket(connection,i,username,address)
+            newSocket.start() #开始线程,执行run函数
+            connectionlist[&#39;connection&#39;+str(i)]=connection
+            i = i + 1
+
+
+if __name__ == &quot;__main__&quot;:
+    server = WebSocketServer()
+    server.begin()
+</code></pre>
+
+<p>客户端：</p>
+
+<pre><code class="language-&lt;!DOCTYPE">&lt;html&gt;  
+&lt;head&gt;  
+    &lt;title&gt;WebSocket&lt;/title&gt;  
+  
+    &lt;style&gt;  
+        html, body {  
+            font: normal 0.9em arial, helvetica;  
+        }  
+  
+        #log {  
+            width: 440px;  
+            height: 200px;  
+            border: 1px solid #7F9DB9;  
+            overflow: auto;  
+        }  
+  
+        #msg {  
+            width: 330px;  
+        }  
+    &lt;/style&gt;  
+  
+    &lt;script&gt;  
+        var socket;  
+  
+        function init() {  
+            var host = &quot;ws://127.0.0.1:12345/&quot;;  
+            try {  
+                socket = new WebSocket(host);  
+                socket.onopen = function (msg) {  
+                    log(&#39;Connected&#39;);  
+                };  
+                socket.onmessage = function (msg) {  
+                    log(msg.data);  
+                };  
+                socket.onclose = function (msg) {  
+                    log(&quot;Lose Connection!&quot;);  
+                };  
+            }  
+            catch (ex) {  
+                log(ex);  
+            }  
+            $(&quot;msg&quot;).focus();  
+        }  
+  
+        function send() {  
+            var txt, msg;  
+            txt = $(&quot;msg&quot;);  
+            msg = txt.value;  
+            if (!msg) {  
+                alert(&quot;Message can not be empty&quot;);  
+                return;  
+            }  
+            txt.value = &quot;&quot;;  
+            txt.focus();  
+            try {  
+                socket.send(msg);  
+            } catch (ex) {  
+                log(ex);  
+            }  
+        }  
+  
+        window.onbeforeunload = function () {  
+            try {  
+                socket.send(&#39;quit&#39;);  
+                socket.close();  
+                socket = null;  
+            }  
+            catch (ex) {  
+                log(ex);  
+            }  
+        };  
+  
+  
+        function $(id) {  
+            return document.getElementById(id);  
+        }  
+        function log(msg) {  
+            $(&quot;log&quot;).innerHTML += &quot;&lt;br&gt;&quot; + msg;  
+        }  
+        function onkey(event) {  
+            if (event.keyCode == 13) {  
+                send();  
+            }  
+        }  
+    &lt;/script&gt;  
+  
+&lt;/head&gt;  
+  
+  
+&lt;body onload=&quot;init()&quot;&gt;  
+&lt;h3&gt;WebSocket&lt;/h3&gt;  
+&lt;br&gt;&lt;br&gt;  
+  
+&lt;div id=&quot;log&quot;&gt;&lt;/div&gt;  
+&lt;input id=&quot;msg&quot; type=&quot;textbox&quot; onkeypress=&quot;onkey(event)&quot;/&gt;  
+&lt;button onclick=&quot;send()&quot;&gt;发送&lt;/button&gt;  
+&lt;/body&gt;  
+  
+&lt;/html&gt;  
+</code></pre>
+
+
+    
+
+      </div>
+
+      <div class="row">
+        <div class="large-6 columns">
+        <p class="text-left" style="padding:15px 0px;">
+      
+          <a href="14703016298132.html" 
+          title="Previous Post: 创建私有pods库">&laquo; 创建私有pods库</a>
+      
+        </p>
+        </div>
+        <div class="large-6 columns">
+      <p class="text-right" style="padding:15px 0px;">
+      
+          <a  href="14670907659704.html" 
+          title="Next Post: 如何是用Targets来管理开发测试包">如何是用Targets来管理开发测试包 &raquo;</a>
+      
+      </p>
+        </div>
+      </div>
+      <div class="comments-wrap">
+        <div class="share-comments">
+          <div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://www-hanyegudeng-com.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+          
+
+          
+        </div>
+      </div>
+    </div><!-- article-wrap -->
+  </div><!-- large 8 -->
+
+
+
+
+ <div class="large-4 medium-4 columns">
+  <div class="hide-for-small">
+    <div id="sidebar" class="sidebar">
+          <div id="site-info" class="site-info">
+            
+                <h1>寒夜孤灯</h1>
+                <div class="site-des">寒夜里的一盏孤灯</div>
+                <div class="social">
+
+
+
+
+
+
+
+
+
+
+
+  <a target="_blank" class="rss" href="atom.xml" title="RSS">RSS</a>
+                
+              	 </div>
+          	</div>
+
+             
+
+              <div id="site-categories" class="side-item ">
+                <div class="side-header">
+                  <h2>分类</h2>
+                </div>
+                <div class="side-content">
+
+      	<p class="cat-list">
+        
+            <a href="iOS.html"><strong>iOS</strong></a>
+        
+            <a href="Mac.html"><strong>Mac</strong></a>
+        
+            <a href="PHP.html"><strong>PHP</strong></a>
+        
+            <a href="Python.html"><strong>Python</strong></a>
+        
+            <a href="%E6%9D%82%E8%B0%88.html"><strong>杂谈</strong></a>
+        
+            <a href="%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87.html"><strong>疑难杂症</strong></a>
+        
+            <a href="Redis.html"><strong>Redis</strong></a>
+        
+            <a href="React%20Native.html"><strong>React Native</strong></a>
+        
+            <a href="%E8%BF%90%E7%BB%B4.html"><strong>运维</strong></a>
+         
+        </p>
+
+
+                </div>
+              </div>
+
+              <div id="site-categories" class="side-item">
+                <div class="side-header">
+                  <h2>最新文章</h2>
+                </div>
+                <div class="side-content">
+                <ul class="posts-list">
+	      
+		      
+			      <li class="post">
+			        <a href="15036253170711.html">Xcode Build Settings 分析</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15030458956017.html">发现女儿早恋，这个爸爸的做法刷爆朋友圈！</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15017301944011.html">iOS应用内跳转到系统设置页面</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15017289646320.html">iOS APP提交审核被拒因Guideline 2.5.2 - Performance - Software Requirements</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14966306832048.html">Swift使用pod找不到文件的解决方案</a>
+			      </li>
+		     
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		   
+		  		</ul>
+                </div>
+              </div>
+        </div><!-- sidebar -->
+      </div><!-- hide for small -->
+</div><!-- large 4 -->
+
+</div><!-- row -->
+
+ <div class="page-bottom clearfix">
+  <div class="row">
+   <p class="copyright">Copyright &copy; 2017
+通过 <a target="_blank" href="http://www.mweb.im">MWeb</a>制作&nbsp; <a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备15015428号-1</a>&nbsp; 
+</p>
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+
+  
+    
+
+    <script src="asset/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+      function fixSidebarHeight(){
+        var w1 = $('.markdown-body').height();
+          var w2 = $('#sidebar').height();
+          if (w1 > w2) { $('#sidebar').height(w1); };
+      }
+      $(function(){
+        fixSidebarHeight();
+      })
+      $(window).load(function(){
+          fixSidebarHeight();
+      });
+     
+    </script>
+
+    
+
+
+
+  </body>
+</html>

@@ -1,0 +1,585 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  Objective-C中的锁及应用 - 寒夜孤灯
+  
+  </title>
+  
+  
+  <link href="atom.xml" rel="alternate" title="寒夜孤灯" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+  <script src="asset/highlightjs/highlight.pack.js"></script>
+  <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript">
+  function before_search(){
+    var searchVal = 'site:www.hanyegudeng.com ' + document.getElementById('search_input').value;
+    document.getElementById('search_q').value = searchVal;
+    return true;
+  }
+</script>
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+
+  <section class="top-bar-section">
+  <div class="row">
+      <div style="position: relative;width:100%;"><div style="position: absolute; width:100%;">
+        <ul id="main-menu" class="left">
+        
+        <li id=""><a target="self" href="index.html">Home</a></li>
+        
+        <li id=""><a target="_self" href="archives.html">Archives</a></li>
+        
+        </ul>
+
+        <ul class="right" id="search-wrap">
+          <li>
+<form target="_blank" onsubmit="return before_search();" action="https://google.com/search" method="get">
+    <input type="hidden" id="search_q" name="q" value="" />
+    <input tabindex="1" type="search" id="search_input"  placeholder="Search"/>
+</form>
+</li>
+          </ul>
+      </div></div>
+  </div>
+  </section>
+
+</nav>
+
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; 寒夜孤灯</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+       
+       <li><a href="index.html">首页</a></li>
+    <li><a href="archives.html">目录</a></li>
+    <li><a href="about.html">关于</a></li>
+
+    <li><label>Categories</label></li>
+
+        
+            <li><a href="iOS.html">iOS</a></li>
+        
+            <li><a href="Mac.html">Mac</a></li>
+        
+            <li><a href="PHP.html">PHP</a></li>
+        
+            <li><a href="Python.html">Python</a></li>
+        
+            <li><a href="%E6%9D%82%E8%B0%88.html">杂谈</a></li>
+        
+            <li><a href="%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87.html">疑难杂症</a></li>
+        
+            <li><a href="Redis.html">Redis</a></li>
+        
+            <li><a href="React%20Native.html">React Native</a></li>
+        
+            <li><a href="%E8%BF%90%E7%BB%B4.html">运维</a></li>
+         
+
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+
+        <section id="main-content" role="main" class="scroll-container">
+        
+       
+
+ <script type="text/javascript">
+  $(function(){
+    $('#menu_item_index').addClass('is_active');
+  });
+</script>
+<div class="row">
+  <div class="large-8 medium-8 columns">
+      <div class="markdown-body article-wrap">
+       <div class="article">
+          
+          <h1>Objective-C中的锁及应用</h1>
+     
+        <div class="read-more clearfix">
+          <span class="date">2017/2/7</span>
+
+          <span>posted in&nbsp;</span> 
+          
+              <span class="posted-in"><a href='iOS.html'>iOS</a></span>
+           
+         
+          <span class="comments">
+            
+
+            
+          </span>
+
+        </div>
+      </div><!-- article -->
+
+      <div class="article-content">
+      <p><code>转自：http://foredoomed.org/blog/2014/02/26/olocks-in-objective-c/</code></p>
+
+<p>在多线程编程中，锁是非常重要的工具，而Objective-C提供了好几种不同类型的锁，下面就来看一下这些锁都是怎么用的。</p>
+
+<ol>
+<li>POSIX Mutex Lock</li>
+</ol>
+
+<p>Mutex lock也就是互斥锁，是Unix/Linux平台上提供的一套同步机制。互斥锁提供了三个函数，从函数名就可以知道他们的作用：</p>
+
+<pre><code>int pthread_mutex_lock(pthread_mutex_t *mutex);
+int pthread_mutex_trylock(pthread_mutex_t *mutex);
+int pthread_mutex_unlock(pthread_mutex_t *mutex);
+</code></pre>
+
+<p>函数pthread_mutex_trylock和pthread_mutex_lock的功能完全一致，只不过前者在获取锁失败的情况下会立即返回，而后者则会一直阻塞在那里直到获取到锁为止。互斥锁的使用非常的简单，直接调用上面三个API就可以了：</p>
+
+<pre><code>pthread_mutex_t mutex;
+void MyInitFunction()
+{
+    pthread_mutex_init(&amp;mutex, NULL);
+}
+ 
+void MyLockingFunction()
+{
+    pthread_mutex_lock(&amp;mutex);
+    // Do work.
+    pthread_mutex_unlock(&amp;mutex);
+}
+</code></pre>
+
+<ol>
+<li>NSLock</li>
+</ol>
+
+<p>NSLock类使用的是POSIX线程来实现它的锁操作，而且需要注意的是必须在同一线程内发送unlock消息，否则会发生不确定的情况。NSLock不能被用来实现迭代锁，因为如果发生lock消息两次的话，整个线程将被永久锁住。</p>
+
+<pre><code>BOOL moreToDo = YES;
+NSLock *theLock = [[NSLock alloc] init];
+...
+while (moreToDo) {
+    /* Do another increment of calculation */
+    /* until there’s no more to do. */
+    if ([theLock tryLock]) {
+        /* Update display used by all threads. */
+        [theLock unlock];
+    }
+}
+</code></pre>
+
+<ol>
+<li>@synchronized</li>
+</ol>
+
+<p>@synchronized是在Objective-C中最简单方法，只要有个Objective-C对象就可以完成线程同步操作。</p>
+
+<pre><code>- (void)myMethod:(id)anObj
+{
+    @synchronized(anObj)
+    {
+        // Everything between the braces is protected by the @synchronized directive.
+    }
+}
+</code></pre>
+
+<p>需要注意的是，@synchronized会隐式地添加异常处理代码，也就是当发生异常时会自动释放互斥锁，所以会有一定的性能损耗。</p>
+
+<ol>
+<li>NSRecursiveLock</li>
+</ol>
+
+<p>NSRecursiveLock类定义了可以被同一线程获取多次而不会造成死锁的锁。NSRecursiveLock可以被用在递归调用中，但是只有当多次获取的锁全部释放时，NSRecursiveLock才能被其他线程获取。</p>
+
+<pre><code>NSRecursiveLock *theLock = [[NSRecursiveLock alloc] init];
+ 
+void MyRecursiveFunction(int value)
+{
+    [theLock lock];
+    if (value != 0)
+    {
+        --value;
+        MyRecursiveFunction(value);
+    }
+    [theLock unlock];
+}
+ 
+MyRecursiveFunction(5);
+</code></pre>
+
+<ol>
+<li>NSConditionLock</li>
+</ol>
+
+<p>NSConditionLock定义了一个条件互斥锁，也就是当条件成立时就会获取到锁，反之就会释放锁。因为这个特性，条件锁可以被用在有特定顺序的处理流程中，比如生产者-消费者问题。</p>
+
+<pre><code>id condLock = [[NSConditionLock alloc] initWithCondition:NO_DATA];
+ 
+// producer
+while(true)
+{
+    [condLock lock];
+    /* Add data to the queue. */
+    [condLock unlockWithCondition:HAS_DATA];
+}
+ 
+// consumer
+while (true)
+{
+    [condLock lockWhenCondition:HAS_DATA];
+    /* Remove data from the queue. */
+    [condLock unlockWithCondition:(isEmpty ? NO_DATA : HAS_DATA)];
+ 
+    // Process the data locally.
+}
+</code></pre>
+
+<p>条件锁的初始状态是NO_DATA，所以生产者线程在这个时候就会获取到锁，生产完成后再把状态设置为HAS_DATA；这时消费者线程发现条件变成HAS_DATA后就可以获取到锁，直到消费结束后再把状态设置成NO_DATA。</p>
+
+<ol>
+<li>NSDistributedLock</li>
+</ol>
+
+<p>NSDistributedLock是跨进程的分布式锁，底层是用文件系统实现的互斥锁。NSDistributedLock没有实现NSLocking协议，所以没有会阻塞线程的lock方法，取而代之的是非阻塞的tryLock方法。NSDistributedLock只有在锁持有者显式地释放后才会被释放，也就是说当持有锁的应用崩溃后，其他应用就不能访问受保护的共享资源了。</p>
+
+<ol>
+<li>NSCondition</li>
+</ol>
+
+<p>NSCondition类是互斥锁和条件锁的结合体，也就是一个线程在等待信号而阻塞时，可以被另外一个线程唤醒。需要注意的是，由于操作系统实现的差异，即使在代码中没有发送signal消息，线程也有可能被唤醒，所以需要增加谓词变量来保证程序的正确性。</p>
+
+<pre><code>[cocoaCondition lock];
+while (timeToDoWork &lt;= 0)
+    [cocoaCondition wait];
+ 
+timeToDoWork--;
+ 
+// Do real work here.
+ 
+[cocoaCondition unlock];
+</code></pre>
+
+<p>在其他线程中唤醒：</p>
+
+<pre><code>[cocoaCondition lock];
+timeToDoWork++;
+[cocoaCondition signal];
+[cocoaCondition unlock];
+</code></pre>
+
+<ol>
+<li>POSIX Conditions</li>
+</ol>
+
+<p>在Unix/Linux平台上也提供了一套条件互斥锁的API：</p>
+
+<pre><code>// 初始化
+int pthread_cond_init (pthread_cond_t *cond, pthread_condattr_t *attr);
+ 
+// 等待（会阻塞）
+int pthread_cond_wait (pthread_cond_t *cond, pthread_mutex_t *mut);
+ 
+// 定时等待
+int pthread_cond_timedwait (pthread_cond_t *cond, pthread_mutex_t *mut, const struct timespec *abstime);
+ 
+// 唤醒
+int pthread_cond_signal (pthread_cond_t *cond);
+ 
+// 广播唤醒
+int pthread_cond_broadcast (pthread_cond_t *cond);
+ 
+// 销毁
+int pthread_cond_destroy (pthread_cond_t *cond);
+</code></pre>
+
+<p>和NSCondition类一样，POSIX Conditions也需要和谓词配合使用以确保程序的正确性。</p>
+
+<pre><code>pthread_mutex_t mutex;
+pthread_cond_t condition;
+Boolean     ready_to_go = true;
+ 
+void MyCondInitFunction()
+{
+    pthread_mutex_init(&amp;mutex);
+    pthread_cond_init(&amp;condition, NULL);
+}
+ 
+void MyWaitOnConditionFunction()
+{
+    // Lock the mutex.
+    pthread_mutex_lock(&amp;mutex);
+ 
+    // If the predicate is already set, then the while loop is bypassed;
+    // otherwise, the thread sleeps until the predicate is set.
+    while(ready_to_go == false)
+    {
+        pthread_cond_wait(&amp;condition, &amp;mutex);
+    }
+ 
+    // Do work. (The mutex should stay locked.)
+ 
+    // Reset the predicate and release the mutex.
+    ready_to_go = false;
+    pthread_mutex_unlock(&amp;mutex);
+}
+ 
+void SignalThreadUsingCondition()
+{
+    // At this point, there should be work for the other thread to do.
+    pthread_mutex_lock(&amp;mutex);
+    ready_to_go = true;
+ 
+    // Signal the other thread to begin work.
+    pthread_cond_signal(&amp;condition);
+ 
+    pthread_mutex_unlock(&amp;mutex);
+}
+</code></pre>
+
+
+    
+
+      </div>
+
+      <div class="row">
+        <div class="large-6 columns">
+        <p class="text-left" style="padding:15px 0px;">
+      
+          <a href="14878982505399.html" 
+          title="Previous Post: T">&laquo; T</a>
+      
+        </p>
+        </div>
+        <div class="large-6 columns">
+      <p class="text-right" style="padding:15px 0px;">
+      
+          <a  href="14864326299242.html" 
+          title="Next Post: iOS RSA的网络安全模型、iOS签名机制总结（登录、token安全、签名）">iOS RSA的网络安全模型、iOS签名机制总结（登录、token安全、签名） &raquo;</a>
+      
+      </p>
+        </div>
+      </div>
+      <div class="comments-wrap">
+        <div class="share-comments">
+          <div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://www-hanyegudeng-com.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                            
+
+          
+
+          
+        </div>
+      </div>
+    </div><!-- article-wrap -->
+  </div><!-- large 8 -->
+
+
+
+
+ <div class="large-4 medium-4 columns">
+  <div class="hide-for-small">
+    <div id="sidebar" class="sidebar">
+          <div id="site-info" class="site-info">
+            
+                <h1>寒夜孤灯</h1>
+                <div class="site-des">寒夜里的一盏孤灯</div>
+                <div class="social">
+
+
+
+
+
+
+
+
+
+
+
+  <a target="_blank" class="rss" href="atom.xml" title="RSS">RSS</a>
+                
+              	 </div>
+          	</div>
+
+             
+
+              <div id="site-categories" class="side-item ">
+                <div class="side-header">
+                  <h2>分类</h2>
+                </div>
+                <div class="side-content">
+
+      	<p class="cat-list">
+        
+            <a href="iOS.html"><strong>iOS</strong></a>
+        
+            <a href="Mac.html"><strong>Mac</strong></a>
+        
+            <a href="PHP.html"><strong>PHP</strong></a>
+        
+            <a href="Python.html"><strong>Python</strong></a>
+        
+            <a href="%E6%9D%82%E8%B0%88.html"><strong>杂谈</strong></a>
+        
+            <a href="%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87.html"><strong>疑难杂症</strong></a>
+        
+            <a href="Redis.html"><strong>Redis</strong></a>
+        
+            <a href="React%20Native.html"><strong>React Native</strong></a>
+        
+            <a href="%E8%BF%90%E7%BB%B4.html"><strong>运维</strong></a>
+         
+        </p>
+
+
+                </div>
+              </div>
+
+              <div id="site-categories" class="side-item">
+                <div class="side-header">
+                  <h2>最新文章</h2>
+                </div>
+                <div class="side-content">
+                <ul class="posts-list">
+	      
+		      
+			      <li class="post">
+			        <a href="15036253170711.html">Xcode Build Settings 分析</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15030458956017.html">发现女儿早恋，这个爸爸的做法刷爆朋友圈！</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15017301944011.html">iOS应用内跳转到系统设置页面</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="15017289646320.html">iOS APP提交审核被拒因Guideline 2.5.2 - Performance - Software Requirements</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14966306832048.html">Swift使用pod找不到文件的解决方案</a>
+			      </li>
+		     
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		   
+		  		</ul>
+                </div>
+              </div>
+        </div><!-- sidebar -->
+      </div><!-- hide for small -->
+</div><!-- large 4 -->
+
+</div><!-- row -->
+
+ <div class="page-bottom clearfix">
+  <div class="row">
+   <p class="copyright">Copyright &copy; 2017
+通过 <a target="_blank" href="http://www.mweb.im">MWeb</a>制作&nbsp; <a target="_blank" href="http://www.miitbeian.gov.cn/">沪ICP备15015428号-1</a>&nbsp; 
+</p>
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+
+  
+    
+
+    <script src="asset/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+      function fixSidebarHeight(){
+        var w1 = $('.markdown-body').height();
+          var w2 = $('#sidebar').height();
+          if (w1 > w2) { $('#sidebar').height(w1); };
+      }
+      $(function(){
+        fixSidebarHeight();
+      })
+      $(window).load(function(){
+          fixSidebarHeight();
+      });
+     
+    </script>
+
+    
+
+
+
+  </body>
+</html>
